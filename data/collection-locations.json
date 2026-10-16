@@ -1,0 +1,212 @@
+[
+  {
+    "municipality": "Caloocan",
+    "locations": [
+      {
+        "name": "SM City Grand Central",
+        "operator": "PLDT–Smart",
+        "status": "Listed collection location"
+      }
+    ]
+  },
+  {
+    "municipality": "Las Piñas",
+    "locations": [
+      {
+        "name": "SM Southmall",
+        "operator": "PLDT–Smart",
+        "status": "Listed collection location"
+      },
+      {
+        "name": "SM Center Las Piñas",
+        "operator": "Smart",
+        "status": "Listed collection location"
+      }
+    ]
+  },
+  {
+    "municipality": "Makati",
+    "locations": [
+      {
+        "name": "Rockwell",
+        "operator": "PLDT–Smart",
+        "status": "Listed collection location"
+      },
+      {
+        "name": "Cash & Carry",
+        "operator": "Smart",
+        "status": "Listed collection location"
+      }
+    ]
+  },
+  {
+    "municipality": "Malabon",
+    "locations": [
+      {
+        "name": "Barangay Dampalit community e-waste facility project",
+        "operator": "Community project",
+        "status": "Documented project; confirm current operation and public drop-off access"
+      }
+    ]
+  },
+  {
+    "municipality": "Mandaluyong",
+    "locations": [
+      {
+        "name": "SM Megamall",
+        "operator": "Smart",
+        "status": "Listed collection location"
+      },
+      {
+        "name": "Shangri-La",
+        "operator": "PLDT–Smart",
+        "status": "Listed collection location"
+      }
+    ]
+  },
+  {
+    "municipality": "Manila",
+    "locations": [
+      {
+        "name": "Robinsons Place Manila",
+        "operator": "PLDT–Smart",
+        "status": "Listed collection location"
+      },
+      {
+        "name": "SM San Lazaro",
+        "operator": "PLDT–Smart",
+        "status": "Listed collection location"
+      },
+      {
+        "name": "SM Manila",
+        "operator": "Smart",
+        "status": "Listed collection location"
+      }
+    ]
+  },
+  {
+    "municipality": "Marikina",
+    "locations": [
+      {
+        "name": "SM City Marikina",
+        "operator": "Network collection point",
+        "status": "Confirm bin location with mall staff"
+      }
+    ]
+  },
+  {
+    "municipality": "Muntinlupa",
+    "locations": [
+      {
+        "name": "Festival Mall",
+        "operator": "PLDT–Smart",
+        "status": "Listed collection location"
+      },
+      {
+        "name": "SM Center Muntinlupa",
+        "operator": "PLDT–Smart",
+        "status": "Listed collection location"
+      }
+    ]
+  },
+  {
+    "municipality": "Parañaque",
+    "locations": [
+      {
+        "name": "SM City BF Parañaque",
+        "operator": "PLDT–Smart",
+        "status": "Listed collection location"
+      },
+      {
+        "name": "SM City Bicutan",
+        "operator": "PLDT–Smart",
+        "status": "Listed collection location"
+      },
+      {
+        "name": "SM City Sucat",
+        "operator": "PLDT–Smart",
+        "status": "Listed collection location"
+      }
+    ]
+  },
+  {
+    "municipality": "Pasay",
+    "locations": [
+      {
+        "name": "SM Mall of Asia",
+        "operator": "PLDT–Smart",
+        "status": "Listed collection location"
+      }
+    ]
+  },
+  {
+    "municipality": "Pasig",
+    "locations": [
+      {
+        "name": "SM City East Ortigas",
+        "operator": "Smart",
+        "status": "Listed collection location"
+      }
+    ]
+  },
+  {
+    "municipality": "Quezon City",
+    "locations": [
+      {
+        "name": "SM North EDSA",
+        "operator": "Smart",
+        "status": "Listed collection location"
+      },
+      {
+        "name": "Vertis North",
+        "operator": "PLDT–Smart",
+        "status": "Listed collection location"
+      },
+      {
+        "name": "Robinsons Magnolia",
+        "operator": "PLDT–Smart",
+        "status": "Listed collection location"
+      }
+    ]
+  },
+  {
+    "municipality": "San Juan",
+    "locations": [
+      {
+        "name": "Greenhills",
+        "operator": "PLDT–Smart",
+        "status": "Listed collection location"
+      },
+      {
+        "name": "Barangay Ermitaño E-Bin Program",
+        "operator": "Community program",
+        "status": "Program documented; confirm exact bin location and public access"
+      }
+    ]
+  },
+  {
+    "municipality": "Taguig",
+    "locations": [
+      {
+        "name": "Market! Market!",
+        "operator": "PLDT–Smart",
+        "status": "Listed collection location"
+      },
+      {
+        "name": "SM Aura",
+        "operator": "PLDT–Smart",
+        "status": "Listed collection location"
+      }
+    ]
+  },
+  {
+    "municipality": "Valenzuela",
+    "locations": [
+      {
+        "name": "SM City Valenzuela",
+        "operator": "Network collection point",
+        "status": "Confirm bin location with mall staff"
+      }
+    ]
+  }
+]

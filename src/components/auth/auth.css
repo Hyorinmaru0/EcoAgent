@@ -1,0 +1,54 @@
+/* Module 1 additions use the existing Figma Make layout and design tokens. */
+.module-auth { min-width: 0; }
+.module-auth > * { min-width: 0; }
+.module-auth .auth-card { width: 100%; }
+.module-auth .auth-field { gap: 8px; }
+.module-auth .auth-input-wrap { position: relative; }
+.module-auth .auth-input-wrap input { padding-right: 68px; }
+.module-auth .auth-password-toggle {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  min-width: 54px;
+  min-height: 36px;
+  padding: 7px;
+  background: var(--mint);
+  border: 0;
+  border-radius: 4px;
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 600;
+}
+.module-auth .auth-password-toggle:hover { background: #e3eedc; }
+.module-auth .auth-hint, .module-auth .auth-demo-info, .module-auth .auth-terms p {
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.65;
+  color: #65755a;
+  overflow-wrap: anywhere;
+}
+.module-auth .auth-error { font-size: 11px; line-height: 1.6; color: #a52b2b; font-weight: 500; }
+.module-auth [aria-invalid='true'] { border-color: #b44242; }
+.module-auth .auth-checkbox-field { margin: 19px 0; }
+.module-auth .checkbox { margin: 0; align-items: flex-start; line-height: 1.65; }
+.module-auth .checkbox input { width: 16px; height: 16px; flex-shrink: 0; margin: 1px 0 0; }
+.module-auth .auth-checkbox-field .auth-hint { margin-top: 5px; }
+.module-auth .auth-checkbox-field .auth-error { margin-top: 6px; }
+.module-auth .auth-demo-info { margin: 0 0 18px; }
+.module-auth .auth-terms { margin: 18px 0; font-size: 11px; color: var(--green); }
+.module-auth .auth-terms summary { cursor: pointer; padding: 8px 0; }
+.module-auth .auth-terms summary:focus-visible { outline: 2px solid #80b8de; outline-offset: 3px; }
+.module-auth .auth-terms p { padding: 10px 12px; background: var(--mint); border-radius: 6px; }
+.module-auth .demo-note { margin-top: 17px; text-align: center; }
+@media (max-width: 760px) {
+  .module-auth .auth-tabs button { min-height: 44px; }
+  .module-auth .auth-password-toggle { min-height: 44px; }
+  .module-auth .auth-field input, .module-auth .auth-field select { min-height: 48px; font-size: 16px; }
+  .module-auth .checkbox { min-height: 44px; align-items: center; }
+  .module-auth .auth-card { padding: 24px 20px; }
+}
+@media (max-width: 360px) {
+  .module-auth .auth-card { padding: 20px 15px; }
+  .module-auth .auth-tabs button { padding: 8px 5px; }
+}
