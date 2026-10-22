@@ -458,6 +458,71 @@ td { color: #627750; font-size: 11px; }
 .collection-options { margin: 30px 0; }
 .collection-options > .demo-note { margin: -12px 0 18px; }
 .collection-location-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px; }
+.chat-header strong, .chat-header small { color: #456337; }
+.chat-message p { overflow-wrap: anywhere; }
+.chat-message.bot { gap: 10px; }
+.chat-message.bot > svg { color: #62884b; margin-top: 7px; }
+.chat-response {
+  max-width: calc(100% - 28px);
+  overflow: hidden;
+  border: 1px solid #e0ead9;
+  border-radius: 4px 13px 13px;
+  background: linear-gradient(145deg, #fbfdf9, #f3f8ef);
+  box-shadow: 0 3px 10px #29451e0b;
+}
+.chat-response-label {
+  display: block;
+  padding: 10px 13px 0;
+  color: #587944;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+.chat-response-text {
+  max-width: none;
+  padding: 6px 13px 13px;
+  color: #455643;
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.chat-response-text .chat-text-line {
+  min-height: 1.7em;
+}
+.chat-response-text ul,
+.chat-response-text ol {
+  margin: 5px 0 9px;
+  padding-left: 22px;
+}
+.chat-response-text li {
+  padding-left: 2px;
+}
+.chat-response-text strong {
+  color: #344c31;
+  font-weight: 700;
+}
+.chat-message.user p {
+  max-width: 88%;
+  border: 1px solid #dce9d3;
+  color: #405b35;
+  font-size: 12px;
+  line-height: 1.65;
+}
+.chat-message.error p { background: #fff0ed; color: #8b3025; }
+.chat-shortcuts { flex-wrap: wrap; }
+.chat-shortcuts button { color: #456337; font-size: 10px; }
+.chat-shortcuts button:focus-visible, .chat-input button:focus-visible,
+.chat-header button:focus-visible, .chat-launcher:focus-visible {
+  outline: 3px solid #315a32;
+  outline-offset: 2px;
+}
+.chat-panel button:disabled { cursor: wait; opacity: .6; }
+@media (max-width: 480px) {
+  .chat-panel { right: 12px; bottom: 78px; width: calc(100vw - 24px); }
+  .chat-launcher { right: 16px; bottom: 16px; }
+  .chat-messages { max-height: min(44vh, 315px); }
+}
 .collection-location-card { min-width: 0; border: 1px solid #e2eadc; border-radius: 10px; background: linear-gradient(145deg, #fff 35%, #f7faf4); padding: 17px; box-shadow: 0 3px 12px #203d2c0a; }
 .collection-location-card h3 { font-size: 15px; margin: -1px -1px 13px; padding: 0 0 11px; border-bottom: 1px solid #e8eee3; }
 .collection-location-card ul { display: grid; gap: 10px; padding: 0; margin: 0; list-style: none; }
