@@ -34,18 +34,50 @@ after(async () => {
 })
 
 describe("EcoAgent Ask Bot project knowledge API", () => {
-  it("answers item hazard and safe-handling questions", async () => {
+  it("answers item hazard and safe-handling questions for supported devices", async () => {
     const result = await fetch(`${baseUrl}/api/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: "How do I handle a damaged battery?" }),
+      body: JSON.stringify({ message: "How do I handle a damaged laptop?" }),
     })
     const body = await result.json()
 
     assert.equal(result.status, 200)
     assert.equal(body.topic, "item-guidance")
-    assert.match(body.answer, /special handling/i)
-    assert.match(body.answer, /do not crush, puncture, open, or burn/i)
+    assert.match(body.answer, /Category: laptop/i)
+    assert.match(body.answer, /avoid dismantling it/i)
+  })
+
+  it("limits item-specific guidance to TVs, mobile phones, and laptops", async () => {
+    const ask = async (message) => {
+      const result = await fetch(`${baseUrl}/api/chat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message }),
+      })
+      return result.json()
+    }
+
+    const tv = await ask("Is my old television e-waste?")
+    const phone = await ask("How should I handle my smartphone?")
+    const joinedMobilePhone = await ask("How should I handle my mobilephone?")
+    const laptop = await ask("How should I handle a laptop?")
+    const battery = await ask("How should I handle a battery?")
+    const charger = await ask("Where can I recycle a charger?")
+    const radio = await ask("How should I dispose of my old radio?")
+
+    assert.equal(tv.topic, "item-guidance")
+    assert.match(tv.answer, /Category: TV/i)
+    assert.equal(phone.topic, "item-guidance")
+    assert.match(phone.answer, /Category: mobile phone/i)
+    assert.equal(joinedMobilePhone.topic, "item-guidance")
+    assert.match(joinedMobilePhone.answer, /Category: mobile phone/i)
+    assert.equal(laptop.topic, "item-guidance")
+    assert.match(laptop.answer, /Category: laptop/i)
+    for (const unsupported of [battery, charger, radio]) {
+      assert.equal(unsupported.topic, "unsupported-device")
+      assert.match(unsupported.answer, /TVs, mobile phones, and laptops/i)
+    }
   })
 
   it("asks for a city rather than inventing a facility or schedule", async () => {
@@ -59,7 +91,7 @@ describe("EcoAgent Ask Bot project knowledge API", () => {
     assert.equal(result.status, 200)
     assert.equal(body.topic, "facility-directory")
     assert.match(body.answer, /Which city or service area should I check/i)
-    assert.match(body.answer, /does not confirm whether they accept computer equipment/i)
+    assert.match(body.answer, /does not confirm whether they accept laptop/i)
     assert.doesNotMatch(body.answer, /GreenTech|Monday–Friday|9:00 AM/i)
   })
 
@@ -75,13 +107,65 @@ describe("EcoAgent Ask Bot project knowledge API", () => {
 
     assert.equal(result.status, 200)
     assert.equal(body.topic, "community-collection-locations")
-    assert.match(body.answer, /Barangay Dampalit community e-waste facility project/)
+    assert.match(body.answer, /Barangay Dampalit TSD Facility/)
     assert.match(
       body.answer,
-      /Malabon\n• Barangay Dampalit community e-waste facility project/,
+      /Malabon\n• Barangay Dampalit TSD Facility \(TSD Facility\)/,
     )
-    assert.match(body.answer, /confirm current operation and public drop-off access/i)
-    assert.match(body.answer, /not independently verified/i)
+    assert.match(body.answer, /Accepted: Mobile phones and CRT televisions/i)
+    assert.match(body.answer, /Address: Bendel Compound, Don Basilio Bautista Boulevard/i)
+    assert.match(body.answer, /confirm current operation, schedule, public drop-off access, and device acceptance/i)
+    assert.match(body.answer, /have not been independently verified/i)
+  })
+
+  it("includes supplied operating schedules and marks unverified hours", async () => {
+    const result = await fetch(`${baseUrl}/api/chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        message: "What are the collection locations and hours in Makati?",
+      }),
+    })
+    const body = await result.json()
+
+    assert.equal(result.status, 200)
+    assert.equal(body.topic, "community-collection-locations")
+    assert.match(body.answer, /Hours: Mon–Thu, opens 11am, closes 9pm/)
+    assert.match(body.answer, /Friday, opens 11am, closes 10pm/)
+    assert.match(body.answer, /Hours: Unverified, opens Confirm, closes Confirm/)
+    assert.match(body.answer, /confirm current operation, schedule/i)
+  })
+
+  it("returns the supplied schedule without asterisks", async () => {
+    const result = await fetch(`${baseUrl}/api/chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        message: "Where are the e-waste collection locations in Caloocan?",
+      }),
+    })
+    const body = await result.json()
+
+    assert.equal(body.topic, "community-collection-locations")
+    assert.match(body.answer, /Daily, opens 10am, closes 9pm/)
+    assert.doesNotMatch(body.answer, /\*/)
+  })
+
+  it("includes the supplied acceptance notes and address for Bagong Silang", async () => {
+    const result = await fetch(`${baseUrl}/api/chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        message: "Can I take my TV to the Bagong Silang facility in Caloocan?",
+      }),
+    })
+    const body = await result.json()
+
+    assert.equal(body.topic, "facility-directory")
+    assert.match(body.answer, /Bagong Silang TSD Facility/)
+    assert.match(body.answer, /Accepted: Mobile phones and CRT televisions/i)
+    assert.match(body.answer, /confirm acceptance of laptops and flat-screen TVs/i)
+    assert.match(body.answer, /Address: Phase 2, Package 3, Bagong Silang/i)
   })
 
   it("does not return unlisted no-drop-off municipalities as collection locations", async () => {
@@ -146,11 +230,14 @@ describe("EcoAgent Ask Bot project knowledge API", () => {
     assert.equal(body.topic, "facility-directory")
     assert.match(body.answer, /Quezon City\n• SM North EDSA/)
     assert.match(body.answer, /• Vertis North/)
-    assert.match(body.answer, /does not specify whether these locations accept computer equipment/i)
+    assert.match(body.answer, /Accepted: Mobile phones and laptops/i)
+    assert.match(body.answer, /Hours: Sun–Thu, opens 11am, closes 9pm/)
+    assert.doesNotMatch(body.answer, /\*/)
+    assert.match(body.answer, /acceptance notes may require confirmation/i)
     assert.doesNotMatch(body.answer, /GreenTech|Monday–Friday|9:00 AM/i)
   })
 
-  it("does not mistake a missing item-acceptance record for no local collection option", async () => {
+  it("does not provide item-specific guidance for unsupported devices", async () => {
     const result = await fetch(`${baseUrl}/api/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -160,10 +247,8 @@ describe("EcoAgent Ask Bot project knowledge API", () => {
     })
     const body = await result.json()
 
-    assert.equal(body.topic, "facility-directory")
-    assert.match(body.answer, /Barangay Dampalit community e-waste facility project/)
-    assert.match(body.answer, /does not specify whether these locations accept battery/i)
-    assert.match(body.answer, /not been independently verified/i)
+    assert.equal(body.topic, "unsupported-device")
+    assert.match(body.answer, /TVs, mobile phones, and laptops/i)
   })
 
   it("asks for an item and location when a general collection request lacks details", async () => {
@@ -205,11 +290,11 @@ describe("EcoAgent Ask Bot project knowledge API", () => {
   })
 
   it("supports Taglish item guidance and redirects unrelated topics conversationally", async () => {
-    const battery = await fetch(`${baseUrl}/api/chat`, {
+    const laptop = await fetch(`${baseUrl}/api/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        message: "Paano ko hahawakan ang sirang battery?",
+        message: "Paano ko aalagaan ang sirang laptop?",
       }),
     })
     const adobo = await fetch(`${baseUrl}/api/chat`, {
@@ -223,7 +308,7 @@ describe("EcoAgent Ask Bot project knowledge API", () => {
       body: JSON.stringify({ message: "Tell me a joke." }),
     })
 
-    assert.match((await battery.json()).answer, /Kategorya: battery/i)
+    assert.match((await laptop.json()).answer, /Kategorya: laptop/i)
     assert.match((await adobo.json()).answer, /electronics used in your kitchen/i)
     assert.match((await joke.json()).answer, /second byte at life/i)
   })
@@ -286,8 +371,8 @@ describe("EcoAgent Ask Bot project knowledge API", () => {
       return { status: result.status, body: await result.json() }
     }
 
-    const first = await ask("How do I handle a battery?")
-    const repeated = await ask("How do I handle a battery?", [
+    const first = await ask("How do I handle a laptop?")
+    const repeated = await ask("How do I handle a laptop?", [
       { role: "assistant", content: first.body.answer },
     ])
     const shortMessage = await ask("x")
@@ -325,13 +410,13 @@ describe("EcoAgent Ask Bot project knowledge API", () => {
     const result = await fetch(`${baseUrl}/api/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: "How should I handle a swollen battrey?" }),
+      body: JSON.stringify({ message: "How should I handle a broken laptpo?" }),
     })
     const body = await result.json()
 
     assert.equal(body.topic, "item-guidance")
-    assert.match(body.answer, /Category: battery/i)
-    assert.match(body.answer, /do not crush, puncture, open, or burn/i)
+    assert.match(body.answer, /Category: laptop/i)
+    assert.match(body.answer, /avoid dismantling it/i)
   })
 
   it("answers EcoAgent features and SDG 12 without claiming unavailable actions", async () => {
@@ -462,6 +547,10 @@ describe("EcoAgent Ask Bot project knowledge API", () => {
       assert.match(systemInstruction, /never invent accepted items/i)
       assert.match(systemInstruction, /unrelated questions.*redirect/i)
       assert.match(systemInstruction, /collection-location data/i)
+      assert.match(
+        systemInstruction,
+        /item-specific guidance only for TVs, mobile phones, and laptops/i,
+      )
       assert.equal(payload.generationConfig.maxOutputTokens, 700)
       assert.deepEqual(payload.contents, [
         { role: "user", parts: [{ text: "It is a phone." }] },
@@ -497,7 +586,7 @@ describe("EcoAgent Ask Bot project knowledge API", () => {
       const result = await fetch(`${baseUrl}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: "How should I handle a battery?" }),
+        body: JSON.stringify({ message: "How should I handle a laptop?" }),
       })
       const body = await result.json()
 
@@ -505,8 +594,38 @@ describe("EcoAgent Ask Bot project knowledge API", () => {
       assert.equal(body.topic, "local-fallback")
       assert.match(body.answer, /Gemini could not answer/i)
       assert.match(body.answer, /not a Gemini-generated response/i)
-      assert.match(body.answer, /do not crush, puncture, open, or burn/i)
+      assert.match(body.answer, /avoid dismantling it/i)
       assert.doesNotMatch(JSON.stringify(body), /test-only-key/)
+    } finally {
+      globalThis.fetch = originalFetch
+      if (previousKey === undefined) delete process.env.GEMINI_API_KEY
+      else process.env.GEMINI_API_KEY = previousKey
+    }
+  })
+
+  it("does not send unsupported device requests to Gemini", async () => {
+    const previousKey = process.env.GEMINI_API_KEY
+    process.env.GEMINI_API_KEY = "test-only-key"
+    let providerCalls = 0
+    globalThis.fetch = async (url, options) => {
+      if (String(url).includes("generativelanguage.googleapis.com")) {
+        providerCalls += 1
+      }
+      return originalFetch(url, options)
+    }
+
+    try {
+      const result = await fetch(`${baseUrl}/api/chat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: "Can I recycle my desktop computer?" }),
+      })
+      const body = await result.json()
+
+      assert.equal(result.status, 200)
+      assert.equal(body.topic, "unsupported-device")
+      assert.match(body.answer, /TVs, mobile phones, and laptops/i)
+      assert.equal(providerCalls, 0)
     } finally {
       globalThis.fetch = originalFetch
       if (previousKey === undefined) delete process.env.GEMINI_API_KEY

@@ -5,7 +5,7 @@ import collectionLocations from "../data/collection-locations.json"
 
 type Page = "home" | "login" | "dashboard" | "identify" | "recommendations" | "facilities" | "facility" | "learn" | "flow" | "profile" | "items"
 
-type IconName = "recycle" | "arrow" | "leaf" | "pin" | "shield" | "robot" | "upload" | "check" | "clock" | "search" | "grid" | "box" | "book" | "user" | "close" | "send" | "sparkles" | "phone" | "laptop" | "battery" | "menu" | "plus" | "heart"
+type IconName = "recycle" | "arrow" | "leaf" | "pin" | "shield" | "robot" | "upload" | "check" | "clock" | "search" | "grid" | "box" | "book" | "user" | "close" | "send" | "sparkles" | "phone" | "laptop" | "battery" | "tv" | "menu" | "plus" | "heart"
 type ChatMessage = { role: "bot" | "user" | "error"; text: string }
 
 function renderChatInline(text: string, keyPrefix: string): ReactNode[] {
@@ -206,6 +206,12 @@ function Icon({
         <path d="M22 10v4m-14-2h7m-4-3v6" />
       </>
     ),
+    tv: (
+      <>
+        <rect x="3" y="5" width="18" height="13" rx="2" />
+        <path d="m8 22 4-4 4 4M8 2l4 3 4-3" />
+      </>
+    ),
     menu: <path d="M3 6h18M3 12h18M3 18h18" />,
     plus: <path d="M12 4v16M4 12h16" />,
     heart: (
@@ -291,33 +297,33 @@ const facilities: Facility[] = [
   {
     name: "GreenTech Recycling Center",
     location: "Sample facility address, Quezon City",
-    items: ["Laptops", "Desktop computers", "Mobile phones", "Chargers"],
+    items: ["Laptops", "Mobile phones", "TVs"],
     days: "Monday–Friday",
     hours: "9:00 AM–5:00 PM",
     description:
-      "An illustrative facility example listing common computer and mobile device categories.",
+      "An illustrative facility example listing laptop, mobile phone, and TV categories.",
     info: "Please review the facility's accepted-item requirements and operating hours before visiting. Contact the facility directly to verify any information that may have changed.",
     icon: "leaf",
   },
   {
     name: "Eco Recovery Hub",
     location: "Sample facility address, Marikina City",
-    items: ["Mobile phones", "Batteries", "Chargers", "Small electronics"],
+    items: ["Mobile phones", "TVs"],
     days: "Monday–Saturday",
     hours: "9:00 AM–6:00 PM",
     description:
-      "A sample facility focused on small electronics and components that require careful handling.",
-    info: "Ask the facility about damaged or swollen batteries before visiting and follow its published handling requirements.",
+      "A sample facility focused on mobile phones and TVs.",
+    info: "Confirm accepted device condition and handling requirements with the facility before visiting.",
     icon: "recycle",
   },
   {
     name: "Circular Electronics Center",
     location: "Sample facility address, Pasig City",
-    items: ["Laptops", "Desktop computers", "Computer parts", "Mobile phones"],
+    items: ["Laptops", "Mobile phones", "TVs"],
     days: "Tuesday–Saturday",
     hours: "8:30 AM–4:30 PM",
     description:
-      "An illustrative electronics resource center accepting a broad range of computer equipment.",
+      "An illustrative electronics resource center listing laptops, mobile phones, and TVs.",
     info: "Erase personal information from devices where possible and verify current acceptance requirements directly with the facility.",
     icon: "box",
   },
@@ -330,7 +336,7 @@ const lessons = [
       "Understand the devices and components that become electronic waste.",
     icon: "laptop" as IconName,
     color: "green",
-    text: "E-waste includes discarded phones, computers, chargers, batteries, appliances, and other electronic equipment. These products can contain reusable materials as well as components that require careful handling. Keep electronics separate from ordinary household waste and consult appropriate disposal guidance.",
+    text: "This EcoAgent pilot focuses on discarded TVs, mobile phones, and laptops. These devices can contain reusable materials as well as components that require careful handling. Keep them separate from ordinary household waste and consult appropriate disposal guidance.",
   },
   {
     title: "Why Proper Disposal Matters",
@@ -344,7 +350,7 @@ const lessons = [
     subtitle: "Simple precautions for safer handling.",
     icon: "shield" as IconName,
     color: "blue",
-    text: "Handle devices carefully, keep them dry, and avoid opening damaged batteries or electronic components. Back up and erase personal data when it is safe to do so. Confirm item-specific requirements with a collection facility before visiting.",
+    text: "Handle TVs, mobile phones, and laptops carefully, keep them dry, and do not dismantle them. Back up and erase personal data on phones and laptops when safe. Confirm item-specific requirements with a collection facility before visiting.",
   },
   {
     title: "Reuse and Recycling",
@@ -355,10 +361,10 @@ const lessons = [
   },
   {
     title: "Hazardous Electronic Components",
-    subtitle: "Recognize batteries and parts needing extra care.",
+    subtitle: "Learn why supported devices need careful handling.",
     icon: "battery" as IconName,
     color: "orange",
-    text: "Some batteries, screens, circuit boards, and damaged components may contain hazardous substances. Do not crush, burn, puncture, or dismantle them. Seek appropriate safety guidance and verify requirements with a collection facility.",
+    text: "TVs, mobile phones, and laptops contain electronic components and may include batteries or screens that need careful handling. Do not crush, burn, puncture, or dismantle devices. Verify item-specific requirements with a collection facility.",
   },
 ]
 
@@ -403,15 +409,12 @@ export default function App() {
   const [analyzed, setAnalyzed] = useState(false)
   const [photo, setPhoto] = useState<string | null>(null)
   const [photoName, setPhotoName] = useState("")
-  const [selectedFacility, setSelectedFacility] = useState<Facility>(
-    facilities[0],
-  )
-  const [returnPage, setReturnPage] = useState<Page>("facilities")
+  const [selectedFacility] = useState<Facility>(facilities[0])
+  const [returnPage] = useState<Page>("facilities")
   const [saved, setSaved] = useState<string[]>([facilities[1].name])
   const [search, setSearch] = useState("")
   const [filter, setFilter] = useState("All categories")
   const [locationFilter, setLocationFilter] = useState("All locations")
-  const [daysFilter, setDaysFilter] = useState("Any operating day")
   const [article, setArticle] = useState<number | null>(null)
   const [notice, setNotice] = useState("")
   const upload = useRef<HTMLInputElement>(null)
@@ -461,19 +464,19 @@ export default function App() {
     [photo],
   )
 
-  const normalizedCategory =
-    category === "Laptop" || category === "Computer Parts"
-      ? "Computer Equipment"
-      : category
+  const normalizedCategory = category
+  const itemHazardNote =
+    "Exact hazard classification depends on the device model, components, and condition; this prototype does not verify a formal classification."
+  const itemHandlingGuidance =
+    category === "TV"
+      ? "Keep the TV intact, do not dismantle it, and protect the screen when moving it. Confirm a collection facility accepts TVs before visiting."
+      : category === "Mobile Phone"
+        ? "Keep the phone intact and separate from household rubbish. Back up and erase personal data when safe, and do not open or puncture the battery."
+        : "Keep the laptop intact and separate from household rubbish. Back up and erase personal data when safe, and check a collection facility's requirements before visiting."
   const normalizedSearch = search
     .normalize("NFD")
     .replace(/\p{Diacritic}/gu, "")
     .toLowerCase()
-  const openFacility = (facility: Facility, from: Page) => {
-    setSelectedFacility(facility)
-    setReturnPage(from)
-    go("facility")
-  }
   const toggleSaved = (facility: Facility) => {
     const isSaved = saved.includes(facility.name)
     setSaved((current) =>
@@ -558,58 +561,6 @@ export default function App() {
     { page: "learn", label: "Educational Resources", icon: "book" },
     { page: "profile", label: "Profile", icon: "user" },
   ]
-
-  const FacilityCard = ({
-    facility,
-    from = "facilities" as Page,
-  }: {
-    facility: Facility
-    from?: Page
-  }) => (
-    <article className="facility-card" key={facility.name}>
-      <div className="facility-card-top">
-        <span className="feature-icon">
-          <Icon name={facility.icon} size={25} />
-        </span>
-        <Badge>
-          <Icon name="shield" size={12} /> Sample listing
-        </Badge>
-      </div>
-      <h3>{facility.name}</h3>
-      <p className="icon-line">
-        <Icon name="pin" size={16} />
-        {facility.location}
-      </p>
-      <p className="facility-description">{facility.description}</p>
-      <div className="tags">
-        {facility.items.map((item) => (
-          <span key={item}>{item}</span>
-        ))}
-      </div>
-      <div className="facility-info">
-        <span>
-          <Icon name="clock" size={16} />
-          {facility.days}
-        </span>
-        <span>{facility.hours}</span>
-      </div>
-      <div className="card-actions">
-        <Button
-          variant="secondary"
-          onClick={() => openFacility(facility, from)}
-        >
-          View Details
-        </Button>
-        <Button variant="text" onClick={() => toggleSaved(facility)}>
-          <Icon
-            name={saved.includes(facility.name) ? "check" : "heart"}
-            size={17}
-          />
-          {saved.includes(facility.name) ? "Saved" : "Save Facility"}
-        </Button>
-      </div>
-    </article>
-  )
 
   return (
     <div className="app">
@@ -718,7 +669,7 @@ export default function App() {
                   <Icon name="laptop" size={48} />
                 </span>
                 <span>
-                  <Icon name="battery" size={38} />
+                  <Icon name="tv" size={38} />
                 </span>
               </div>
             </div>
@@ -829,8 +780,8 @@ export default function App() {
                 <Badge tone="blue">E-WASTE ASSISTANT</Badge>
               </div>
               <p>
-                Ask about categories, hazard classifications, handling guidance,
-                accepted items, locations, or published operating hours.
+                Ask about TVs, mobile phones, laptops, handling guidance, or
+                the collection-location information available here.
               </p>
             </div>
             <Button onClick={() => setChatOpen(true)}>
@@ -968,7 +919,7 @@ export default function App() {
                     </span>
                     <div>
                       <Badge tone="blue">ECOAGENT ASK BOT</Badge>
-                      <h2>Ask a question about your e-waste.</h2>
+                      <h2>Ask about a TV, mobile phone, or laptop.</h2>
                       <p>
                         Get clear explanations based on item categories and
                         available facility information.
@@ -978,12 +929,12 @@ export default function App() {
                   <div className="assistant-conversation">
                     <div className="conversation-row user-row">
                       <strong>User</strong>
-                      <p>Where can I dispose of my old laptop?</p>
+                      <p>Where can I recycle my old laptop?</p>
                     </div>
                     <div className="conversation-row bot-row">
                       <strong>EcoAgent Ask Bot</strong>
                       <p>
-                        Your laptop is computer equipment. What city or service
+                        Your laptop is a supported device. What city or service
                         area should I check? The project directory does not
                         confirm which locations accept laptops or list current
                         schedules.
@@ -1012,7 +963,7 @@ export default function App() {
                 {title(
                   "A RESPONSIBLE FIRST STEP",
                   "Identify your electronic waste",
-                  "Search for an item or enter its details to receive category, hazard, and safe-handling guidance.",
+                  "Identify a TV, mobile phone, or laptop to review its general hazard note and handling guidance.",
                 )}
                 <div className="workflow-steps">
                   <span className="current">
@@ -1049,7 +1000,7 @@ export default function App() {
                               setDevice(event.target.value)
                               setAnalyzed(false)
                             }}
-                            placeholder="Search for a laptop, phone, charger…"
+                            placeholder="Search for a TV, mobile phone, or laptop…"
                           />
                         </div>
                       </Field>
@@ -1102,12 +1053,9 @@ export default function App() {
                             setAnalyzed(false)
                           }}
                         >
-                          <option>Laptop</option>
+                          <option>TV</option>
                           <option>Mobile Phone</option>
-                          <option>Charger</option>
-                          <option>Battery</option>
-                          <option>Computer Parts</option>
-                          <option>Other Electronics</option>
+                          <option>Laptop</option>
                         </select>
                       </Field>
                       <Field label="Item Name">
@@ -1190,17 +1138,13 @@ export default function App() {
                             <div>
                               <dt>Hazard Classification</dt>
                               <dd>
-                                Potentially hazardous electronic waste,
-                                depending on its components and condition.
+                                {itemHazardNote}
                               </dd>
                             </div>
                             <div>
                               <dt>Handling Guidance</dt>
                               <dd>
-                                Handle the device carefully. Avoid opening
-                                damaged batteries or electronic components.
-                                Consult appropriate disposal guidance and an
-                                collection facility.
+                                {itemHandlingGuidance}
                               </dd>
                             </div>
                             <div>
@@ -1239,8 +1183,8 @@ export default function App() {
                       <div>
                         <strong>EcoAgent Ask Bot is available here.</strong>
                         <p>
-                          Ask about categories, hazards, handling, or accepted
-                          items.
+                          Ask about TVs, mobile phones, laptops, handling, or
+                          collection-location information.
                         </p>
                       </div>
                       <Button
@@ -1260,7 +1204,7 @@ export default function App() {
                 {title(
                   "FACILITY GUIDANCE",
                   "No verified recommendation available",
-                  "The project directory contains location names and status notes, but not verified item-acceptance rules or current schedules.",
+                  "The project directory now includes device-acceptance notes, but they are project-provided and not independently verified.",
                 )}
                 <div className="explanation-card">
                   <span className="feature-icon blue">
@@ -1269,10 +1213,10 @@ export default function App() {
                   <div>
                     <h3>What information is available?</h3>
                     <p>
-                      The directory has project-provided collection locations.
-                      It does not verify acceptance for your item, the item's
-                      condition, current operation, public access, addresses, or
-                      operating hours.
+                      The directory includes supplied acceptance notes and
+                      addresses where available. These do not verify current
+                      operation, public access, schedules, fees, or acceptance
+                      for your item's specific condition.
                     </p>
                     <div className="tags">
                       <span>{device}</span>
@@ -1295,11 +1239,12 @@ export default function App() {
                   <div className="recommendation-reason">
                     <h3>Why not a recommendation?</h3>
                     <p>
-                      Available location records do not state whether a listed
-                      collection point accepts {normalizedCategory} in
+                      The project directory's acceptance notes have not been
+                      independently verified, and condition-specific acceptance
+                      is not available for {normalizedCategory} in
                       {` ${condition.toLowerCase()}`} condition near{" "}
-                      {itemLocation}. Contact the operator or local environment
-                      office to confirm before traveling.
+                      {itemLocation}. Contact the operator to confirm before
+                      traveling.
                     </p>
                   </div>
                   <dl className="analysis-list recommendation-details">
@@ -1314,8 +1259,8 @@ export default function App() {
                     <div>
                       <dt>Missing verified data</dt>
                       <dd>
-                        Item acceptance, operating status, public access, and
-                        schedule
+                        Current operation, public access, schedules, and
+                        condition-based acceptance
                       </dd>
                     </div>
                   </dl>
@@ -1368,8 +1313,6 @@ export default function App() {
                     <option>All locations</option>
                     {[...new Set([
                       ...collectionLocations.map((entry) => entry.municipality),
-                      "Marikina City",
-                      "Pasig City",
                     ])]
                       .sort((a, b) => a.localeCompare(b))
                       .map((municipality) => (
@@ -1377,37 +1320,26 @@ export default function App() {
                       ))}
                   </select>
                   <select
-                    aria-label="Filter sample facilities by accepted category"
+                    aria-label="Filter collection locations by accepted device"
                     value={filter}
                     onChange={(event) => setFilter(event.target.value)}
                   >
                     <option>All categories</option>
+                    <option>TVs</option>
                     <option>Laptops</option>
                     <option>Mobile phones</option>
-                    <option>Batteries</option>
-                    <option>Chargers</option>
-                    <option>Computer parts</option>
-                  </select>
-                  <select
-                    aria-label="Filter sample facilities by operating days"
-                    value={daysFilter}
-                    onChange={(event) => setDaysFilter(event.target.value)}
-                  >
-                    <option>Any operating day</option>
-                    <option>Weekdays</option>
-                    <option>Saturday</option>
                   </select>
                 </div>
                 <section className="collection-options" aria-labelledby="collection-options-title">
                   <div className="section-heading">
-                    <h2 id="collection-options-title">Community collection options</h2>
+                    <h2 id="collection-options-title">Collection locations</h2>
                     <span className="muted">Metro Manila</span>
                   </div>
                   <p className="demo-note">
                     Listings and status notes are based on information provided
                     for this project and have not been independently verified.
-                    Confirm that a collection point is operating, open to the
-                    public, and accepts your item before visiting.
+                    Confirm current operation, schedules, public access, and
+                    item acceptance before visiting.
                   </p>
                   <div className="collection-location-grid">
                     {collectionLocations
@@ -1415,8 +1347,20 @@ export default function App() {
                         (entry) =>
                           (locationFilter === "All locations" ||
                             entry.municipality === locationFilter) &&
+                          (filter === "All categories" ||
+                            entry.locations.some((location) =>
+                              `${location.acceptedDevices} ${location.status}`
+                                .toLowerCase()
+                                .includes(
+                                  filter === "TVs"
+                                    ? "tv"
+                                    : filter === "Laptops"
+                                      ? "laptop"
+                                      : "phone",
+                                ),
+                            )) &&
                           `${entry.municipality} ${entry.locations
-                            .map((location) => `${location.operator} ${location.name} ${location.status}`)
+                            .map((location) => `${location.operator} ${location.name} ${location.status} ${location.acceptedDevices} ${location.address ?? ""} ${location.operatingHours?.map((schedule) => `${schedule.days} ${schedule.opens} ${schedule.closes}`).join(" ") ?? ""}`)
                             .join(" ")}`
                               .normalize("NFD")
                               .replace(/\p{Diacritic}/gu, "")
@@ -1428,13 +1372,47 @@ export default function App() {
                           className="collection-location-card"
                           key={entry.municipality}
                         >
-                          <h3>{entry.municipality}</h3>
+                          <div className="collection-location-heading">
+                            <span className="collection-location-pin">
+                              <Icon name="pin" size={17} />
+                            </span>
+                            <div>
+                              <h3>{entry.municipality}</h3>
+                              <small>
+                                {entry.locations.length} collection{" "}
+                                {entry.locations.length === 1 ? "point" : "points"}
+                              </small>
+                            </div>
+                          </div>
                           <ul>
                             {entry.locations.map((location) => (
-                              <li key={`${location.operator}-${location.name}`}>
+                              <li
+                                className="collection-location-item"
+                                key={`${location.operator}-${location.name}`}
+                              >
                                 <strong>{location.name}</strong>
                                 <span>{location.operator}</span>
+                                <small>Device acceptance: {location.acceptedDevices}</small>
                                 <small>{location.status}</small>
+                                {location.address && <small>Address: {location.address}</small>}
+                                {location.operatingHours?.map((schedule) => (
+                                  <small key={`${schedule.days}-${schedule.opens}-${schedule.closes}`}>
+                                    Hours: {schedule.days}, {schedule.opens}–{schedule.closes}
+                                  </small>
+                                ))}
+                                <a
+                                  className="collection-directions-link"
+                                  href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+                                    `${location.name}, ${entry.municipality}${location.address ? `, ${location.address}` : ""}, Metro Manila, Philippines`,
+                                  )}`}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  aria-label={`Get directions to ${location.name}, ${entry.municipality} (opens in a new tab)`}
+                                >
+                                  <Icon name="pin" size={15} />
+                                  Get directions
+                                  <Icon name="arrow" size={14} />
+                                </a>
                               </li>
                             ))}
                           </ul>
@@ -1442,35 +1420,6 @@ export default function App() {
                       ))}
                   </div>
                 </section>
-                <div className="directory-label">
-                  <span>Review published facility information.</span>
-                  <span>
-                    <Icon name="shield" size={16} />
-                    Illustrative facility examples
-                  </span>
-                </div>
-                <div className="facility-grid">
-                  {facilities
-                    .filter(
-                      (facility) =>
-                        `${facility.name} ${facility.location}`
-                          .normalize("NFD")
-                          .replace(/\p{Diacritic}/gu, "")
-                          .toLowerCase()
-                          .includes(normalizedSearch) &&
-                        (locationFilter === "All locations" ||
-                          facility.location.includes(locationFilter)) &&
-                        (filter === "All categories" ||
-                          facility.items.includes(filter)) &&
-                        (daysFilter === "Any operating day" ||
-                          (daysFilter === "Saturday"
-                            ? facility.days.includes("Saturday")
-                            : facility.days.includes("Monday"))),
-                    )
-                    .map((facility) => (
-                      <FacilityCard key={facility.name} facility={facility} />
-                    ))}
-                </div>
                 <div className="safety-note">
                   <Icon name="robot" size={25} />
                   <div>
@@ -1761,7 +1710,7 @@ export default function App() {
                   "Review electronic items you have identified or saved for future reference.",
                 )}
                 <div className="toolbar">
-                  <Badge>5 demo electronic items</Badge>
+                  <Badge>3 demo electronic items</Badge>
                   <Button onClick={() => go("identify")}>
                     <Icon name="plus" size={17} />
                     Identify an Item
@@ -1769,11 +1718,9 @@ export default function App() {
                 </div>
                 <div className="facility-grid">
                   {[
-                    ["Old Laptop", "Computer Equipment", "Broken", "laptop"],
+                    ["Old TV", "TV", "Broken", "tv"],
                     ["Personal Phone", "Mobile Phone", "Working", "phone"],
-                    ["Spare Charger", "Charger", "Working", "box"],
-                    ["Wireless Keyboard", "Computer Parts", "Damaged", "box"],
-                    ["Tablet Battery", "Battery", "Unknown", "battery"],
+                    ["Old Laptop", "Laptop", "Damaged", "laptop"],
                   ].map(([name, itemCategory, itemCondition, icon]) => (
                     <section className="facility-card" key={name}>
                       <div className="facility-card-top">
@@ -1790,11 +1737,7 @@ export default function App() {
                         variant="secondary"
                         onClick={() => {
                           setDevice(name)
-                          setCategory(
-                            itemCategory === "Computer Equipment"
-                              ? "Laptop"
-                              : itemCategory,
-                          )
+                          setCategory(itemCategory)
                           setCondition(itemCondition)
                           setAnalyzed(true)
                           go("identify")
@@ -1956,9 +1899,15 @@ export default function App() {
           >
             <button
               disabled={isSending}
-              onClick={() => sendMessage("Where can I recycle my device?")}
+              onClick={() => sendMessage("Is this TV e-waste?")}
             >
-              Where can I recycle?
+              Is this TV e-waste?
+            </button>
+            <button
+              disabled={isSending}
+              onClick={() => sendMessage("Where can I recycle my laptop?")}
+            >
+              Where can I recycle my laptop?
             </button>
             <button
               disabled={isSending}
@@ -1987,7 +1936,7 @@ export default function App() {
               ref={chatInputRef}
               value={chatInput}
               onChange={(event) => setChatInput(event.target.value)}
-              placeholder="Ask about your electronics…"
+              placeholder="Ask about a TV, phone, or laptop…"
               aria-label="Message EcoAgent Ask Bot"
               disabled={isSending}
             />
