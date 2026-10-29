@@ -1,12 +1,21 @@
+# Dependencies and build output
 node_modules/
 dist/
+
+# Keep local environment values and secrets out of Git.
 .env
 .env.*
+
+# Shared setup template is safe to commit.
 !.env.example
+
+# OS and Python-generated files
 .DS_Store
 __pycache__/
 .venv/
 *.pyc
+
+# Ultralytics training artifacts; keep supplied weights trackable.
 ml/tv_training/dataset/labels/*.cache
 ml/tv_training/runs/
 ml/tv_training/predictions/
