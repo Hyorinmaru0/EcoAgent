@@ -1,0 +1,5 @@
+# Paths resolve relative to this YAML file's directory.
+train: images/train
+val: images/val
+names:
+  0: damaged_tv

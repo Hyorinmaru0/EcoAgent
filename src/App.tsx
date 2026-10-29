@@ -2,6 +2,8 @@ import { useEffect, useRef, useState, type ReactNode } from "react"
 import { AuthPage } from "./components/auth/AuthPage"
 import type { DemoProfile } from "./components/auth/authValidation"
 import collectionLocations from "../data/collection-locations.json"
+import { TvDetectionPanel } from "./components/identification/TvDetectionPanel"
+import { useTvDetection, validateDevicePhoto } from "./components/identification/useTvDetection"
 
 type Page = "home" | "login" | "dashboard" | "identify" | "recommendations" | "facilities" | "facility" | "learn" | "flow" | "profile" | "items"
 
@@ -409,6 +411,8 @@ export default function App() {
   const [analyzed, setAnalyzed] = useState(false)
   const [photo, setPhoto] = useState<string | null>(null)
   const [photoName, setPhotoName] = useState("")
+  const [photoFile, setPhotoFile] = useState<File | null>(null)
+  const tvDetection = useTvDetection(photoFile, category)
   const [selectedFacility] = useState<Facility>(facilities[0])
   const [returnPage] = useState<Page>("facilities")
   const [saved, setSaved] = useState<string[]>([facilities[1].name])
@@ -986,9 +990,10 @@ export default function App() {
                   <section className="panel">
                     <h2>Tell us about your item</h2>
                     <form
-                      onSubmit={(event) => {
+                      onSubmit={async (event) => {
                         event.preventDefault()
-                        setAnalyzed(true)
+                        setAnalyzed(false)
+                        if (await tvDetection.analyze()) setAnalyzed(true)
                       }}
                     >
                       <Field label="Search Electronic Item">
@@ -1008,8 +1013,10 @@ export default function App() {
                         className="upload-zone"
                         onClick={() => upload.current?.click()}
                         onKeyDown={(event) => {
-                          if (event.key === "Enter" || event.key === " ")
+                          if (event.key === "Enter" || event.key === " ") {
+                            event.preventDefault()
                             upload.current?.click()
+                          }
                         }}
                         role="button"
                         tabIndex={0}
@@ -1017,13 +1024,21 @@ export default function App() {
                         <input
                           ref={upload}
                           type="file"
-                          accept="image/*"
+                          accept="image/jpeg,image/png,image/webp"
                           hidden
                           onChange={(event) => {
                             const file = event.target.files?.[0]
                             if (file) {
+                              const error = validateDevicePhoto(file)
+                              if (error) {
+                                setNotice(error)
+                                event.target.value = ""
+                                return
+                              }
+                              setPhotoFile(file)
                               setPhoto(URL.createObjectURL(file))
                               setPhotoName(file.name)
+                              setAnalyzed(false)
                             }
                           }}
                         />
@@ -1042,7 +1057,7 @@ export default function App() {
                         <span>
                           {photo
                             ? "Select to replace image"
-                            : "JPG, PNG or WEBP"}
+                            : "JPG, PNG or WEBP · up to 5 MB"}
                         </span>
                       </div>
                       <Field label="Item Category">
@@ -1103,9 +1118,9 @@ export default function App() {
                           placeholder="City or area"
                         />
                       </Field>
-                      <Button type="submit" className="full-width">
+                      <Button type="submit" className="full-width" disabled={tvDetection.isAnalyzing}>
                         <Icon name="sparkles" size={18} />
-                        Analyze E-Waste
+                        {tvDetection.isAnalyzing ? "Analyzing TV Photo…" : "Analyze E-Waste"}
                       </Button>
                     </form>
                   </section>
@@ -1120,6 +1135,10 @@ export default function App() {
                         </div>
                         <Badge tone="blue">PROJECT GUIDE</Badge>
                       </div>
+                      {category === "TV" && <TvDetectionPanel
+                        photo={photo} result={tvDetection.result}
+                        error={tvDetection.error} isAnalyzing={tvDetection.isAnalyzing}
+                      />}
                       {analyzed ? (
                         <>
                           <div className="analysis-ready">
@@ -1173,9 +1192,9 @@ export default function App() {
                         </div>
                       )}
                       <p className="demo-note">
-                        Prototype guidance uses entered details, not image
-                        recognition. Consult appropriate safety guidance for
-                        damaged items.
+                        {category === "TV"
+                          ? "Upload a TV photo to try the local practice detector. General handling guidance uses your entered details; a photo cannot establish electrical safety."
+                          : "Guidance for phones and laptops uses entered details. Photo recognition currently supports only the TV practice model."}
                       </p>
                     </section>
                     <div className="safety-note">

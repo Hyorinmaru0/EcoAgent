@@ -1,0 +1,3 @@
+# Version used to train the supplied weights.
+ultralytics==8.4.187
+Pillow>=10,<13

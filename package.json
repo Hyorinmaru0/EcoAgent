@@ -7,6 +7,8 @@
     "dev": "vite",
     "typecheck": "tsc --noEmit",
     "test:ecobot": "node --test tests/ecobot.test.mjs",
+    "test:tv": "node --test tests/tv-detection.test.mjs",
+    "smoke:tv": "node scripts/smoke-tv.mjs",
     "build": "vite build",
     "preview": "vite preview",
     "format": "oxfmt"
