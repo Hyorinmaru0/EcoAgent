@@ -19,16 +19,16 @@ Gemini receives recent conversation context and project-provided collection-loca
 
 The directory page and chatbot use the same Metro Manila collection-options data in `data/collection-locations.json`. It lists TVs, mobile phones, and laptops where supplied, while flagging entries that require confirmation about local arrangements, specific devices, household access, or schedules. No record establishes accreditation. Other facility cards used elsewhere in the prototype remain illustrative demo recommendations.
 
-## Damaged-TV dataset and photo analysis
+## Device photo analysis
 
-The `ml/tv_training/` folder includes the 200-image YOLO dataset (160 train,
-40 validation), labels, training scripts, manifest, and the trained damaged-TV
-weights. Select **Identify E-Waste → TV**, upload a photo, and select
-**Analyze E-Waste** to run the local practice detector. See
-[`ml/tv_training/INTEGRATION.md`](ml/tv_training/INTEGRATION.md) for setup,
-tests, and model limitations. Images remain local; the TV detector does not use
-the Gemini API. These are same-recording practice data, not independent evidence
-of damaged-TV recognition accuracy.
+The local photo workflow runs the three-class model in
+`ml/device_detection/weights/best.pt` for TVs, phones, and laptops. When the
+selected category is TV, it also runs the TV-specific practice model in
+`ml/tv_training/weights/best.pt` on the same image. Both results are shown as
+separate candidate overlays. Images stay on the local backend and are not sent
+to Gemini. See [`ml/tv_training/INTEGRATION.md`](ml/tv_training/INTEGRATION.md)
+for setup and limitations. Model outputs are not verified item identity,
+condition, damage, or safety assessments.
 
 ## Checks
 

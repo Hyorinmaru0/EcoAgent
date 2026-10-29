@@ -20,9 +20,9 @@ const ecoBotApi: Plugin = {
 }
 
 export default defineConfig(({ mode }) => {
-  const serverEnv = loadEnv(mode, process.cwd(), ['GEMINI_', 'TV_DETECTOR_'])
+  const serverEnv = loadEnv(mode, process.cwd(), ['GEMINI_', 'TV_DETECTOR_', 'DEVICE_DETECTOR_'])
 
-  for (const key of ['TV_DETECTOR_PYTHON', 'TV_DETECTOR_WEIGHTS']) {
+  for (const key of ['TV_DETECTOR_PYTHON', 'TV_DETECTOR_WEIGHTS', 'DEVICE_DETECTOR_WEIGHTS']) {
     if (serverEnv[key]) process.env[key] = serverEnv[key]
   }
 

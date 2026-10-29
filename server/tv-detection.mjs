@@ -66,15 +66,20 @@ function detectorConfig() {
   const localPython = resolve(projectRoot, process.platform === "win32" ? ".venv/Scripts/python.exe" : ".venv/bin/python")
   return {
     python: process.env.TV_DETECTOR_PYTHON || (existsSync(localPython) ? localPython : "python"),
-    weights: resolve(projectRoot, process.env.TV_DETECTOR_WEIGHTS || "ml/tv_training/weights/best.pt"),
+    deviceWeights: resolve(projectRoot, process.env.DEVICE_DETECTOR_WEIGHTS || "ml/device_detection/weights/best.pt"),
+    tvWeights: resolve(projectRoot, process.env.TV_DETECTOR_WEIGHTS || "ml/tv_training/weights/best.pt"),
   }
 }
 
-export function runTvDetector(image, { signal } = {}) {
-  const { python, weights } = detectorConfig()
-  if (!existsSync(weights)) return Promise.reject(new DetectionError(503, "The trained damaged-TV model is missing."))
+export function runTvDetector(image, { signal, category = "TV" } = {}) {
+  const { python, deviceWeights, tvWeights } = detectorConfig()
+  if (!existsSync(deviceWeights)) return Promise.reject(new DetectionError(503, "The trained device detection model is missing."))
+  if (category === "TV" && !existsSync(tvWeights))
+    return Promise.reject(new DetectionError(503, "The trained damaged-TV model is missing."))
   return new Promise((accept, reject) => {
-    const child = spawn(python, [resolve(projectRoot, "ml/tv_training/infer.py"), "--weights", weights], {
+    const args = [resolve(projectRoot, "ml/tv_training/infer.py"), "--device-weights", deviceWeights]
+    if (category === "TV") args.push("--tv-weights", tvWeights)
+    const child = spawn(python, args, {
       cwd: projectRoot,
       windowsHide: true,
       stdio: ["pipe", "pipe", "pipe"],
@@ -91,7 +96,7 @@ export function runTvDetector(image, { signal } = {}) {
       else accept(result)
     }
     const abort = () => finish(new DetectionError(499, "The photo analysis was cancelled."))
-    const timer = setTimeout(() => finish(new DetectionError(504, "TV photo analysis timed out. Try a smaller photo.")), 90_000)
+    const timer = setTimeout(() => finish(new DetectionError(504, "Photo analysis timed out. Try a smaller photo.")), 120_000)
     signal?.addEventListener("abort", abort, { once: true })
     if (signal?.aborted) abort()
     child.stdout.on("data", (chunk) => {
@@ -100,16 +105,16 @@ export function runTvDetector(image, { signal } = {}) {
     })
     child.stderr.resume()
     child.stdin.on("error", () => {})
-    child.on("error", () => finish(new DetectionError(503, "The TV detector Python environment is unavailable. Check TV_DETECTOR_PYTHON.")))
+    child.on("error", () => finish(new DetectionError(503, "The detector Python environment is unavailable. Check TV_DETECTOR_PYTHON.")))
     child.on("close", (code) => {
       try {
         const result = JSON.parse(output)
         if (code !== 0 || result.error)
           finish(new DetectionError(result.status === 400 ? 400 : 503, result.error || "The TV detector could not run."))
-        else if (result.source !== "local-yolo" || !Array.isArray(result.detections))
-          finish(new DetectionError(502, "The TV detector returned an invalid result."))
+        else if (result.source !== "local-yolo" || !Array.isArray(result.detections) || !Array.isArray(result.tvDetections))
+          finish(new DetectionError(502, "The detector returned an invalid result."))
         else finish(null, result)
-      } catch { finish(new DetectionError(503, "The TV detector could not start. Check its Python dependencies.")) }
+      } catch { finish(new DetectionError(503, "The detector could not start. Check its Python dependencies.")) }
     })
     child.stdin.end(image)
   })
@@ -132,16 +137,25 @@ export function createTvDetectionMiddleware({ detect = runTvDetector } = {}) {
     ;(async () => {
       if (!req.headers["content-type"]?.toLowerCase().startsWith("application/json"))
         throw new DetectionError(415, "Send the photo as an application/json request.")
-      const image = decodeImage(await readJson(req))
+      const body = await readJson(req)
+      const category = body?.category ?? "TV"
+      if (!["TV", "Mobile Phone", "Laptop"].includes(category))
+        throw new DetectionError(400, "Choose TV, Mobile Phone, or Laptop as the item category.")
+      const image = decodeImage(body)
       if (busy) throw new DetectionError(429, "Another TV photo is being analyzed. Please try again shortly.")
       busy = true
       try {
-        const result = await detect(image, { signal: controller.signal })
-        sendJson(res, 200, { ...result, warning, dataset: { trainingImages: 160, validationImages: 40, independentValidation: false } })
+        const result = await detect(image, { signal: controller.signal, category })
+        sendJson(res, 200, {
+          ...result,
+          warning: "Device detections are practice-model results, not proof of item identity, condition, safety, or value.",
+          ...(category === "TV" ? { tvWarning: warning } : {}),
+          ...(category === "TV" ? { dataset: { trainingImages: 160, validationImages: 40, independentValidation: false } } : {}),
+        })
       } finally { busy = false }
     })().catch((error) => {
       sendJson(res, error instanceof DetectionError ? error.status : 500, {
-        error: error instanceof DetectionError ? error.message : "TV photo analysis could not finish. Try again.",
+        error: error instanceof DetectionError ? error.message : "Photo analysis could not finish. Try again.",
       })
     }).finally(() => res.removeListener("close", cancel))
   }

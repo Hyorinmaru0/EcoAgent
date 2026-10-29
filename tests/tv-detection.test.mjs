@@ -3,18 +3,22 @@ import { createServer } from "node:http"
 import { readFile } from "node:fs/promises"
 import { after, before, test } from "node:test"
 import { createTvDetectionMiddleware, runTvDetector } from "../server/tv-detection.mjs"
+import { getFacilityRecommendations } from "../src/components/identification/facilityRecommendations.mjs"
 
 const jpeg = Buffer.from([255, 216, 255, 224, 0, 16])
 const photo = `data:image/jpeg;base64,${jpeg.toString("base64")}`
-const match = { className: "damaged_tv", score: 0.85, box: [0.1, 0.1, 0.9, 0.9] }
-const prediction = (detections = [match]) => ({
-  model: "damaged_tv", source: "local-yolo", threshold: 0.25,
-  image: { width: 100, height: 100 }, detections,
+const collectionLocations = JSON.parse(await readFile(new URL("../data/collection-locations.json", import.meta.url), "utf8"))
+const tvMatch = { className: "damaged_tv", score: 0.85, box: [0.1, 0.1, 0.9, 0.9] }
+const deviceMatch = { className: "television", score: 0.9, box: [0.1, 0.1, 0.9, 0.9] }
+const prediction = (detections = [deviceMatch], tvDetections = [tvMatch]) => ({
+  model: "device_detection", source: "local-yolo", threshold: 0.25,
+  image: { width: 100, height: 100 }, detections, tvDetections,
 })
-let server, baseUrl, received, handler, behavior
+let server, baseUrl, received, detectedCategory, handler, behavior
 before(async () => {
   handler = createTvDetectionMiddleware({ detect: async (bytes, options) => {
     received = bytes
+    detectedCategory = options.category
     return behavior ? behavior(bytes, options) : prediction()
   } })
   server = createServer((req, res) => handler(req, res, () => { res.writeHead(404); res.end() }))
@@ -22,33 +26,61 @@ before(async () => {
   baseUrl = `http://127.0.0.1:${server.address().port}`
 })
 after(async () => { await new Promise((resolve) => server.close(resolve)) })
-const request = (image = photo, extra = {}) => fetch(`${baseUrl}/api/tv-detection`, {
-  method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ image }), ...extra,
+const request = (image = photo, extra = {}, category = "TV") => fetch(`${baseUrl}/api/tv-detection`, {
+  method: "POST", headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ image, category }), ...extra,
 })
 
-test("TV photo API returns local detections, dataset context, and limits", async () => {
+test("TV photo API returns both model predictions, dataset context, and limits", async () => {
   const response = await request()
   assert.equal(response.status, 200)
   assert.deepEqual(received, jpeg)
+  assert.equal(detectedCategory, "TV")
   const body = await response.json()
   assert.equal(body.source, "local-yolo")
-  assert.deepEqual(body.detections, [match])
+  assert.equal(body.model, "device_detection")
+  assert.deepEqual(body.detections, [deviceMatch])
+  assert.deepEqual(body.tvDetections, [tvMatch])
   assert.equal(body.dataset.trainingImages, 160)
   assert.equal(body.dataset.validationImages, 40)
   assert.equal(body.dataset.independentValidation, false)
-  assert.match(body.warning, /whole TV, not individual cracks/)
-  assert.match(body.warning, /not damage probabilities/)
+  assert.match(body.warning, /not proof of item identity/)
+  assert.match(body.tvWarning, /whole TV, not individual cracks/)
+  assert.match(body.tvWarning, /not damage probabilities/)
   assert.equal(response.headers.get("cache-control"), "no-store")
 })
 
+test("phone and laptop analysis uses the device model without running TV-specific inference", async () => {
+  behavior = async (_bytes, options) => {
+    assert.equal(options.category, "Mobile Phone")
+    return prediction([{ className: "cell phone", score: 0.8, box: [0.2, 0.2, 0.6, 0.7] }], [])
+  }
+  try {
+    const response = await request(photo, {}, "Mobile Phone")
+    assert.equal(response.status, 200)
+    const body = await response.json()
+    assert.deepEqual(body.detections.map(({ className }) => className), ["cell phone"])
+    assert.deepEqual(body.tvDetections, [])
+    assert.equal("tvWarning" in body, false)
+    assert.equal("dataset" in body, false)
+  } finally { behavior = null }
+})
+
 test("zero detections do not become a healthy-TV classification", async () => {
-  behavior = async () => prediction([])
+  behavior = async () => prediction([], [])
   try {
     const body = await (await request()).json()
     assert.deepEqual(body.detections, [])
-    assert.match(body.warning, /does not establish.*undamaged or safe/)
+    assert.deepEqual(body.tvDetections, [])
+    assert.match(body.tvWarning, /does not establish.*undamaged or safe/)
     assert.equal("condition" in body, false)
   } finally { behavior = null }
+})
+
+test("rejects unsupported item categories", async () => {
+  const response = await request(photo, {}, "tablet")
+  assert.equal(response.status, 400)
+  assert.match((await response.json()).error, /TV, Mobile Phone, or Laptop/)
 })
 
 test("wrong methods and unrelated routes are handled correctly", async () => {
@@ -112,6 +144,16 @@ test("missing model returns an actionable setup error", async () => {
   }
 })
 
+test("missing device model returns an actionable setup error", async () => {
+  const original = process.env.DEVICE_DETECTOR_WEIGHTS
+  process.env.DEVICE_DETECTOR_WEIGHTS = "missing-device-model-for-test.pt"
+  try { await assert.rejects(runTvDetector(jpeg), /trained device detection model is missing/) }
+  finally {
+    if (original === undefined) delete process.env.DEVICE_DETECTOR_WEIGHTS
+    else process.env.DEVICE_DETECTOR_WEIGHTS = original
+  }
+})
+
 test("copied dataset keeps the 160/40 split and 200 manifest entries", async () => {
   const { readdir } = await import("node:fs/promises")
   for (const [split, count] of [["train", 160], ["val", 40]]) {
@@ -123,4 +165,31 @@ test("copied dataset keeps the 160/40 split and 200 manifest entries", async () 
   }
   const manifest = await readFile("ml/tv_training/split_manifest.csv", "utf8")
   assert.equal(manifest.trim().split(/\r?\n/).length - 1, 200)
+})
+
+test("facility recommendations match the selected device and prioritize the requested municipality", () => {
+  const laptopOptions = getFacilityRecommendations(collectionLocations, "Laptop", "Quezon City")
+  assert.ok(laptopOptions.length > 0)
+  assert.ok(laptopOptions.every((facility) => facility.isLocal))
+  assert.ok(laptopOptions.every((facility) => /laptop/i.test(facility.acceptanceLabel)))
+  assert.ok(laptopOptions.some((facility) => facility.name === "SM North EDSA"))
+
+  const tvOptions = getFacilityRecommendations(collectionLocations, "TV", "Caloocan")
+  assert.ok(tvOptions.some((facility) => facility.name === "Bagong Silang TSD Facility"))
+  assert.ok(tvOptions.every((facility) => facility.isLocal))
+})
+
+test("when no local match exists, facility recommendations show matching options elsewhere", () => {
+  const options = getFacilityRecommendations(collectionLocations, "Mobile Phone", "Navotas")
+  assert.ok(options.length > 0)
+  assert.ok(options.every((facility) => !facility.isLocal))
+  assert.ok(options.some((facility) => facility.name === "SM North EDSA"))
+})
+
+test("potential device acceptance is labeled for confirmation and unsupported items do not match", () => {
+  const options = getFacilityRecommendations(collectionLocations, "TV", "Quezon City")
+  const scheduledTv = options.find((facility) => facility.name === "UP Diliman Electrical and Electronics Engineering Institute")
+  assert.ok(scheduledTv)
+  assert.match(scheduledTv.acceptanceLabel, /confirm/i)
+  assert.deepEqual(getFacilityRecommendations(collectionLocations, "Tablet", "Quezon City"), [])
 })
