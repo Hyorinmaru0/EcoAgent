@@ -1,58 +1,49 @@
-# EcoCycle AI — Local Figma Make Front-End Starter
+# EcoAgent
 
-This folder contains the source files retrieved from the Figma Make **Environmental Technology Dashboard** project (EcoCycle AI), adapted for running as a regular standalone React + TypeScript + Vite website.
+EcoAgent is a React, TypeScript, and Vite prototype for e-waste handling guidance, educational content, and a collection-facility directory.
 
-### Run on Windows (VS Code terminal)
+The current item-guidance pilot supports only TVs, mobile phones, and laptops. Other device categories are not implemented for item-specific classification or handling guidance.
+
+## Run locally
 
 ```powershell
 npm install
 npm run dev
 ```
 
-Open the local address shown by Vite (usually **http://localhost:5173/**).
+Open the local address printed by Vite. EcoAgent Ask Bot's API is available from the same server at `POST /api/chat`; send JSON in the form `{"message":"How should I handle an old laptop?"}`. Optional recent context can be sent as `history`, an array of up to eight `{ "role": "user" | "assistant", "content": "..." }` messages. `GET /api/health` checks API availability. The Vite preview server also exposes these endpoints.
 
-For a production build:
+The chatbot uses the `@google/genai` SDK when `GEMINI_API_KEY` is configured in the root `.env` or `.env.local` file. The key is read by the Vite server and is never sent to browser code. `GEMINI_MODEL` is optional and defaults to `gemini-3.5-flash-lite`, matching the model used by `test-gemini.mjs`; use a model enabled for your Google AI Studio project. Restart Vite after changing environment settings. Without a key, the local EcoAgent guidance remains available. When Gemini is unavailable, quota-limited, or rejects the configured key, Ask Bot labels its response as local guidance instead of presenting it as a Gemini answer.
+
+Gemini receives recent conversation context and project-provided collection-location data. Location entries include the supplied device-acceptance notes, addresses, and operating schedules where available. Those details have not been independently verified and do not establish current operation, fees, availability, accreditation, or recycling outcomes. Confirm acceptance, schedules, operation, and public access with the listed operator before traveling. The assistant does not store chat messages server-side. Item registration, collection requests, and private status lookups are not connected to authorized backend operations, so it does not claim to complete them.
+
+The directory page and chatbot use the same Metro Manila collection-options data in `data/collection-locations.json`. It lists TVs, mobile phones, and laptops where supplied, while flagging entries that require confirmation about local arrangements, specific devices, household access, or schedules. No record establishes accreditation. Other facility cards used elsewhere in the prototype remain illustrative demo recommendations.
+
+## Damaged-TV dataset and photo analysis
+
+The `ml/tv_training/` folder includes the 200-image YOLO dataset (160 train,
+40 validation), labels, training scripts, manifest, and the trained damaged-TV
+weights. Select **Identify E-Waste → TV**, upload a photo, and select
+**Analyze E-Waste** to run the local practice detector. See
+[`ml/tv_training/INTEGRATION.md`](ml/tv_training/INTEGRATION.md) for setup,
+tests, and model limitations. Images remain local; the TV detector does not use
+the Gemini API. These are same-recording practice data, not independent evidence
+of damaged-TV recognition accuracy.
+
+## Checks
+
+Login and registration remain frontend simulations with validation, password
+visibility controls, remembered email, and guest access. Passwords are not saved.
+The reusable authentication components are in `src/components/auth/`.
 
 ```powershell
+npm run typecheck
+npm run test:auth
+npm run test:ecobot
+npm run test:tv
 npm run build
 ```
 
-## Notes
-- `src/App.tsx` and `src/index.css` are the Figma Make source and styling as retrieved. This starter is **not a complete official ZIP export** and doesn't include Figma-only configuration files.
-- The original `vite.config.ts` referenced Figma-private configuration/plugins. It was replaced with a standard Vite config so the site runs outside Figma Make; the HTML was updated for standalone use.
-- The existing front end uses demo item and facility data. **Do not treat claims of accreditation or facility details as verified.**
-- The project includes pages and prototype interactions, but does not implement a production authentication service, database, or trained AI agent.
-- The PDF research documents are not bundled here. Place them in `docs/` if you want Codex to reference them.
+## Prototype limitations
 
-## Module 1: Login and Registration
-
-Open **Login / Register** in the header, or visit `http://localhost:5173/#login`.
-The reusable authentication components live in `src/components/auth/`, with scoped
-styles that extend the existing Figma Make layout. Other modules retain their
-existing prototype behavior. The Laboratory Activity 5.1 PDF is not bundled, so
-Figures 1 and 2 could not be visually cross-checked.
-
-- Demo login accepts any valid email and a password of at least 8 characters with
-  a letter and a number. For example, `raven@example.com` / `EcoCycle123`.
-- Registration requires a full name, email, password, matching confirmation,
-  user type, and acceptance of the displayed demo Terms and Conditions.
-- Login, registration, and **Continue as Guest** navigate to the Dashboard.
-- A registered profile is kept in React state for the current page session. Logging
-  in again with that email restores its name and user type until the page reloads.
-- **Remember Me** saves only the email address in localStorage. Unchecking it and
-  logging in removes the remembered email. Passwords never leave form state and
-  are cleared when the form unmounts. No authentication token is created.
-
-Validation commands (the authentication tests use Node.js 24):
-
-```powershell
-npm.cmd run typecheck
-npm.cmd run test:auth
-npm.cmd run build
-```
-
-For a manual check, submit blank forms, try an invalid email, weak and mismatched
-passwords, and unaccepted terms; then submit valid details and verify the Dashboard
-greeting. Test both password visibility buttons, remembered-email behavior after
-a reload, and guest access. Check the stacked layout and controls on mobile as
-well as the two-column desktop layout.
+The app does not yet use a hosted centralized database or production accreditation registry. Its collection records contain project-provided Metro Manila location names, status notes, acceptance information, and some operating schedules, not verified accepted items, current addresses, schedules, fees, accreditation, availability, or recycling outcomes. Verify real-world facility details and item-specific safety requirements with qualified local sources.

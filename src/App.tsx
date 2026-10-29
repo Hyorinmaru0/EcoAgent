@@ -1,10 +1,81 @@
 import { useEffect, useRef, useState, type ReactNode } from "react"
 import { AuthPage } from "./components/auth/AuthPage"
 import type { DemoProfile } from "./components/auth/authValidation"
+import collectionLocations from "../data/collection-locations.json"
+import { TvDetectionPanel } from "./components/identification/TvDetectionPanel"
+import { useTvDetection, validateDevicePhoto } from "./components/identification/useTvDetection"
 
 type Page = "home" | "login" | "dashboard" | "identify" | "recommendations" | "facilities" | "facility" | "learn" | "flow" | "profile" | "items"
 
-type IconName = "recycle" | "arrow" | "leaf" | "pin" | "shield" | "robot" | "upload" | "check" | "clock" | "search" | "grid" | "box" | "book" | "user" | "close" | "send" | "sparkles" | "phone" | "laptop" | "battery" | "menu" | "plus" | "heart"
+type IconName = "recycle" | "arrow" | "leaf" | "pin" | "shield" | "robot" | "upload" | "check" | "clock" | "search" | "grid" | "box" | "book" | "user" | "close" | "send" | "sparkles" | "phone" | "laptop" | "battery" | "tv" | "menu" | "plus" | "heart"
+type ChatMessage = { role: "bot" | "user" | "error"; text: string }
+
+function renderChatInline(text: string, keyPrefix: string): ReactNode[] {
+  const segments = text.split(/(\*\*[^*]+\*\*|__[^_]+__|\*[^*\n]+\*|_[^_\n]+_)/g)
+
+  return segments.map((segment, index) => {
+    const isBold =
+      (segment.startsWith("**") && segment.endsWith("**")) ||
+      (segment.startsWith("__") && segment.endsWith("__"))
+    const isEmphasis =
+      isBold ||
+      (segment.startsWith("*") && segment.endsWith("*")) ||
+      (segment.startsWith("_") && segment.endsWith("_"))
+
+    if (!isEmphasis) return segment
+
+    const markerLength = isBold ? 2 : 1
+    return (
+      <strong key={`${keyPrefix}-${index}`}>
+        {segment.slice(markerLength, -markerLength)}
+      </strong>
+    )
+  })
+}
+
+function renderChatResponse(text: string): ReactNode[] {
+  const lines = text.split(/\r?\n/)
+  const content: ReactNode[] = []
+
+  for (let index = 0; index < lines.length; ) {
+    const line = lines[index]
+    const listMatch = line.match(/^\s*(?:([-*+])|(\d+)[.)])\s+(.+)$/)
+
+    if (listMatch) {
+      const listItems: ReactNode[] = []
+      const ordered = Boolean(listMatch[2])
+
+      while (index < lines.length) {
+        const match = lines[index].match(/^\s*(?:([-*+])|(\d+)[.)])\s+(.+)$/)
+        if (!match || Boolean(match[2]) !== ordered) break
+        listItems.push(
+          <li key={`item-${index}`}>
+            {renderChatInline(match[3], `item-${index}`)}
+          </li>,
+        )
+        index += 1
+      }
+
+      const List = ordered ? "ol" : "ul"
+      content.push(<List key={`list-${index}`}>{listItems}</List>)
+      continue
+    }
+
+    const headingMatch = line.match(/^\s{0,3}#{1,6}\s+(.+)$/)
+    content.push(
+      <div className="chat-text-line" key={`line-${index}`}>
+        {headingMatch ? (
+          <strong>{renderChatInline(headingMatch[1], `heading-${index}`)}</strong>
+        ) : (
+          renderChatInline(line, `line-${index}`)
+        )}
+      </div>,
+    )
+    index += 1
+  }
+
+  return content
+}
 
 function Icon({
   name,
@@ -15,6 +86,19 @@ function Icon({
   size?: number
   className?: string
 }) {
+  if (name === "recycle") {
+    return (
+      <img
+        src="/recycle-mark.png"
+        width={size}
+        height={size}
+        className={`recycle-mark ${className}`}
+        alt=""
+        aria-hidden="true"
+      />
+    )
+  }
+
   const paths: Record<IconName, ReactNode> = {
     recycle: (
       <>
@@ -124,6 +208,12 @@ function Icon({
         <path d="M22 10v4m-14-2h7m-4-3v6" />
       </>
     ),
+    tv: (
+      <>
+        <rect x="3" y="5" width="18" height="13" rx="2" />
+        <path d="m8 22 4-4 4 4M8 2l4 3 4-3" />
+      </>
+    ),
     menu: <path d="M3 6h18M3 12h18M3 18h18" />,
     plus: <path d="M12 4v16M4 12h16" />,
     heart: (
@@ -209,33 +299,33 @@ const facilities: Facility[] = [
   {
     name: "GreenTech Recycling Center",
     location: "Sample facility address, Quezon City",
-    items: ["Laptops", "Desktop computers", "Mobile phones", "Chargers"],
+    items: ["Laptops", "Mobile phones", "TVs"],
     days: "Monday–Friday",
     hours: "9:00 AM–5:00 PM",
     description:
-      "An illustrative accredited electronics facility serving common computer and mobile device categories.",
+      "An illustrative facility example listing laptop, mobile phone, and TV categories.",
     info: "Please review the facility's accepted-item requirements and operating hours before visiting. Contact the facility directly to verify any information that may have changed.",
     icon: "leaf",
   },
   {
     name: "Eco Recovery Hub",
     location: "Sample facility address, Marikina City",
-    items: ["Mobile phones", "Batteries", "Chargers", "Small electronics"],
+    items: ["Mobile phones", "TVs"],
     days: "Monday–Saturday",
     hours: "9:00 AM–6:00 PM",
     description:
-      "A sample facility focused on small electronics and components that require careful handling.",
-    info: "Ask the facility about damaged or swollen batteries before visiting and follow its published handling requirements.",
+      "A sample facility focused on mobile phones and TVs.",
+    info: "Confirm accepted device condition and handling requirements with the facility before visiting.",
     icon: "recycle",
   },
   {
     name: "Circular Electronics Center",
     location: "Sample facility address, Pasig City",
-    items: ["Laptops", "Desktop computers", "Computer parts", "Mobile phones"],
+    items: ["Laptops", "Mobile phones", "TVs"],
     days: "Tuesday–Saturday",
     hours: "8:30 AM–4:30 PM",
     description:
-      "An illustrative electronics resource center accepting a broad range of computer equipment.",
+      "An illustrative electronics resource center listing laptops, mobile phones, and TVs.",
     info: "Erase personal information from devices where possible and verify current acceptance requirements directly with the facility.",
     icon: "box",
   },
@@ -248,35 +338,35 @@ const lessons = [
       "Understand the devices and components that become electronic waste.",
     icon: "laptop" as IconName,
     color: "green",
-    text: "E-waste includes discarded phones, computers, chargers, batteries, appliances, and other electronic equipment. These products can contain reusable materials as well as components that require careful handling. Keep electronics separate from ordinary household waste and consult appropriate disposal guidance.",
+    text: "This EcoAgent pilot focuses on discarded TVs, mobile phones, and laptops. These devices can contain reusable materials as well as components that require careful handling. Keep them separate from ordinary household waste and consult appropriate disposal guidance.",
   },
   {
     title: "Why Proper Disposal Matters",
     subtitle: "Protect people, resources, and the environment.",
     icon: "leaf" as IconName,
     color: "green",
-    text: "Responsible disposal helps keep hazardous substances out of soil and waterways while allowing useful metals, glass, and plastics to be recovered. Accredited facilities can explain their accepted-item requirements and handling practices.",
+    text: "Responsible disposal helps keep hazardous substances out of soil and waterways while allowing useful metals, glass, and plastics to be recovered. Contact a collection facility to confirm accepted items and handling practices.",
   },
   {
     title: "How to Handle Electronic Waste",
     subtitle: "Simple precautions for safer handling.",
     icon: "shield" as IconName,
     color: "blue",
-    text: "Handle devices carefully, keep them dry, and avoid opening damaged batteries or electronic components. Back up and erase personal data when it is safe to do so. Consult an accredited facility for item-specific requirements.",
+    text: "Handle TVs, mobile phones, and laptops carefully, keep them dry, and do not dismantle them. Back up and erase personal data on phones and laptops when safe. Confirm item-specific requirements with a collection facility before visiting.",
   },
   {
     title: "Reuse and Recycling",
     subtitle: "Extend product life before choosing responsible recycling.",
     icon: "recycle" as IconName,
     color: "green",
-    text: "Repair, donation, and reuse can extend the useful life of working electronics. When reuse is no longer suitable, review accredited facilities that publish acceptance information for your item category.",
+    text: "Repair, donation, and reuse can extend the useful life of working electronics. When reuse is no longer suitable, check whether a collection option accepts your item category.",
   },
   {
     title: "Hazardous Electronic Components",
-    subtitle: "Recognize batteries and parts needing extra care.",
+    subtitle: "Learn why supported devices need careful handling.",
     icon: "battery" as IconName,
     color: "orange",
-    text: "Some batteries, screens, circuit boards, and damaged components may contain hazardous substances. Do not crush, burn, puncture, or dismantle them. Seek appropriate safety guidance and verify requirements with an accredited facility.",
+    text: "TVs, mobile phones, and laptops contain electronic components and may include batteries or screens that need careful handling. Do not crush, burn, puncture, or dismantle devices. Verify item-specific requirements with a collection facility.",
   },
 ]
 
@@ -303,10 +393,11 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [chatOpen, setChatOpen] = useState(false)
   const [chatInput, setChatInput] = useState("")
-  const [messages, setMessages] = useState([
+  const [isSending, setIsSending] = useState(false)
+  const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "bot",
-      text: "Hi! I'm EcoBot. I can help identify e-waste, explain safe handling, and find facilities with published information for your item.",
+      text: "Hi! I'm EcoAgent Ask Bot. I can help identify e-waste, explain safe handling, discuss repair and reuse, and look up the facility information available in this prototype.",
     },
   ])
   const [demoProfile, setDemoProfile] = useState<DemoProfile | null>(null)
@@ -320,19 +411,19 @@ export default function App() {
   const [analyzed, setAnalyzed] = useState(false)
   const [photo, setPhoto] = useState<string | null>(null)
   const [photoName, setPhotoName] = useState("")
-  const [selectedFacility, setSelectedFacility] = useState<Facility>(
-    facilities[0],
-  )
-  const [returnPage, setReturnPage] = useState<Page>("facilities")
+  const [photoFile, setPhotoFile] = useState<File | null>(null)
+  const tvDetection = useTvDetection(photoFile, category)
+  const [selectedFacility] = useState<Facility>(facilities[0])
+  const [returnPage] = useState<Page>("facilities")
   const [saved, setSaved] = useState<string[]>([facilities[1].name])
   const [search, setSearch] = useState("")
   const [filter, setFilter] = useState("All categories")
   const [locationFilter, setLocationFilter] = useState("All locations")
-  const [daysFilter, setDaysFilter] = useState("Any operating day")
   const [article, setArticle] = useState<number | null>(null)
   const [notice, setNotice] = useState("")
   const upload = useRef<HTMLInputElement>(null)
   const chatEnd = useRef<HTMLDivElement>(null)
+  const chatInputRef = useRef<HTMLInputElement>(null)
 
   const go = (next: Page) => {
     location.hash = next
@@ -356,11 +447,20 @@ export default function App() {
     return () => clearTimeout(timer)
   }, [notice])
 
-  useEffect(
-    () =>
-      chatEnd.current?.scrollIntoView({ behavior: "smooth", block: "nearest" }),
-    [messages],
-  )
+  useEffect(() => {
+    chatEnd.current?.scrollIntoView({ behavior: "smooth", block: "nearest" })
+  }, [messages])
+  useEffect(() => {
+    if (chatOpen) chatInputRef.current?.focus()
+  }, [chatOpen])
+  useEffect(() => {
+    if (!chatOpen) return
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setChatOpen(false)
+    }
+    window.addEventListener("keydown", closeOnEscape)
+    return () => window.removeEventListener("keydown", closeOnEscape)
+  }, [chatOpen])
   useEffect(
     () => () => {
       if (photo) URL.revokeObjectURL(photo)
@@ -368,15 +468,19 @@ export default function App() {
     [photo],
   )
 
-  const normalizedCategory =
-    category === "Laptop" || category === "Computer Parts"
-      ? "Computer Equipment"
-      : category
-  const openFacility = (facility: Facility, from: Page) => {
-    setSelectedFacility(facility)
-    setReturnPage(from)
-    go("facility")
-  }
+  const normalizedCategory = category
+  const itemHazardNote =
+    "Exact hazard classification depends on the device model, components, and condition; this prototype does not verify a formal classification."
+  const itemHandlingGuidance =
+    category === "TV"
+      ? "Keep the TV intact, do not dismantle it, and protect the screen when moving it. Confirm a collection facility accepts TVs before visiting."
+      : category === "Mobile Phone"
+        ? "Keep the phone intact and separate from household rubbish. Back up and erase personal data when safe, and do not open or puncture the battery."
+        : "Keep the laptop intact and separate from household rubbish. Back up and erase personal data when safe, and check a collection facility's requirements before visiting."
+  const normalizedSearch = search
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLowerCase()
   const toggleSaved = (facility: Facility) => {
     const isSaved = saved.includes(facility.name)
     setSaved((current) =>
@@ -390,26 +494,57 @@ export default function App() {
         : "Facility saved to your dashboard.",
     )
   }
-  const sendMessage = (text = chatInput) => {
-    if (!text.trim()) return
-    const lower = text.toLowerCase()
-    let reply =
-      "I can help you identify an e-waste category, understand handling guidance, or review published facility information. Tell me about your electronic item."
-    if (/laptop|computer|facility|recommend|where|accept/.test(lower))
-      reply =
-        "Your laptop belongs to the computer equipment category. Based on the sample facility information, GreenTech Recycling Center accepts laptops. You can view its location, accepted items, and operating hours on the facility details page. Please verify details directly with the facility."
-    else if (/battery|hazard|safe|broken|damaged/.test(lower))
-      reply =
-        "Damaged batteries and electronic components may require special handling. Keep them dry, do not open or puncture them, and consult appropriate safety guidance and an accredited facility before transport."
-    else if (/phone|mobile/.test(lower))
-      reply =
-        "A mobile phone is electronic waste that may contain a battery and reusable materials. Back up and erase personal data when safe, then review facilities that publish mobile phone acceptance information."
-    setMessages((current) => [
-      ...current,
-      { role: "user", text },
-      { role: "bot", text: reply },
-    ])
+  const sendMessage = async (text = chatInput) => {
+    const question = text.trim()
+    if (!question || isSending) return
+    setMessages((current) => [...current, { role: "user", text: question }])
     setChatInput("")
+    setIsSending(true)
+
+    try {
+      const history = messages
+        .filter((message) => message.role !== "error")
+        .slice(-8)
+        .map((message) => ({
+          role: message.role === "user" ? "user" : "assistant",
+          content: message.text.slice(-500),
+        }))
+      const apiResponse = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: question, history }),
+      })
+      const result: { answer?: string; error?: string } | null =
+        await apiResponse.json().catch(() => null)
+      if (!apiResponse.ok) {
+        throw new Error(
+          result?.error ||
+            `The assistant service returned an error (HTTP ${apiResponse.status}).`,
+        )
+      }
+      const answer = result?.answer
+      if (typeof answer !== "string" || !answer.trim()) {
+        throw new Error("The assistant service returned an empty or invalid answer.")
+      }
+      setMessages((current) => [...current, { role: "bot", text: answer }])
+    } catch (error) {
+      console.error("EcoAgent Ask Bot request failed:", error)
+      const errorText =
+        error instanceof TypeError
+          ? "Couldn't connect to the assistant service. Check your connection and try again."
+          : error instanceof Error
+            ? error.message
+            : "The assistant service could not answer. Please try again."
+      setMessages((current) => [
+        ...current,
+        {
+          role: "error",
+          text: errorText,
+        },
+      ])
+    } finally {
+      setIsSending(false)
+    }
   }
 
   const title = (eyebrow: string, heading: string, subtitle: string) => (
@@ -425,63 +560,11 @@ export default function App() {
   const sideLinks: { page: Page; label: string; icon: IconName }[] = [
     { page: "dashboard", label: "Dashboard", icon: "grid" },
     { page: "items", label: "Registered E-Waste", icon: "box" },
-    { page: "recommendations", label: "AI Recommendations", icon: "sparkles" },
+    { page: "recommendations", label: "Facility Guidance", icon: "sparkles" },
     { page: "facilities", label: "Facility Directory", icon: "pin" },
     { page: "learn", label: "Educational Resources", icon: "book" },
     { page: "profile", label: "Profile", icon: "user" },
   ]
-
-  const FacilityCard = ({
-    facility,
-    from = "facilities" as Page,
-  }: {
-    facility: Facility
-    from?: Page
-  }) => (
-    <article className="facility-card" key={facility.name}>
-      <div className="facility-card-top">
-        <span className="feature-icon">
-          <Icon name={facility.icon} size={25} />
-        </span>
-        <Badge>
-          <Icon name="shield" size={12} /> Accredited
-        </Badge>
-      </div>
-      <h3>{facility.name}</h3>
-      <p className="icon-line">
-        <Icon name="pin" size={16} />
-        {facility.location}
-      </p>
-      <p className="facility-description">{facility.description}</p>
-      <div className="tags">
-        {facility.items.map((item) => (
-          <span key={item}>{item}</span>
-        ))}
-      </div>
-      <div className="facility-info">
-        <span>
-          <Icon name="clock" size={16} />
-          {facility.days}
-        </span>
-        <span>{facility.hours}</span>
-      </div>
-      <div className="card-actions">
-        <Button
-          variant="secondary"
-          onClick={() => openFacility(facility, from)}
-        >
-          View Details
-        </Button>
-        <Button variant="text" onClick={() => toggleSaved(facility)}>
-          <Icon
-            name={saved.includes(facility.name) ? "check" : "heart"}
-            size={17}
-          />
-          {saved.includes(facility.name) ? "Saved" : "Save Facility"}
-        </Button>
-      </div>
-    </article>
-  )
 
   return (
     <div className="app">
@@ -490,12 +573,14 @@ export default function App() {
           <button
             className="logo"
             onClick={() => go("home")}
-            aria-label="EcoCycle AI home"
+            aria-label="EcoAgent home"
           >
-            <span className="logo-symbol">
-              <Icon name="recycle" size={24} />
-            </span>
-            EcoCycle<span className="logo-ai">AI</span>
+            <img className="logo-mark" src="/ecoagent-logo-mark.png" alt="" />
+            <img
+              className="logo-wordmark"
+              src="/ecoagent-logo-wordmark.png"
+              alt=""
+            />
           </button>
           <nav
             className={menuOpen ? "main-nav open" : "main-nav"}
@@ -504,7 +589,7 @@ export default function App() {
             {([
               { page: "home", label: "Home" },
               { page: "identify", label: "Identify E-Waste" },
-              { page: "recommendations", label: "AI Recommendations" },
+              { page: "recommendations", label: "Facility Guidance" },
               { page: "facilities", label: "Facility Directory" },
               { page: "learn", label: "Learn" },
             ] as { page: Page; label: string }[]).map((link) => (
@@ -552,8 +637,8 @@ export default function App() {
                 </h1>
                 <p>
                   Identify old electronics, learn how to handle them
-                  responsibly, and use EcoBot AI to explore suitable accredited
-                  facilities.
+                  responsibly, and use EcoAgent Ask Bot to explore the sample
+                  facility directory.
                 </p>
                 <div className="hero-actions">
                   <Button onClick={() => go("identify")}>
@@ -567,11 +652,11 @@ export default function App() {
                 <div className="hero-trust">
                   <span>
                     <Icon name="shield" size={17} />
-                    Accredited facility information
+                    Facility verification notes
                   </span>
                   <span>
                     <Icon name="sparkles" size={17} />
-                    AI-powered guidance
+                    Project-based guidance
                   </span>
                   <span>
                     <Icon name="book" size={17} />
@@ -588,7 +673,7 @@ export default function App() {
                   <Icon name="laptop" size={48} />
                 </span>
                 <span>
-                  <Icon name="battery" size={38} />
+                  <Icon name="tv" size={38} />
                 </span>
               </div>
             </div>
@@ -626,7 +711,7 @@ export default function App() {
                 <h2>A simple, transparent path.</h2>
               </div>
               <p>
-                EcoBot helps you understand the item first,
+                EcoAgent Ask Bot helps you understand the item first,
                 <br />
                 then explains suitable facility information.
               </p>
@@ -659,13 +744,13 @@ export default function App() {
                   </span>
                   <span className="step-number">02</span>
                 </div>
-                <h3>Get an AI recommendation</h3>
+                <h3>Check collection options</h3>
                 <p>
-                  See how item, hazard, location, and facility rules shape the
-                  recommendation.
+                  Review project-listed locations and confirm acceptance rules
+                  and schedules directly.
                 </p>
                 <span className="card-link">
-                  View recommendation
+                  View facility guidance
                   <Icon name="arrow" size={16} />
                 </span>
               </button>
@@ -695,16 +780,16 @@ export default function App() {
             </div>
             <div className="bot-banner-copy">
               <div className="banner-title">
-                <h2>Meet EcoBot, your e-waste guide.</h2>
-                <Badge tone="blue">AI ASSISTANT</Badge>
+                <h2>Meet EcoAgent Ask Bot, your e-waste guide.</h2>
+                <Badge tone="blue">E-WASTE ASSISTANT</Badge>
               </div>
               <p>
-                Ask about categories, hazard classifications, handling guidance,
-                accepted items, locations, or published operating hours.
+                Ask about TVs, mobile phones, laptops, handling guidance, or
+                the collection-location information available here.
               </p>
             </div>
             <Button onClick={() => setChatOpen(true)}>
-              Ask EcoBot
+              Ask EcoAgent
               <Icon name="sparkles" size={17} />
             </Button>
           </section>
@@ -742,10 +827,10 @@ export default function App() {
                 <Icon name="robot" size={26} />
                 <h4>Need guidance?</h4>
                 <p>
-                  EcoBot can explain items, hazards, and facility information.
+                  EcoAgent Ask Bot can explain items, safe handling, and the facility information available here.
                 </p>
                 <button onClick={() => setChatOpen(true)}>
-                  Ask EcoBot
+                  Ask EcoAgent
                   <Icon name="arrow" size={16} />
                 </button>
               </div>
@@ -776,7 +861,7 @@ export default function App() {
                   setUserName("Guest")
                   setUserType("General User")
                   go("dashboard")
-                  setNotice("You are exploring EcoCycle AI as a guest.")
+                  setNotice("You are exploring EcoAgent as a guest.")
                 }}
               />
             )}
@@ -800,8 +885,8 @@ export default function App() {
                     {
                       icon: "sparkles" as IconName,
                       value: "3",
-                      label: "AI Recommendations",
-                      sub: "EcoBot facility suggestions",
+                      label: "Facility Guidance",
+                      sub: "Project-directory information",
                       page: "recommendations" as Page,
                     },
                     {
@@ -837,8 +922,8 @@ export default function App() {
                       <Icon name="robot" size={38} />
                     </span>
                     <div>
-                      <Badge tone="blue">ECOBOT AI ASSISTANT</Badge>
-                      <h2>Ask a question about your e-waste.</h2>
+                      <Badge tone="blue">ECOAGENT ASK BOT</Badge>
+                      <h2>Ask about a TV, mobile phone, or laptop.</h2>
                       <p>
                         Get clear explanations based on item categories and
                         available facility information.
@@ -848,22 +933,21 @@ export default function App() {
                   <div className="assistant-conversation">
                     <div className="conversation-row user-row">
                       <strong>User</strong>
-                      <p>Where can I dispose of my old laptop?</p>
+                      <p>Where can I recycle my old laptop?</p>
                     </div>
                     <div className="conversation-row bot-row">
-                      <strong>EcoBot AI</strong>
+                      <strong>EcoAgent Ask Bot</strong>
                       <p>
-                        Your old laptop belongs to the computer equipment
-                        category. I recommend GreenTech Recycling Center because
-                        its facility information indicates that it accepts
-                        laptops. You can view its location, accepted items, and
-                        operating hours to learn more.
+                        Your laptop is a supported device. What city or service
+                        area should I check? The project directory does not
+                        confirm which locations accept laptops or list current
+                        schedules.
                       </p>
                     </div>
                   </div>
                   <div className="assistant-actions">
                     <Button onClick={() => setChatOpen(true)}>
-                      Continue with EcoBot
+                      Continue with EcoAgent
                       <Icon name="sparkles" size={17} />
                     </Button>
                     <Button variant="secondary" onClick={() => go("identify")}>
@@ -883,7 +967,7 @@ export default function App() {
                 {title(
                   "A RESPONSIBLE FIRST STEP",
                   "Identify your electronic waste",
-                  "Search for an item or enter its details to receive category, hazard, and safe-handling guidance.",
+                  "Identify a TV, mobile phone, or laptop to review its general hazard note and handling guidance.",
                 )}
                 <div className="workflow-steps">
                   <span className="current">
@@ -906,9 +990,10 @@ export default function App() {
                   <section className="panel">
                     <h2>Tell us about your item</h2>
                     <form
-                      onSubmit={(event) => {
+                      onSubmit={async (event) => {
                         event.preventDefault()
-                        setAnalyzed(true)
+                        setAnalyzed(false)
+                        if (await tvDetection.analyze()) setAnalyzed(true)
                       }}
                     >
                       <Field label="Search Electronic Item">
@@ -920,7 +1005,7 @@ export default function App() {
                               setDevice(event.target.value)
                               setAnalyzed(false)
                             }}
-                            placeholder="Search for a laptop, phone, charger…"
+                            placeholder="Search for a TV, mobile phone, or laptop…"
                           />
                         </div>
                       </Field>
@@ -928,8 +1013,10 @@ export default function App() {
                         className="upload-zone"
                         onClick={() => upload.current?.click()}
                         onKeyDown={(event) => {
-                          if (event.key === "Enter" || event.key === " ")
+                          if (event.key === "Enter" || event.key === " ") {
+                            event.preventDefault()
                             upload.current?.click()
+                          }
                         }}
                         role="button"
                         tabIndex={0}
@@ -937,13 +1024,21 @@ export default function App() {
                         <input
                           ref={upload}
                           type="file"
-                          accept="image/*"
+                          accept="image/jpeg,image/png,image/webp"
                           hidden
                           onChange={(event) => {
                             const file = event.target.files?.[0]
                             if (file) {
+                              const error = validateDevicePhoto(file)
+                              if (error) {
+                                setNotice(error)
+                                event.target.value = ""
+                                return
+                              }
+                              setPhotoFile(file)
                               setPhoto(URL.createObjectURL(file))
                               setPhotoName(file.name)
+                              setAnalyzed(false)
                             }
                           }}
                         />
@@ -962,7 +1057,7 @@ export default function App() {
                         <span>
                           {photo
                             ? "Select to replace image"
-                            : "JPG, PNG or WEBP"}
+                            : "JPG, PNG or WEBP · up to 5 MB"}
                         </span>
                       </div>
                       <Field label="Item Category">
@@ -973,12 +1068,9 @@ export default function App() {
                             setAnalyzed(false)
                           }}
                         >
-                          <option>Laptop</option>
+                          <option>TV</option>
                           <option>Mobile Phone</option>
-                          <option>Charger</option>
-                          <option>Battery</option>
-                          <option>Computer Parts</option>
-                          <option>Other Electronics</option>
+                          <option>Laptop</option>
                         </select>
                       </Field>
                       <Field label="Item Name">
@@ -1026,9 +1118,9 @@ export default function App() {
                           placeholder="City or area"
                         />
                       </Field>
-                      <Button type="submit" className="full-width">
+                      <Button type="submit" className="full-width" disabled={tvDetection.isAnalyzing}>
                         <Icon name="sparkles" size={18} />
-                        Analyze E-Waste
+                        {tvDetection.isAnalyzing ? "Analyzing TV Photo…" : "Analyze E-Waste"}
                       </Button>
                     </form>
                   </section>
@@ -1039,10 +1131,14 @@ export default function App() {
                           <span className="feature-icon blue">
                             <Icon name="robot" size={27} />
                           </span>
-                          <h2>EcoBot AI Analysis</h2>
+                          <h2>EcoAgent Item Guidance</h2>
                         </div>
-                        <Badge tone="blue">AI GUIDE</Badge>
+                        <Badge tone="blue">PROJECT GUIDE</Badge>
                       </div>
+                      {category === "TV" && <TvDetectionPanel
+                        photo={photo} result={tvDetection.result}
+                        error={tvDetection.error} isAnalyzing={tvDetection.isAnalyzing}
+                      />}
                       {analyzed ? (
                         <>
                           <div className="analysis-ready">
@@ -1061,17 +1157,13 @@ export default function App() {
                             <div>
                               <dt>Hazard Classification</dt>
                               <dd>
-                                Potentially hazardous electronic waste,
-                                depending on its components and condition.
+                                {itemHazardNote}
                               </dd>
                             </div>
                             <div>
                               <dt>Handling Guidance</dt>
                               <dd>
-                                Handle the device carefully. Avoid opening
-                                damaged batteries or electronic components.
-                                Consult appropriate disposal guidance and an
-                                accredited facility.
+                                {itemHandlingGuidance}
                               </dd>
                             </div>
                             <div>
@@ -1100,25 +1192,25 @@ export default function App() {
                         </div>
                       )}
                       <p className="demo-note">
-                        Prototype guidance uses entered details, not image
-                        recognition. Consult appropriate safety guidance for
-                        damaged items.
+                        {category === "TV"
+                          ? "Upload a TV photo to try the local practice detector. General handling guidance uses your entered details; a photo cannot establish electrical safety."
+                          : "Guidance for phones and laptops uses entered details. Photo recognition currently supports only the TV practice model."}
                       </p>
                     </section>
                     <div className="safety-note">
                       <Icon name="robot" size={23} />
                       <div>
-                        <strong>EcoBot is available here.</strong>
+                        <strong>EcoAgent Ask Bot is available here.</strong>
                         <p>
-                          Ask about categories, hazards, handling, or accepted
-                          items.
+                          Ask about TVs, mobile phones, laptops, handling, or
+                          collection-location information.
                         </p>
                       </div>
                       <Button
                         variant="secondary"
                         onClick={() => setChatOpen(true)}
                       >
-                        Ask EcoBot
+                        Ask EcoAgent
                       </Button>
                     </div>
                   </div>
@@ -1129,20 +1221,21 @@ export default function App() {
             {page === "recommendations" && (
               <>
                 {title(
-                  "INTELLIGENCE WITH PURPOSE",
-                  "AI facility recommendation",
-                  "EcoBot connects your item information with published facility details and explains its reasoning.",
+                  "FACILITY GUIDANCE",
+                  "No verified recommendation available",
+                  "The project directory now includes device-acceptance notes, but they are project-provided and not independently verified.",
                 )}
                 <div className="explanation-card">
                   <span className="feature-icon blue">
                     <Icon name="robot" size={30} />
                   </span>
                   <div>
-                    <h3>EcoBot reviews the information that matters.</h3>
+                    <h3>What information is available?</h3>
                     <p>
-                      Identified item and category, hazard classification,
-                      facility acceptance rules, location, and published
-                      operating days and hours.
+                      The directory includes supplied acceptance notes and
+                      addresses where available. These do not verify current
+                      operation, public access, schedules, fees, or acceptance
+                      for your item's specific condition.
                     </p>
                     <div className="tags">
                       <span>{device}</span>
@@ -1150,7 +1243,7 @@ export default function App() {
                       <span>{itemLocation}</span>
                     </div>
                   </div>
-                  <Badge tone="blue">EXPLAINABLE AI</Badge>
+                  <Badge tone="blue">PROJECT DATA ONLY</Badge>
                 </div>
                 <section className="panel recommendation-feature">
                   <div className="recommendation-label">
@@ -1158,61 +1251,58 @@ export default function App() {
                       <Icon name="sparkles" size={27} />
                     </span>
                     <div>
-                      <span className="eyebrow">ECOBOT AI RECOMMENDATION</span>
-                      <h2>{facilities[0].name}</h2>
+                      <span className="eyebrow">ITEM AND LOCATION REVIEW</span>
+                      <h2>No suitable facility can be confirmed</h2>
                     </div>
                   </div>
                   <div className="recommendation-reason">
-                    <h3>Why this facility?</h3>
+                    <h3>Why not a recommendation?</h3>
                     <p>
-                      EcoBot selected this facility because the available
-                      facility information indicates that it accepts the
-                      identified e-waste category.
+                      The project directory's acceptance notes have not been
+                      independently verified, and condition-specific acceptance
+                      is not available for {normalizedCategory} in
+                      {` ${condition.toLowerCase()}`} condition near{" "}
+                      {itemLocation}. Contact the operator to confirm before
+                      traveling.
                     </p>
                   </div>
                   <dl className="analysis-list recommendation-details">
                     <div>
-                      <dt>Location</dt>
-                      <dd>{facilities[0].location}</dd>
+                      <dt>Item and condition</dt>
+                      <dd>{device} · {condition}</dd>
                     </div>
                     <div>
-                      <dt>Accepted E-Waste Items</dt>
-                      <dd>{facilities[0].items.join(", ")}</dd>
+                      <dt>Service area</dt>
+                      <dd>{itemLocation}</dd>
                     </div>
                     <div>
-                      <dt>Operating Days</dt>
-                      <dd>{facilities[0].days}</dd>
-                    </div>
-                    <div>
-                      <dt>Operating Hours</dt>
-                      <dd>{facilities[0].hours}</dd>
-                    </div>
-                    <div>
-                      <dt>Relevant Facility Information</dt>
-                      <dd>{facilities[0].description}</dd>
+                      <dt>Missing verified data</dt>
+                      <dd>
+                        Current operation, public access, schedules, and
+                        condition-based acceptance
+                      </dd>
                     </div>
                   </dl>
                   <div className="assistant-actions">
                     <Button
-                      onClick={() =>
-                        openFacility(facilities[0], "recommendations")
-                      }
+                      onClick={() => setChatOpen(true)}
                     >
-                      View Facility
-                      <Icon name="arrow" size={17} />
+                      Ask EcoAgent
+                      <Icon name="sparkles" size={17} />
                     </Button>
                     <Button
                       variant="secondary"
-                      onClick={() => setChatOpen(true)}
+                      onClick={() => go("facilities")}
                     >
-                      Ask EcoBot Why
+                      Review directory
                     </Button>
                   </div>
                 </section>
                 <p className="demo-note">
-                  This recommendation uses illustrative facility information. It
-                  does not represent real-time availability. Verify facility
-                  information directly before visiting.
+                  The app cannot make a verified facility recommendation until
+                  a trusted source provides current acceptance rules and
+                  schedules. Project-listed locations are not independently
+                  verified.
                 </p>
               </>
             )}
@@ -1220,9 +1310,9 @@ export default function App() {
             {page === "facilities" && (
               <>
                 {title(
-                  "ACCREDITED INFORMATION IN ONE PLACE",
+                  "COLLECTION OPTIONS IN ONE PLACE",
                   "Facility directory",
-                  "Search and filter sample collection and recycling facilities by location, accepted category, and operating days.",
+                  "Find collection options by city or municipality. Check each listing's status before you travel.",
                 )}
                 <div className="directory-filters">
                   <label className="search-box">
@@ -1240,59 +1330,115 @@ export default function App() {
                     onChange={(event) => setLocationFilter(event.target.value)}
                   >
                     <option>All locations</option>
-                    <option>Quezon City</option>
-                    <option>Marikina City</option>
-                    <option>Pasig City</option>
+                    {[...new Set([
+                      ...collectionLocations.map((entry) => entry.municipality),
+                    ])]
+                      .sort((a, b) => a.localeCompare(b))
+                      .map((municipality) => (
+                        <option key={municipality}>{municipality}</option>
+                      ))}
                   </select>
                   <select
-                    aria-label="Filter accepted category"
+                    aria-label="Filter collection locations by accepted device"
                     value={filter}
                     onChange={(event) => setFilter(event.target.value)}
                   >
                     <option>All categories</option>
+                    <option>TVs</option>
                     <option>Laptops</option>
                     <option>Mobile phones</option>
-                    <option>Batteries</option>
-                    <option>Chargers</option>
-                    <option>Computer parts</option>
-                  </select>
-                  <select
-                    aria-label="Filter operating days"
-                    value={daysFilter}
-                    onChange={(event) => setDaysFilter(event.target.value)}
-                  >
-                    <option>Any operating day</option>
-                    <option>Weekdays</option>
-                    <option>Saturday</option>
                   </select>
                 </div>
-                <div className="directory-label">
-                  <span>Review published facility information.</span>
-                  <span>
-                    <Icon name="shield" size={16} />
-                    Illustrative accredited facilities
-                  </span>
-                </div>
-                <div className="facility-grid">
-                  {facilities
-                    .filter(
-                      (facility) =>
-                        `${facility.name} ${facility.location}`
-                          .toLowerCase()
-                          .includes(search.toLowerCase()) &&
-                        (locationFilter === "All locations" ||
-                          facility.location.includes(locationFilter)) &&
-                        (filter === "All categories" ||
-                          facility.items.includes(filter)) &&
-                        (daysFilter === "Any operating day" ||
-                          (daysFilter === "Saturday"
-                            ? facility.days.includes("Saturday")
-                            : facility.days.includes("Monday"))),
-                    )
-                    .map((facility) => (
-                      <FacilityCard key={facility.name} facility={facility} />
-                    ))}
-                </div>
+                <section className="collection-options" aria-labelledby="collection-options-title">
+                  <div className="section-heading">
+                    <h2 id="collection-options-title">Collection locations</h2>
+                    <span className="muted">Metro Manila</span>
+                  </div>
+                  <p className="demo-note">
+                    Listings and status notes are based on information provided
+                    for this project and have not been independently verified.
+                    Confirm current operation, schedules, public access, and
+                    item acceptance before visiting.
+                  </p>
+                  <div className="collection-location-grid">
+                    {collectionLocations
+                      .filter(
+                        (entry) =>
+                          (locationFilter === "All locations" ||
+                            entry.municipality === locationFilter) &&
+                          (filter === "All categories" ||
+                            entry.locations.some((location) =>
+                              `${location.acceptedDevices} ${location.status}`
+                                .toLowerCase()
+                                .includes(
+                                  filter === "TVs"
+                                    ? "tv"
+                                    : filter === "Laptops"
+                                      ? "laptop"
+                                      : "phone",
+                                ),
+                            )) &&
+                          `${entry.municipality} ${entry.locations
+                            .map((location) => `${location.operator} ${location.name} ${location.status} ${location.acceptedDevices} ${location.address ?? ""} ${location.operatingHours?.map((schedule) => `${schedule.days} ${schedule.opens} ${schedule.closes}`).join(" ") ?? ""}`)
+                            .join(" ")}`
+                              .normalize("NFD")
+                              .replace(/\p{Diacritic}/gu, "")
+                              .toLowerCase()
+                              .includes(normalizedSearch),
+                      )
+                      .map((entry) => (
+                        <article
+                          className="collection-location-card"
+                          key={entry.municipality}
+                        >
+                          <div className="collection-location-heading">
+                            <span className="collection-location-pin">
+                              <Icon name="pin" size={17} />
+                            </span>
+                            <div>
+                              <h3>{entry.municipality}</h3>
+                              <small>
+                                {entry.locations.length} collection{" "}
+                                {entry.locations.length === 1 ? "point" : "points"}
+                              </small>
+                            </div>
+                          </div>
+                          <ul>
+                            {entry.locations.map((location) => (
+                              <li
+                                className="collection-location-item"
+                                key={`${location.operator}-${location.name}`}
+                              >
+                                <strong>{location.name}</strong>
+                                <span>{location.operator}</span>
+                                <small>Device acceptance: {location.acceptedDevices}</small>
+                                <small>{location.status}</small>
+                                {location.address && <small>Address: {location.address}</small>}
+                                {location.operatingHours?.map((schedule) => (
+                                  <small key={`${schedule.days}-${schedule.opens}-${schedule.closes}`}>
+                                    Hours: {schedule.days}, {schedule.opens}–{schedule.closes}
+                                  </small>
+                                ))}
+                                <a
+                                  className="collection-directions-link"
+                                  href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+                                    `${location.name}, ${entry.municipality}${location.address ? `, ${location.address}` : ""}, Metro Manila, Philippines`,
+                                  )}`}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  aria-label={`Get directions to ${location.name}, ${entry.municipality} (opens in a new tab)`}
+                                >
+                                  <Icon name="pin" size={15} />
+                                  Get directions
+                                  <Icon name="arrow" size={14} />
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        </article>
+                      ))}
+                  </div>
+                </section>
                 <div className="safety-note">
                   <Icon name="robot" size={25} />
                   <div>
@@ -1300,18 +1446,18 @@ export default function App() {
                       Not sure which facility information to review?
                     </strong>
                     <p>
-                      EcoBot can compare your item category with published
-                      accepted-item information.
+                      EcoAgent Ask Bot can show project-listed collection
+                      locations, but accepted-item details need confirmation.
                     </p>
                   </div>
                   <Button variant="secondary" onClick={() => setChatOpen(true)}>
-                    Ask EcoBot
+                    Ask EcoAgent
                   </Button>
                 </div>
                 <p className="demo-note">
-                  All facility names, addresses, descriptions, and hours shown
-                  here are illustrative and should be verified before being
-                  presented as real-world information.
+                  The facility cards below are illustrative examples. Community
+                  collection options above reflect project-provided listings;
+                  verify status, access, accepted items, and schedules directly.
                 </p>
               </>
             )}
@@ -1332,7 +1478,7 @@ export default function App() {
                       <div>
                         <Badge>
                           <Icon name="shield" size={13} />
-                          Accredited facility example
+                          Illustrative sample listing
                         </Badge>
                         <h2>{selectedFacility.name}</h2>
                         <p className="icon-line">
@@ -1397,14 +1543,14 @@ export default function App() {
                     <span className="bot-avatar">
                       <Icon name="robot" size={38} />
                     </span>
-                    <Badge tone="blue">ECOBOT AI</Badge>
+                    <Badge tone="blue">ECOAGENT ASK BOT</Badge>
                     <h2>Questions about this facility?</h2>
                     <p>
-                      Ask EcoBot to explain accepted items, the published
-                      location, or operating hours.
+                      Ask EcoAgent Ask Bot to explain listed locations and
+                      the details you should verify before visiting.
                     </p>
                     <Button onClick={() => setChatOpen(true)}>
-                      Ask EcoBot
+                      Ask EcoAgent
                       <Icon name="sparkles" size={17} />
                     </Button>
                   </aside>
@@ -1432,7 +1578,7 @@ export default function App() {
                       Better-informed choices.
                     </h2>
                     <p>
-                      EcoCycle AI provides information and guidance. It does not
+                      EcoAgent provides information and guidance. It does not
                       physically collect, transport, or recycle electronic
                       waste.
                     </p>
@@ -1492,12 +1638,12 @@ export default function App() {
                   <div>
                     <strong>Need a simpler explanation?</strong>
                     <p>
-                      EcoBot can explain e-waste terms and responsible handling
+                      EcoAgent Ask Bot can explain e-waste terms and responsible handling
                       guidance.
                     </p>
                   </div>
                   <Button variant="secondary" onClick={() => setChatOpen(true)}>
-                    Ask EcoBot
+                    Ask EcoAgent
                   </Button>
                 </div>
               </>
@@ -1507,8 +1653,8 @@ export default function App() {
               <>
                 {title(
                   "INTELLIGENCE WITH PURPOSE",
-                  "How EcoBot connects the dots",
-                  "A transparent view of the intelligent agent's information and facility recommendation process.",
+                  "How EcoAgent works",
+                  "A transparent view of the guidance available in this prototype and the limits of its facility data.",
                 )}
                 <div className="agent-flow">
                   {[
@@ -1520,26 +1666,26 @@ export default function App() {
                     ],
                     [
                       "02 · ANALYSIS",
-                      "EcoBot explains the item",
+                      "EcoAgent Ask Bot explains the item",
                       "Category, hazard classification, and safe handling guidance",
                       "robot" as IconName,
                     ],
                     [
                       "03 · FACILITY REVIEW",
-                      "Published information is compared",
-                      "Acceptance rules, location, operating days, and operating hours",
+                      "Project-listed locations are reviewed",
+                      "Location names and status notes; acceptance and schedules may be unavailable",
                       "search" as IconName,
                     ],
                     [
-                      "04 · RECOMMENDATION",
-                      "A suitable facility is explained",
-                      "A transparent reason based on available facility information",
+                      "04 · LIMITATIONS",
+                      "Missing information is made clear",
+                      "No facility is presented as a verified match without acceptance data",
                       "sparkles" as IconName,
                     ],
                     [
                       "05 · DETAILS",
-                      "User reviews facility information",
-                      "Accepted items, location, hours, and important guidance",
+                      "User verifies current details",
+                      "Acceptance, public access, address, and schedule with the operator",
                       "pin" as IconName,
                     ],
                   ].map(([step, heading, copy, icon], index) => (
@@ -1568,7 +1714,7 @@ export default function App() {
                 </div>
                 <div className="centered-action">
                   <Button onClick={() => go("identify")}>
-                    Try EcoBot Analysis
+                    Try EcoAgent Item Guidance
                     <Icon name="arrow" size={17} />
                   </Button>
                 </div>
@@ -1583,7 +1729,7 @@ export default function App() {
                   "Review electronic items you have identified or saved for future reference.",
                 )}
                 <div className="toolbar">
-                  <Badge>5 demo electronic items</Badge>
+                  <Badge>3 demo electronic items</Badge>
                   <Button onClick={() => go("identify")}>
                     <Icon name="plus" size={17} />
                     Identify an Item
@@ -1591,11 +1737,9 @@ export default function App() {
                 </div>
                 <div className="facility-grid">
                   {[
-                    ["Old Laptop", "Computer Equipment", "Broken", "laptop"],
+                    ["Old TV", "TV", "Broken", "tv"],
                     ["Personal Phone", "Mobile Phone", "Working", "phone"],
-                    ["Spare Charger", "Charger", "Working", "box"],
-                    ["Wireless Keyboard", "Computer Parts", "Damaged", "box"],
-                    ["Tablet Battery", "Battery", "Unknown", "battery"],
+                    ["Old Laptop", "Laptop", "Damaged", "laptop"],
                   ].map(([name, itemCategory, itemCondition, icon]) => (
                     <section className="facility-card" key={name}>
                       <div className="facility-card-top">
@@ -1612,11 +1756,7 @@ export default function App() {
                         variant="secondary"
                         onClick={() => {
                           setDevice(name)
-                          setCategory(
-                            itemCategory === "Computer Equipment"
-                              ? "Laptop"
-                              : itemCategory,
-                          )
+                          setCategory(itemCategory)
                           setCondition(itemCondition)
                           setAnalyzed(true)
                           go("identify")
@@ -1634,7 +1774,7 @@ export default function App() {
             {page === "profile" && (
               <>
                 {title(
-                  "YOUR ECOCYCLE ACCOUNT",
+                  "YOUR ECOAGENT ACCOUNT",
                   "Your profile",
                   "Keep the basic information that personalizes your facility recommendations.",
                 )}
@@ -1687,14 +1827,23 @@ export default function App() {
       <footer className="footer">
         <div className="footer-inner">
           <button className="footer-brand" onClick={() => go("home")}>
-            <Icon name="recycle" size={18} />
-            EcoCycle AI<span>Understand more. Dispose responsibly.</span>
+            <img
+              className="footer-logo-mark"
+              src="/ecoagent-logo-mark.png"
+              alt=""
+            />
+            <img
+              className="footer-logo-wordmark"
+              src="/ecoagent-logo-wordmark.png"
+              alt=""
+            />
+            <span>Understand more. Dispose responsibly.</span>
           </button>
           <div>
-            <button onClick={() => go("flow")}>How EcoBot Works</button>
+            <button onClick={() => go("flow")}>How EcoAgent Works</button>
             <button onClick={() => go("dashboard")}>My Dashboard</button>
             <button onClick={() => go("facilities")}>Facility Directory</button>
-            <span>© {new Date().getFullYear()} EcoCycle AI</span>
+            <span>© {new Date().getFullYear()} EcoAgent</span>
           </div>
         </div>
       </footer>
@@ -1702,49 +1851,91 @@ export default function App() {
       <button
         className={`chat-launcher ${chatOpen ? "is-open" : ""}`}
         onClick={() => setChatOpen(!chatOpen)}
-        aria-label={chatOpen ? "Close EcoBot chat" : "Ask EcoBot"}
+        aria-label={chatOpen ? "Close EcoAgent Ask Bot" : "Ask EcoAgent"}
       >
         <Icon name={chatOpen ? "close" : "robot"} size={23} />
-        {!chatOpen && <span>Ask EcoBot</span>}
+        {!chatOpen && <span>Ask EcoAgent</span>}
         {!chatOpen && <span className="chat-live" />}
       </button>
       {chatOpen && (
-        <section className="chat-panel" aria-label="EcoBot assistant">
+        <section
+          className="chat-panel"
+          aria-label="EcoAgent Ask Bot"
+          aria-labelledby="chat-title"
+        >
           <div className="chat-header">
             <span className="chat-bot-icon">
               <Icon name="robot" size={25} />
             </span>
             <div>
-              <strong>EcoBot AI Assistant</strong>
+              <strong id="chat-title">EcoAgent Ask Bot</strong>
               <small>
-                <span className="live-dot" />
-                Information and facility guide
+                <span className="live-dot" aria-hidden="true" />
+                Project e-waste guidance
               </small>
             </div>
-            <button onClick={() => setChatOpen(false)} aria-label="Close chat">
+            <button onClick={() => setChatOpen(false)} aria-label="Close EcoAgent Ask Bot">
               <Icon name="close" size={20} />
             </button>
           </div>
-          <div className="chat-messages">
+          <div
+            className="chat-messages"
+            role="log"
+            aria-live="polite"
+            aria-relevant="additions"
+            aria-label="EcoAgent Ask Bot conversation"
+          >
             {messages.map((message, index) => (
-              <div className={`chat-message ${message.role}`} key={index}>
+              <div
+                className={`chat-message ${message.role}`}
+                key={index}
+                role={message.role === "error" ? "alert" : undefined}
+              >
                 {message.role === "bot" && <Icon name="robot" size={19} />}
-                <p>{message.text}</p>
+                {message.role === "bot" ? (
+                  <div className="chat-response">
+                    <span className="chat-response-label">EcoAgent guidance</span>
+                    <div className="chat-response-text">
+                      {renderChatResponse(message.text)}
+                    </div>
+                  </div>
+                ) : (
+                  <p>{message.text}</p>
+                )}
               </div>
             ))}
+            {isSending && (
+              <p className="chat-status" role="status" aria-live="polite">
+                EcoAgent Ask Bot is preparing an answer…
+              </p>
+            )}
             <div ref={chatEnd} />
           </div>
-          <div className="chat-shortcuts">
+          <div
+            className="chat-shortcuts"
+            role="group"
+            aria-label="Starter questions"
+          >
             <button
-              onClick={() =>
-                sendMessage(
-                  "I have an old broken laptop. Where should I bring it?",
-                )
-              }
+              disabled={isSending}
+              onClick={() => sendMessage("Is this TV e-waste?")}
             >
-              Ask about a laptop
+              Is this TV e-waste?
             </button>
             <button
+              disabled={isSending}
+              onClick={() => sendMessage("Where can I recycle my laptop?")}
+            >
+              Where can I recycle my laptop?
+            </button>
+            <button
+              disabled={isSending}
+              onClick={() => sendMessage("How do I use EcoAgent?")}
+            >
+              How do I use EcoAgent?
+            </button>
+            <button
+              disabled={isSending}
               onClick={() => {
                 go("facilities")
                 setChatOpen(false)
@@ -1761,21 +1952,23 @@ export default function App() {
             }}
           >
             <input
+              ref={chatInputRef}
               value={chatInput}
               onChange={(event) => setChatInput(event.target.value)}
-              placeholder="Ask about your electronics…"
-              aria-label="Message EcoBot"
+              placeholder="Ask about a TV, phone, or laptop…"
+              aria-label="Message EcoAgent Ask Bot"
+              disabled={isSending}
             />
             <button
               type="submit"
-              disabled={!chatInput.trim()}
+              disabled={!chatInput.trim() || isSending}
               aria-label="Send message"
             >
               <Icon name="send" size={19} />
             </button>
           </form>
           <div className="chat-disclaimer">
-            Demo assistant · Verify facility information directly
+            Project guidance only · Confirm facility details before visiting
           </div>
         </section>
       )}

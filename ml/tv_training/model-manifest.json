@@ -1,0 +1,13 @@
+{
+  "class": "damaged_tv",
+  "modelFile": "weights/best.pt",
+  "sha256": "ad59ee12c6b45555bd87591c99de40a6f6031083ea37f97b3a9ad8fe07cd98d3",
+  "sourceModel": "runs/damaged_tv/weights/best.pt",
+  "trainingEpochs": 30,
+  "trainingImages": 160,
+  "validationImages": 40,
+  "split": "chronological frames from a single TV recording",
+  "independentTestSet": false,
+  "labelScope": "whole visible TV; not individual cracks or electrical function",
+  "ultralyticsVersion": "8.4.187"
+}

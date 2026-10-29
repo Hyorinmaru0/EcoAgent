@@ -1,0 +1,479 @@
+[
+  {
+    "municipality": "Caloocan",
+    "locations": [
+      {
+        "name": "SM City Grand Central",
+        "operator": "SM / PLDT–Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Daily", "opens": "10am", "closes": "9pm" }
+        ]
+      },
+      {
+        "name": "SM City Sangandaan",
+        "operator": "SM e-waste program",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Confirm local collection arrangements"
+      },
+      {
+        "name": "SM City Caloocan",
+        "operator": "SM e-waste program",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Confirm local collection arrangements"
+      },
+      {
+        "name": "Bagong Silang TSD Facility",
+        "operator": "TSD Facility",
+        "address": "Phase 2, Package 3, Bagong Silang",
+        "acceptedDevices": "Mobile phones and CRT televisions",
+        "status": "Confirm acceptance of laptops and flat-screen TVs"
+      }
+    ]
+  },
+  {
+    "municipality": "Las Piñas",
+    "locations": [
+      {
+        "name": "SM Southmall",
+        "operator": "SM / PLDT–Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Daily", "opens": "10am", "closes": "9pm" }
+        ]
+      },
+      {
+        "name": "SM Center Las Piñas",
+        "operator": "SM / Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Daily", "opens": "10am", "closes": "9pm" }
+        ]
+      }
+    ]
+  },
+  {
+    "municipality": "Makati",
+    "locations": [
+      {
+        "name": "Rockwell",
+        "operator": "PLDT–Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Mon–Thu", "opens": "11am", "closes": "9pm" },
+          { "days": "Friday", "opens": "11am", "closes": "10pm" },
+          { "days": "Saturday", "opens": "10am", "closes": "10pm" },
+          { "days": "Sunday", "opens": "10am", "closes": "9pm" }
+        ]
+      },
+      {
+        "name": "RCB Makati",
+        "operator": "PLDT–Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Unverified", "opens": "Confirm", "closes": "Confirm" }
+        ]
+      },
+      {
+        "name": "Smart Tower",
+        "operator": "PLDT–Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Mon–Fri", "opens": "8:30am", "closes": "5:30pm" }
+        ]
+      },
+      {
+        "name": "Cash & Carry",
+        "operator": "Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Daily", "opens": "10am", "closes": "9pm" }
+        ]
+      }
+    ]
+  },
+  {
+    "municipality": "Malabon",
+    "locations": [
+      {
+        "name": "Barangay Dampalit TSD Facility",
+        "operator": "TSD Facility",
+        "address": "Bendel Compound, Don Basilio Bautista Boulevard",
+        "acceptedDevices": "Mobile phones and CRT televisions",
+        "status": "Confirm acceptance of laptops and flat-screen TVs"
+      }
+    ]
+  },
+  {
+    "municipality": "Mandaluyong",
+    "locations": [
+      {
+        "name": "SM Megamall",
+        "operator": "SM / Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          {
+            "days": "Store schedule unverified",
+            "opens": "Confirm",
+            "closes": "Confirm"
+          }
+        ]
+      },
+      {
+        "name": "The Podium",
+        "operator": "SM e-waste program",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Confirm local collection arrangements"
+      },
+      {
+        "name": "Shangri-La",
+        "operator": "PLDT–Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Daily", "opens": "10am", "closes": "9pm" }
+        ]
+      },
+      {
+        "name": "HMR Pioneer / Envirocycle drop-off",
+        "operator": "HMR Pioneer / Envirocycle",
+        "address": "Pioneer corner Reliance Street",
+        "acceptedDevices": "Electronics collection listed",
+        "status": "Confirm acceptance of phones, laptops, and TVs"
+      }
+    ]
+  },
+  {
+    "municipality": "Manila",
+    "locations": [
+      {
+        "name": "SM City Manila",
+        "operator": "SM / Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Daily", "opens": "10am", "closes": "9pm" }
+        ]
+      },
+      {
+        "name": "SM City San Lazaro",
+        "operator": "SM / PLDT–Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Daily", "opens": "10am", "closes": "9pm" }
+        ]
+      },
+      {
+        "name": "Robinsons Manila",
+        "operator": "PLDT–Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Daily", "opens": "10am", "closes": "10pm" }
+        ]
+      }
+    ]
+  },
+  {
+    "municipality": "Marikina",
+    "locations": [
+      {
+        "name": "SM City Marikina",
+        "operator": "SM e-waste program",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Confirm local collection arrangements"
+      }
+    ]
+  },
+  {
+    "municipality": "Muntinlupa",
+    "locations": [
+      {
+        "name": "SM Center Muntinlupa",
+        "operator": "SM / PLDT–Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Daily", "opens": "10am", "closes": "9pm" }
+        ]
+      },
+      {
+        "name": "Festival Mall",
+        "operator": "PLDT–Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Daily", "opens": "10am", "closes": "9pm" }
+        ]
+      },
+      {
+        "name": "Metro Gaisano Alabang",
+        "operator": "PLDT–Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Daily", "opens": "9am", "closes": "8pm" }
+        ]
+      }
+    ]
+  },
+  {
+    "municipality": "Parañaque",
+    "locations": [
+      {
+        "name": "SM City BF Parañaque",
+        "operator": "SM / PLDT–Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Daily", "opens": "10am", "closes": "9pm" }
+        ]
+      },
+      {
+        "name": "SM City Bicutan",
+        "operator": "SM / PLDT–Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Daily", "opens": "10am", "closes": "9pm" }
+        ]
+      },
+      {
+        "name": "SM City Sucat",
+        "operator": "SM / PLDT–Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Daily", "opens": "10am", "closes": "9pm" }
+        ]
+      },
+      {
+        "name": "Ayala Malls Manila Bay",
+        "operator": "PLDT–Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Daily", "opens": "10am", "closes": "10pm" }
+        ]
+      }
+    ]
+  },
+  {
+    "municipality": "Pasay",
+    "locations": [
+      {
+        "name": "SM Mall of Asia",
+        "operator": "SM / PLDT–Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Daily", "opens": "10am", "closes": "10pm" }
+        ]
+      }
+    ]
+  },
+  {
+    "municipality": "Pasig",
+    "locations": [
+      {
+        "name": "SM City East Ortigas",
+        "operator": "SM / Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Daily", "opens": "10am", "closes": "9pm" }
+        ]
+      },
+      {
+        "name": "SM Center Pasig",
+        "operator": "SM e-waste program",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Confirm local collection arrangements"
+      },
+      {
+        "name": "SK Tes / TES-AMM Philippines",
+        "operator": "SK Tes / TES-AMM Philippines",
+        "address": "Unit 104, Central Business Park, 461 Amang Rodriguez Avenue, Manggahan",
+        "acceptedDevices": "Corporate electronics recycling by arrangement",
+        "status": "Confirm specific devices and household acceptance"
+      }
+    ]
+  },
+  {
+    "municipality": "Quezon City",
+    "locations": [
+      {
+        "name": "SM North EDSA",
+        "operator": "SM / Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Mon–Fri", "opens": "10am", "closes": "10pm" },
+          {
+            "days": "Weekend store hours unverified",
+            "opens": "Confirm",
+            "closes": "Confirm"
+          }
+        ]
+      },
+      {
+        "name": "SM City Fairview",
+        "operator": "SM e-waste program",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Confirm local collection arrangements"
+      },
+      {
+        "name": "SM City Novaliches",
+        "operator": "SM / PLDT–Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Daily", "opens": "10am", "closes": "9pm" }
+        ]
+      },
+      {
+        "name": "SM City Sta. Mesa / SM Centerpoint",
+        "operator": "SM / Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Daily", "opens": "10am", "closes": "9pm" }
+        ]
+      },
+      {
+        "name": "Vertis North",
+        "operator": "PLDT–Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Sun–Thu", "opens": "11am", "closes": "9pm" },
+          { "days": "Fri–Sat", "opens": "11am", "closes": "10pm" }
+        ]
+      },
+      {
+        "name": "Robinsons Galleria",
+        "operator": "PLDT–Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Daily", "opens": "10am", "closes": "10pm" }
+        ]
+      },
+      {
+        "name": "Robinsons Magnolia",
+        "operator": "PLDT–Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Daily", "opens": "10am", "closes": "10pm" }
+        ]
+      },
+      {
+        "name": "Gateway Mall",
+        "operator": "PLDT–Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Sun–Thu", "opens": "10am", "closes": "9pm" },
+          { "days": "Fri–Sat", "opens": "10am", "closes": "10pm" }
+        ]
+      },
+      {
+        "name": "Eastwood",
+        "operator": "PLDT–Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Daily", "opens": "10am", "closes": "9pm" }
+        ]
+      },
+      {
+        "name": "UP Diliman Electrical and Electronics Engineering Institute",
+        "operator": "The E-Waste Project",
+        "acceptedDevices": "Small-to-medium electronics",
+        "status": "Confirm phone and laptop acceptance and scheduled TV collection"
+      },
+      {
+        "name": "UP Diliman College of Science Library",
+        "operator": "The E-Waste Project",
+        "acceptedDevices": "Small-to-medium electronics",
+        "status": "Confirm phone and laptop acceptance"
+      },
+      {
+        "name": "UP Diliman Molave Residence Hall",
+        "operator": "The E-Waste Project",
+        "acceptedDevices": "Small-to-medium electronics",
+        "status": "Confirm device acceptance and visitor access"
+      }
+    ]
+  },
+  {
+    "municipality": "San Juan",
+    "locations": [
+      {
+        "name": "Greenhills",
+        "operator": "PLDT–Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Mon–Thu", "opens": "10am", "closes": "9pm" },
+          { "days": "Fri–Sun", "opens": "10am", "closes": "10pm" }
+        ]
+      }
+    ]
+  },
+  {
+    "municipality": "Taguig",
+    "locations": [
+      {
+        "name": "SM Aura",
+        "operator": "SM / PLDT–Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Daily", "opens": "10am", "closes": "10pm" }
+        ]
+      },
+      {
+        "name": "Market! Market!",
+        "operator": "PLDT–Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Mon–Thu", "opens": "10am", "closes": "9pm" },
+          { "days": "Fri–Sun", "opens": "10am", "closes": "10pm" }
+        ]
+      },
+      {
+        "name": "World Plaza BGC",
+        "operator": "PLDT–Smart",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Listed as accepting mobile phones and laptops",
+        "operatingHours": [
+          { "days": "Mon–Fri", "opens": "9am", "closes": "6pm" },
+          { "days": "Saturday", "opens": "9am", "closes": "5pm" }
+        ]
+      }
+    ]
+  },
+  {
+    "municipality": "Valenzuela",
+    "locations": [
+      {
+        "name": "SM City Valenzuela",
+        "operator": "SM e-waste program",
+        "acceptedDevices": "Mobile phones and laptops",
+        "status": "Confirm local collection arrangements"
+      }
+    ]
+  }
+]
