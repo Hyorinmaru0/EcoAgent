@@ -3,7 +3,8 @@ import { AuthPage } from "./components/auth/AuthPage"
 import type { DemoProfile } from "./components/auth/authValidation"
 import collectionLocations from "../data/collection-locations.json"
 import { TvDetectionPanel } from "./components/identification/TvDetectionPanel"
-import { useTvDetection, validateDevicePhoto } from "./components/identification/useTvDetection"
+import { getDetectedCategory, useTvDetection, validateDevicePhoto } from "./components/identification/useTvDetection"
+import { getFacilityRecommendations } from "./components/identification/facilityRecommendations.mjs"
 
 type Page = "home" | "login" | "dashboard" | "identify" | "recommendations" | "facilities" | "facility" | "learn" | "flow" | "profile" | "items"
 
@@ -425,6 +426,13 @@ export default function App() {
   const chatEnd = useRef<HTMLDivElement>(null)
   const chatInputRef = useRef<HTMLInputElement>(null)
 
+  useEffect(() => {
+    const detectedCategory = tvDetection.result
+      ? getDetectedCategory(tvDetection.result.detections)
+      : null
+    if (detectedCategory) setCategory(detectedCategory)
+  }, [tvDetection.result])
+
   const go = (next: Page) => {
     location.hash = next
     setPage(next)
@@ -469,6 +477,11 @@ export default function App() {
   )
 
   const normalizedCategory = category
+  const facilityRecommendations = getFacilityRecommendations(
+    collectionLocations,
+    category,
+    itemLocation,
+  )
   const itemHazardNote =
     "Exact hazard classification depends on the device model, components, and condition; this prototype does not verify a formal classification."
   const itemHandlingGuidance =
@@ -1120,7 +1133,7 @@ export default function App() {
                       </Field>
                       <Button type="submit" className="full-width" disabled={tvDetection.isAnalyzing}>
                         <Icon name="sparkles" size={18} />
-                        {tvDetection.isAnalyzing ? "Analyzing TV Photo…" : "Analyze E-Waste"}
+                        {tvDetection.isAnalyzing ? "Analyzing Photo…" : "Analyze E-Waste"}
                       </Button>
                     </form>
                   </section>
@@ -1135,8 +1148,8 @@ export default function App() {
                         </div>
                         <Badge tone="blue">PROJECT GUIDE</Badge>
                       </div>
-                      {category === "TV" && <TvDetectionPanel
-                        photo={photo} result={tvDetection.result}
+                      {photo && <TvDetectionPanel
+                        photo={photo} category={category} result={tvDetection.result}
                         error={tvDetection.error} isAnalyzing={tvDetection.isAnalyzing}
                       />}
                       {analyzed ? (
@@ -1193,8 +1206,8 @@ export default function App() {
                       )}
                       <p className="demo-note">
                         {category === "TV"
-                          ? "Upload a TV photo to try the local practice detector. General handling guidance uses your entered details; a photo cannot establish electrical safety."
-                          : "Guidance for phones and laptops uses entered details. Photo recognition currently supports only the TV practice model."}
+                          ? "Upload a device photo to try the local three-class detector and TV-specific practice model. A photo cannot establish electrical safety or damage."
+                          : "Upload a device photo to try the local detector for TVs, phones, and laptops. Photo results are practice-model candidates, not verified item or condition assessments."}
                       </p>
                     </section>
                     <div className="safety-note">
@@ -1222,8 +1235,8 @@ export default function App() {
               <>
                 {title(
                   "FACILITY GUIDANCE",
-                  "No verified recommendation available",
-                  "The project directory now includes device-acceptance notes, but they are project-provided and not independently verified.",
+                  `Facilities for ${category}`,
+                  `Collection options that list or may accept ${category.toLowerCase()}, prioritized for ${itemLocation}.`,
                 )}
                 <div className="explanation-card">
                   <span className="feature-icon blue">
@@ -1232,10 +1245,10 @@ export default function App() {
                   <div>
                     <h3>What information is available?</h3>
                     <p>
-                      The directory includes supplied acceptance notes and
-                      addresses where available. These do not verify current
-                      operation, public access, schedules, fees, or acceptance
-                      for your item's specific condition.
+                      Results are matched to the item's category using the
+                      facility directory. Confirm acceptance for your item's
+                      condition, plus current operation, public access, and
+                      schedules, with the facility before traveling.
                     </p>
                     <div className="tags">
                       <span>{device}</span>
@@ -1248,62 +1261,76 @@ export default function App() {
                 <section className="panel recommendation-feature">
                   <div className="recommendation-label">
                     <span className="feature-icon blue">
-                      <Icon name="sparkles" size={27} />
+                      <Icon name="pin" size={27} />
                     </span>
                     <div>
-                      <span className="eyebrow">ITEM AND LOCATION REVIEW</span>
-                      <h2>No suitable facility can be confirmed</h2>
+                      <span className="eyebrow">MATCHED TO YOUR ITEM</span>
+                      <h2>{facilityRecommendations.length
+                        ? `${facilityRecommendations.length} collection ${facilityRecommendations.length === 1 ? "option" : "options"}`
+                        : `No listed ${category.toLowerCase()} collection options`}</h2>
                     </div>
                   </div>
-                  <div className="recommendation-reason">
-                    <h3>Why not a recommendation?</h3>
-                    <p>
-                      The project directory's acceptance notes have not been
-                      independently verified, and condition-specific acceptance
-                      is not available for {normalizedCategory} in
-                      {` ${condition.toLowerCase()}`} condition near{" "}
-                      {itemLocation}. Contact the operator to confirm before
-                      traveling.
+                  {facilityRecommendations.length ? (
+                    <ul className="facility-recommendation-list">
+                      {facilityRecommendations.map((facility) => (
+                        <li key={`${facility.municipality}-${facility.name}`}>
+                          <div>
+                            <h3>{facility.name}</h3>
+                            <p>{facility.operator} · {facility.municipality}</p>
+                          </div>
+                          <span className={facility.acceptanceLabel.startsWith("Potential")
+                            ? "facility-acceptance-caution"
+                            : "facility-acceptance-listed"}>
+                            {facility.acceptanceLabel}
+                          </span>
+                          <p>{facility.status}</p>
+                          {facility.address && <p>Address: {facility.address}</p>}
+                          {facility.operatingHours?.map((schedule) => (
+                            <p key={`${schedule.days}-${schedule.opens}-${schedule.closes}`}>
+                              Hours listed: {schedule.days}, {schedule.opens}–{schedule.closes}
+                            </p>
+                          ))}
+                          <a
+                            className="collection-directions-link"
+                            href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+                              `${facility.name}, ${facility.municipality}${facility.address ? `, ${facility.address}` : ""}, Metro Manila, Philippines`,
+                            )}`}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            <Icon name="pin" size={15} />
+                            Get directions
+                            <Icon name="arrow" size={14} />
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="recommendation-reason">
+                      The directory does not currently list a collection option
+                      for {category}. Review the full directory or contact a
+                      local waste-management office for guidance.
                     </p>
-                  </div>
-                  <dl className="analysis-list recommendation-details">
-                    <div>
-                      <dt>Item and condition</dt>
-                      <dd>{device} · {condition}</dd>
-                    </div>
-                    <div>
-                      <dt>Service area</dt>
-                      <dd>{itemLocation}</dd>
-                    </div>
-                    <div>
-                      <dt>Missing verified data</dt>
-                      <dd>
-                        Current operation, public access, schedules, and
-                        condition-based acceptance
-                      </dd>
-                    </div>
-                  </dl>
+                  )}
+                  {!facilityRecommendations.some((facility) => facility.isLocal) &&
+                    facilityRecommendations.length > 0 && (
+                      <p className="recommendation-reason">
+                        No matching option was listed in {itemLocation}; these
+                        are matching options elsewhere in the directory.
+                      </p>
+                    )}
+                  <p className="demo-note">
+                    Recommendations are based on project-provided directory
+                    entries and are not independently verified. Confirm item
+                    acceptance and current details before traveling. Item
+                    condition: {condition}.
+                  </p>
                   <div className="assistant-actions">
-                    <Button
-                      onClick={() => setChatOpen(true)}
-                    >
-                      Ask EcoAgent
-                      <Icon name="sparkles" size={17} />
-                    </Button>
-                    <Button
-                      variant="secondary"
-                      onClick={() => go("facilities")}
-                    >
-                      Review directory
+                    <Button variant="secondary" onClick={() => go("facilities")}>
+                      Review full directory
                     </Button>
                   </div>
                 </section>
-                <p className="demo-note">
-                  The app cannot make a verified facility recommendation until
-                  a trusted source provides current acceptance rules and
-                  schedules. Project-listed locations are not independently
-                  verified.
-                </p>
               </>
             )}
 
