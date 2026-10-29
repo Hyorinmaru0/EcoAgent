@@ -547,6 +547,13 @@ td { color: #627750; font-size: 11px; }
   .collection-location-grid { grid-template-columns: 1fr; }
 }
 .recommendation-feature { margin-top: 22px; border-top: 4px solid var(--blue); }
+.facility-recommendation-list { display: grid; gap: 14px; padding: 0; margin: 20px 0; list-style: none; }
+.facility-recommendation-list > li { display: grid; gap: 8px; padding: 16px; border: 1px solid #e2eadc; border-radius: 10px; }
+.facility-recommendation-list h3 { margin: 0; font-size: 15px; }
+.facility-recommendation-list p { margin: 0; color: #5e6c64; font-size: 12px; line-height: 1.6; }
+.facility-acceptance-listed, .facility-acceptance-caution { width: fit-content; padding: 4px 8px; border-radius: 999px; font-size: 11px; }
+.facility-acceptance-listed { color: #285d38; background: #e8f4e7; }
+.facility-acceptance-caution { color: #785600; background: #fff3d4; }
 .recommendation-label, .facility-detail-header { display: flex; align-items: center; gap: 17px; }
 .recommendation-label h2, .facility-detail-header h2 { margin-top: 7px; }
 .recommendation-reason { margin: 23px 0; padding: 18px; background: #f0f6fb; border-left: 3px solid var(--blue); border-radius: 7px; }
