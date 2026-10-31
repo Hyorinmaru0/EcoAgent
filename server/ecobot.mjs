@@ -407,7 +407,7 @@ ted or when a site is open.`,
 }
 
 async function createGeminiAnswer(question, history) {
-  const model = process.env.GEMINI_MODEL || "gemini-3.5-flash-lite"
+  const model = process.env.GEMINI_MODEL || "gemini-3.1-flash-lite"
   const contents = history.map((entry) => ({
     role: entry.role === "assistant" ? "model" : "user",
     parts: [{ text: entry.content }],

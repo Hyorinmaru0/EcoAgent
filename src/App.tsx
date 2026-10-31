@@ -2,9 +2,23 @@ import { useEffect, useRef, useState, type ReactNode } from "react"
 import { AuthPage } from "./components/auth/AuthPage"
 import type { DemoProfile } from "./components/auth/authValidation"
 import collectionLocations from "../data/collection-locations.json"
+import facilityCoordinates from "../data/facility-coordinates.json"
 import { TvDetectionPanel } from "./components/identification/TvDetectionPanel"
+import { NearestFacilityPanel } from "./components/identification/NearestFacilityPanel"
+import { useUserLocation } from "./components/identification/useUserLocation"
 import { getDetectedCategory, useTvDetection, validateDevicePhoto } from "./components/identification/useTvDetection"
-import { getFacilityRecommendations } from "./components/identification/facilityRecommendations.mjs"
+import { getFacilityRecommendations, type Coordinates } from "./components/identification/facilityRecommendations.mjs"
+
+const municipalities = [...new Set(collectionLocations.map((entry) => entry.municipality))]
+  .sort((a, b) => a.localeCompare(b))
+const coordinateLookup: Record<string, Coordinates> = facilityCoordinates.locations
+const mappedCollectionLocations = collectionLocations.map((entry) => ({
+  ...entry,
+  locations: entry.locations.map((location) => ({
+    ...location,
+    coordinates: coordinateLookup[`${entry.municipality}/${location.name}`],
+  })),
+}))
 
 type Page = "home" | "login" | "dashboard" | "identify" | "recommendations" | "facilities" | "facility" | "learn" | "flow" | "profile" | "items"
 
@@ -404,11 +418,12 @@ export default function App() {
   const [demoProfile, setDemoProfile] = useState<DemoProfile | null>(null)
   const [userName, setUserName] = useState("Raven")
   const [userType, setUserType] = useState("Household")
-  const [category, setCategory] = useState("Laptop")
-  const [device, setDevice] = useState("Old Laptop")
-  const [condition, setCondition] = useState("Broken")
-  const [quantity, setQuantity] = useState("1")
-  const [itemLocation, setItemLocation] = useState("Quezon City")
+  const [category, setCategory] = useState("")
+  const [device, setDevice] = useState("")
+  const [condition, setCondition] = useState("")
+  const [quantity, setQuantity] = useState("")
+  const [profileLocation, setProfileLocation] = useState("Quezon City")
+  const userLocation = useUserLocation()
   const [analyzed, setAnalyzed] = useState(false)
   const [photo, setPhoto] = useState<string | null>(null)
   const [photoName, setPhotoName] = useState("")
@@ -478,9 +493,9 @@ export default function App() {
 
   const normalizedCategory = category
   const facilityRecommendations = getFacilityRecommendations(
-    collectionLocations,
+    mappedCollectionLocations,
     category,
-    itemLocation,
+    userLocation.position,
   )
   const itemHazardNote =
     "Exact hazard classification depends on the device model, components, and condition; this prototype does not verify a formal classification."
@@ -1006,6 +1021,7 @@ export default function App() {
                       onSubmit={async (event) => {
                         event.preventDefault()
                         setAnalyzed(false)
+                        if (userLocation.status !== "loading") userLocation.requestLocation()
                         if (await tvDetection.analyze()) setAnalyzed(true)
                       }}
                     >
@@ -1051,6 +1067,7 @@ export default function App() {
                               setPhotoFile(file)
                               setPhoto(URL.createObjectURL(file))
                               setPhotoName(file.name)
+                              setCondition("")
                               setAnalyzed(false)
                             }
                           }}
@@ -1075,12 +1092,14 @@ export default function App() {
                       </div>
                       <Field label="Item Category">
                         <select
+                          required
                           value={category}
                           onChange={(event) => {
                             setCategory(event.target.value)
                             setAnalyzed(false)
                           }}
                         >
+                          <option value="" disabled>Select item category</option>
                           <option>TV</option>
                           <option>Mobile Phone</option>
                           <option>Laptop</option>
@@ -1097,11 +1116,13 @@ export default function App() {
                       <div className="form-grid">
                         <Field label="Condition">
                           <select
+                            required
                             value={condition}
                             onChange={(event) =>
                               setCondition(event.target.value)
                             }
                           >
+                            <option value="" disabled>Select condition</option>
                             <option>Working</option>
                             <option>Damaged</option>
                             <option>Broken</option>
@@ -1114,6 +1135,7 @@ export default function App() {
                             min="1"
                             max="100"
                             required
+                            placeholder="e.g. 1"
                             value={quantity}
                             onChange={(event) =>
                               setQuantity(event.target.value)
@@ -1121,16 +1143,6 @@ export default function App() {
                           />
                         </Field>
                       </div>
-                      <Field label="Location for Facility Recommendations">
-                        <input
-                          required
-                          value={itemLocation}
-                          onChange={(event) =>
-                            setItemLocation(event.target.value)
-                          }
-                          placeholder="City or area"
-                        />
-                      </Field>
                       <Button type="submit" className="full-width" disabled={tvDetection.isAnalyzing}>
                         <Icon name="sparkles" size={18} />
                         {tvDetection.isAnalyzing ? "Analyzing Photo…" : "Analyze E-Waste"}
@@ -1190,7 +1202,7 @@ export default function App() {
                             className="full-width"
                             onClick={() => go("recommendations")}
                           >
-                            Find Suitable Facilities
+                            View Nearest Facilities
                             <Icon name="arrow" size={17} />
                           </Button>
                         </>
@@ -1210,6 +1222,12 @@ export default function App() {
                           : "Upload a device photo to try the local detector for TVs, phones, and laptops. Photo results are practice-model candidates, not verified item or condition assessments."}
                       </p>
                     </section>
+                    {analyzed && <NearestFacilityPanel
+                      category={category} recommendations={facilityRecommendations}
+                      position={userLocation.position} status={userLocation.status}
+                      error={userLocation.error} onLocate={userLocation.requestLocation}
+                      onDirectory={() => go("facilities")}
+                    />}
                     <div className="safety-note">
                       <Icon name="robot" size={23} />
                       <div>
@@ -1235,102 +1253,26 @@ export default function App() {
               <>
                 {title(
                   "FACILITY GUIDANCE",
-                  `Facilities for ${category}`,
-                  `Collection options that list or may accept ${category.toLowerCase()}, prioritized for ${itemLocation}.`,
+                  "Find your nearest collection option",
+                  "Use your current location to find nearby e-waste facilities that list or may accept your device.",
                 )}
                 <div className="explanation-card">
                   <span className="feature-icon blue">
-                    <Icon name="robot" size={30} />
+                    <Icon name="pin" size={30} />
                   </span>
                   <div>
-                    <h3>What information is available?</h3>
-                    <p>
-                      Results are matched to the item's category using the
-                      facility directory. Confirm acceptance for your item's
-                      condition, plus current operation, public access, and
-                      schedules, with the facility before traveling.
-                    </p>
-                    <div className="tags">
-                      <span>{device}</span>
-                      <span>{normalizedCategory}</span>
-                      <span>{itemLocation}</span>
-                    </div>
+                    <h3>{category ? `Collection options for ${category}` : "Choose your device first"}</h3>
+                    <p>Allow location access to sort matching facilities by distance and see the nearest mapped venue pinned on the map.</p>
+                    {device && <div className="tags"><span>{device}</span><span>{normalizedCategory}</span><span>{condition || "Condition not selected"}</span></div>}
                   </div>
-                  <Badge tone="blue">PROJECT DATA ONLY</Badge>
+                  <Button variant="secondary" onClick={() => go("identify")}>Edit item details</Button>
                 </div>
-                <section className="panel recommendation-feature">
-                  <div className="recommendation-label">
-                    <span className="feature-icon blue">
-                      <Icon name="pin" size={27} />
-                    </span>
-                    <div>
-                      <span className="eyebrow">MATCHED TO YOUR ITEM</span>
-                      <h2>{facilityRecommendations.length
-                        ? `${facilityRecommendations.length} collection ${facilityRecommendations.length === 1 ? "option" : "options"}`
-                        : `No listed ${category.toLowerCase()} collection options`}</h2>
-                    </div>
-                  </div>
-                  {facilityRecommendations.length ? (
-                    <ul className="facility-recommendation-list">
-                      {facilityRecommendations.map((facility) => (
-                        <li key={`${facility.municipality}-${facility.name}`}>
-                          <div>
-                            <h3>{facility.name}</h3>
-                            <p>{facility.operator} · {facility.municipality}</p>
-                          </div>
-                          <span className={facility.acceptanceLabel.startsWith("Potential")
-                            ? "facility-acceptance-caution"
-                            : "facility-acceptance-listed"}>
-                            {facility.acceptanceLabel}
-                          </span>
-                          <p>{facility.status}</p>
-                          {facility.address && <p>Address: {facility.address}</p>}
-                          {facility.operatingHours?.map((schedule) => (
-                            <p key={`${schedule.days}-${schedule.opens}-${schedule.closes}`}>
-                              Hours listed: {schedule.days}, {schedule.opens}–{schedule.closes}
-                            </p>
-                          ))}
-                          <a
-                            className="collection-directions-link"
-                            href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
-                              `${facility.name}, ${facility.municipality}${facility.address ? `, ${facility.address}` : ""}, Metro Manila, Philippines`,
-                            )}`}
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            <Icon name="pin" size={15} />
-                            Get directions
-                            <Icon name="arrow" size={14} />
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <p className="recommendation-reason">
-                      The directory does not currently list a collection option
-                      for {category}. Review the full directory or contact a
-                      local waste-management office for guidance.
-                    </p>
-                  )}
-                  {!facilityRecommendations.some((facility) => facility.isLocal) &&
-                    facilityRecommendations.length > 0 && (
-                      <p className="recommendation-reason">
-                        No matching option was listed in {itemLocation}; these
-                        are matching options elsewhere in the directory.
-                      </p>
-                    )}
-                  <p className="demo-note">
-                    Recommendations are based on project-provided directory
-                    entries and are not independently verified. Confirm item
-                    acceptance and current details before traveling. Item
-                    condition: {condition}.
-                  </p>
-                  <div className="assistant-actions">
-                    <Button variant="secondary" onClick={() => go("facilities")}>
-                      Review full directory
-                    </Button>
-                  </div>
-                </section>
+                <NearestFacilityPanel
+                  category={category} recommendations={facilityRecommendations}
+                  position={userLocation.position} status={userLocation.status}
+                  error={userLocation.error} onLocate={userLocation.requestLocation}
+                  onDirectory={() => go("facilities")}
+                />
               </>
             )}
 
@@ -1357,13 +1299,9 @@ export default function App() {
                     onChange={(event) => setLocationFilter(event.target.value)}
                   >
                     <option>All locations</option>
-                    {[...new Set([
-                      ...collectionLocations.map((entry) => entry.municipality),
-                    ])]
-                      .sort((a, b) => a.localeCompare(b))
-                      .map((municipality) => (
-                        <option key={municipality}>{municipality}</option>
-                      ))}
+                    {municipalities.map((municipality) => (
+                      <option key={municipality}>{municipality}</option>
+                    ))}
                   </select>
                   <select
                     aria-label="Filter collection locations by accepted device"
@@ -1785,6 +1723,7 @@ export default function App() {
                           setDevice(name)
                           setCategory(itemCategory)
                           setCondition(itemCondition)
+                          setQuantity("1")
                           setAnalyzed(true)
                           go("identify")
                         }}
@@ -1803,7 +1742,7 @@ export default function App() {
                 {title(
                   "YOUR ECOAGENT ACCOUNT",
                   "Your profile",
-                  "Keep the basic information that personalizes your facility recommendations.",
+                  "Manage your basic profile information for this demo session.",
                 )}
                 <section className="panel profile-panel">
                   <div className="profile-avatar">{userName[0]}</div>
@@ -1833,9 +1772,9 @@ export default function App() {
                     <Field label="Location">
                       <input
                         required
-                        value={itemLocation}
+                        value={profileLocation}
                         onChange={(event) =>
-                          setItemLocation(event.target.value)
+                          setProfileLocation(event.target.value)
                         }
                       />
                     </Field>

@@ -1,0 +1,260 @@
+{
+  "attribution": "© OpenStreetMap contributors",
+  "license": "https://www.openstreetmap.org/copyright",
+  "checkedOn": "2026-10-30",
+  "scope": "Venue centers from OpenStreetMap; exact collection bins, entrance, acceptance, and operation require confirmation.",
+  "locations": {
+    "Caloocan/SM City Grand Central": {
+      "latitude": 14.6551895,
+      "longitude": 120.9847563,
+      "source": "https://www.openstreetmap.org/way/48173643",
+      "venueName": "SM City Grand Central"
+    },
+    "Caloocan/SM City Sangandaan": {
+      "latitude": 14.6583697,
+      "longitude": 120.9719382,
+      "source": "https://www.openstreetmap.org/way/354423184",
+      "venueName": "SM Center Sangandaan"
+    },
+    "Caloocan/SM City Caloocan": {
+      "latitude": 14.7516622,
+      "longitude": 121.0201006,
+      "source": "https://www.openstreetmap.org/way/1153705775",
+      "venueName": "SM City Caloocan"
+    },
+    "Las Piñas/SM Southmall": {
+      "latitude": 14.4326237,
+      "longitude": 121.0102209,
+      "source": "https://www.openstreetmap.org/relation/14061902",
+      "venueName": "SM Southmall"
+    },
+    "Las Piñas/SM Center Las Piñas": {
+      "latitude": 14.4489085,
+      "longitude": 120.9807908,
+      "source": "https://www.openstreetmap.org/way/42293456",
+      "venueName": "SM Center Las Piñas"
+    },
+    "Makati/Rockwell": {
+      "latitude": 14.5650928,
+      "longitude": 121.0371511,
+      "source": "https://www.openstreetmap.org/way/1499853571",
+      "venueName": "Rockwell Center"
+    },
+    "Makati/Smart Tower": {
+      "latitude": 14.5591118,
+      "longitude": 121.018351,
+      "source": "https://www.openstreetmap.org/way/26405899",
+      "venueName": "Smart Tower"
+    },
+    "Makati/Cash & Carry": {
+      "latitude": 14.5586105,
+      "longitude": 121.0061032,
+      "source": "https://www.openstreetmap.org/way/28394355",
+      "venueName": "Cash & Carry Supermarket"
+    },
+    "Mandaluyong/SM Megamall": {
+      "latitude": 14.5845525,
+      "longitude": 121.0564554,
+      "source": "https://www.openstreetmap.org/relation/7890377",
+      "venueName": "SM Megamall"
+    },
+    "Mandaluyong/The Podium": {
+      "latitude": 14.585104,
+      "longitude": 121.0591464,
+      "source": "https://www.openstreetmap.org/way/43885477",
+      "venueName": "The Podium"
+    },
+    "Mandaluyong/Shangri-La": {
+      "latitude": 14.5813954,
+      "longitude": 121.0550906,
+      "source": "https://www.openstreetmap.org/way/31559730",
+      "venueName": "Shangri-La Plaza"
+    },
+    "Mandaluyong/HMR Pioneer / Envirocycle drop-off": {
+      "latitude": 14.5726224,
+      "longitude": 121.0539778,
+      "source": "https://www.openstreetmap.org/way/103488653",
+      "venueName": "HMR Trading Haus"
+    },
+    "Manila/SM City Manila": {
+      "latitude": 14.5897986,
+      "longitude": 120.9832065,
+      "source": "https://www.openstreetmap.org/way/59342722",
+      "venueName": "SM City Manila"
+    },
+    "Manila/SM City San Lazaro": {
+      "latitude": 14.6181744,
+      "longitude": 120.9858314,
+      "source": "https://www.openstreetmap.org/way/223813629",
+      "venueName": "SM City San Lazaro"
+    },
+    "Manila/Robinsons Manila": {
+      "latitude": 14.576485,
+      "longitude": 120.9840002,
+      "source": "https://www.openstreetmap.org/way/48894714",
+      "venueName": "Robinsons Manila"
+    },
+    "Marikina/SM City Marikina": {
+      "latitude": 14.6261751,
+      "longitude": 121.0841246,
+      "source": "https://www.openstreetmap.org/relation/21257744",
+      "venueName": "SM City Marikina"
+    },
+    "Muntinlupa/SM Center Muntinlupa": {
+      "latitude": 14.377299,
+      "longitude": 121.0451252,
+      "source": "https://www.openstreetmap.org/way/131228339",
+      "venueName": "SM Center Muntinlupa"
+    },
+    "Muntinlupa/Festival Mall": {
+      "latitude": 14.4166947,
+      "longitude": 121.0407951,
+      "source": "https://www.openstreetmap.org/way/25068787",
+      "venueName": "Festival Alabang"
+    },
+    "Parañaque/SM City BF Parañaque": {
+      "latitude": 14.4573038,
+      "longitude": 121.0328794,
+      "source": "https://www.openstreetmap.org/way/94750780",
+      "venueName": "SM City BF Parañaque"
+    },
+    "Parañaque/SM City Bicutan": {
+      "latitude": 14.4863973,
+      "longitude": 121.0432103,
+      "source": "https://www.openstreetmap.org/way/129639463",
+      "venueName": "SM City Bicutan"
+    },
+    "Parañaque/SM City Sucat": {
+      "latitude": 14.4832266,
+      "longitude": 120.9927428,
+      "source": "https://www.openstreetmap.org/relation/1379060",
+      "venueName": "SM City Sucat"
+    },
+    "Parañaque/Ayala Malls Manila Bay": {
+      "latitude": 14.5234008,
+      "longitude": 120.9882138,
+      "source": "https://www.openstreetmap.org/relation/10165432",
+      "venueName": "Ayala Malls Manila Bay"
+    },
+    "Pasay/SM Mall of Asia": {
+      "latitude": 14.5351613,
+      "longitude": 120.9819796,
+      "source": "https://www.openstreetmap.org/relation/21624091",
+      "venueName": "SM Mall of Asia"
+    },
+    "Pasig/SM City East Ortigas": {
+      "latitude": 14.5872282,
+      "longitude": 121.1047038,
+      "source": "https://www.openstreetmap.org/way/131739919",
+      "venueName": "SM City East Ortigas"
+    },
+    "Pasig/SM Center Pasig": {
+      "latitude": 14.5843596,
+      "longitude": 121.077064,
+      "source": "https://www.openstreetmap.org/way/23953146",
+      "venueName": "SM Center Pasig"
+    },
+    "Quezon City/SM North EDSA": {
+      "latitude": 14.656841,
+      "longitude": 121.0303334,
+      "source": "https://www.openstreetmap.org/way/5131460",
+      "venueName": "SM City North Edsa"
+    },
+    "Quezon City/SM City Fairview": {
+      "latitude": 14.733474,
+      "longitude": 121.0583088,
+      "source": "https://www.openstreetmap.org/way/51549859",
+      "venueName": "SM City Fairview"
+    },
+    "Quezon City/SM City Novaliches": {
+      "latitude": 14.7080647,
+      "longitude": 121.0373365,
+      "source": "https://www.openstreetmap.org/way/86877099",
+      "venueName": "SM City Novaliches"
+    },
+    "Quezon City/SM City Sta. Mesa / SM Centerpoint": {
+      "latitude": 14.6042111,
+      "longitude": 121.0187499,
+      "source": "https://www.openstreetmap.org/way/32973134",
+      "venueName": "SM City Santa Mesa"
+    },
+    "Quezon City/Vertis North": {
+      "latitude": 14.6519646,
+      "longitude": 121.0358188,
+      "source": "https://www.openstreetmap.org/way/552139766",
+      "venueName": "Ayala Malls Vertis North"
+    },
+    "Quezon City/Robinsons Galleria": {
+      "latitude": 14.5911189,
+      "longitude": 121.0596699,
+      "source": "https://www.openstreetmap.org/way/30177229",
+      "venueName": "Robinsons Galleria"
+    },
+    "Quezon City/Robinsons Magnolia": {
+      "latitude": 14.6149403,
+      "longitude": 121.0380574,
+      "source": "https://www.openstreetmap.org/way/198734690",
+      "venueName": "Robinsons Magnolia"
+    },
+    "Quezon City/Gateway Mall": {
+      "latitude": 14.6217409,
+      "longitude": 121.0531237,
+      "source": "https://www.openstreetmap.org/way/30146167",
+      "venueName": "Gateway Mall 1"
+    },
+    "Quezon City/Eastwood": {
+      "latitude": 14.6102364,
+      "longitude": 121.0798162,
+      "source": "https://www.openstreetmap.org/node/306408839",
+      "venueName": "Eastwood Mall"
+    },
+    "Quezon City/UP Diliman Electrical and Electronics Engineering Institute": {
+      "latitude": 14.6498335,
+      "longitude": 121.0682769,
+      "source": "https://www.openstreetmap.org/way/30605408",
+      "venueName": "Electrical and Electronics Engineering Institute"
+    },
+    "Quezon City/UP Diliman College of Science Library": {
+      "latitude": 14.6492532,
+      "longitude": 121.0694219,
+      "source": "https://www.openstreetmap.org/way/31489496",
+      "venueName": "College of Science Library and Administration Building"
+    },
+    "Quezon City/UP Diliman Molave Residence Hall": {
+      "latitude": 14.6579668,
+      "longitude": 121.0677319,
+      "source": "https://www.openstreetmap.org/way/30605411",
+      "venueName": "Molave Residence Hall"
+    },
+    "San Juan/Greenhills": {
+      "latitude": 14.6022465,
+      "longitude": 121.0486168,
+      "source": "https://www.openstreetmap.org/way/319270987",
+      "venueName": "Greenhills Mall"
+    },
+    "Taguig/SM Aura": {
+      "latitude": 14.5455925,
+      "longitude": 121.0538079,
+      "source": "https://www.openstreetmap.org/way/97061942",
+      "venueName": "SM Aura"
+    },
+    "Taguig/Market! Market!": {
+      "latitude": 14.5493197,
+      "longitude": 121.0563056,
+      "source": "https://www.openstreetmap.org/way/24957205",
+      "venueName": "Market! Market!"
+    },
+    "Taguig/World Plaza BGC": {
+      "latitude": 14.5530373,
+      "longitude": 121.0486852,
+      "source": "https://www.openstreetmap.org/way/317139890",
+      "venueName": "World Plaza"
+    },
+    "Valenzuela/SM City Valenzuela": {
+      "latitude": 14.6855815,
+      "longitude": 120.977017,
+      "source": "https://www.openstreetmap.org/way/944531581",
+      "venueName": "SM City Valenzuela"
+    }
+  }
+}

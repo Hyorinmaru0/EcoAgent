@@ -3,11 +3,16 @@ import { createServer } from "node:http"
 import { readFile } from "node:fs/promises"
 import { after, before, test } from "node:test"
 import { createTvDetectionMiddleware, runTvDetector } from "../server/tv-detection.mjs"
-import { getFacilityRecommendations } from "../src/components/identification/facilityRecommendations.mjs"
+import { distanceKmBetween, getFacilityRecommendations, isValidCoordinates } from "../src/components/identification/facilityRecommendations.mjs"
+import { readBrowserLocation } from "../src/components/identification/browserLocation.mjs"
 
 const jpeg = Buffer.from([255, 216, 255, 224, 0, 16])
 const photo = `data:image/jpeg;base64,${jpeg.toString("base64")}`
 const collectionLocations = JSON.parse(await readFile(new URL("../data/collection-locations.json", import.meta.url), "utf8"))
+const coordinateData = JSON.parse(await readFile(new URL("../data/facility-coordinates.json", import.meta.url), "utf8"))
+const mappedLocations = collectionLocations.map((entry) => ({ ...entry, locations: entry.locations.map((location) => ({
+  ...location, coordinates: coordinateData.locations[`${entry.municipality}/${location.name}`],
+})) }))
 const tvMatch = { className: "damaged_tv", score: 0.85, box: [0.1, 0.1, 0.9, 0.9] }
 const deviceMatch = { className: "television", score: 0.9, box: [0.1, 0.1, 0.9, 0.9] }
 const prediction = (detections = [deviceMatch], tvDetections = [tvMatch]) => ({
@@ -167,29 +172,109 @@ test("copied dataset keeps the 160/40 split and 200 manifest entries", async () 
   assert.equal(manifest.trim().split(/\r?\n/).length - 1, 200)
 })
 
-test("facility recommendations match the selected device and prioritize the requested municipality", () => {
-  const laptopOptions = getFacilityRecommendations(collectionLocations, "Laptop", "Quezon City")
+test("facility recommendations match the device and change order with the user's coordinates", () => {
+  const northEdsa = coordinateData.locations["Quezon City/SM North EDSA"]
+  const mallOfAsia = coordinateData.locations["Pasay/SM Mall of Asia"]
+  const laptopOptions = getFacilityRecommendations(mappedLocations, "Laptop", northEdsa)
   assert.ok(laptopOptions.length > 0)
-  assert.ok(laptopOptions.every((facility) => facility.isLocal))
+  assert.equal(laptopOptions[0].name, "SM North EDSA")
+  assert.equal(laptopOptions[0].distanceKm, 0)
   assert.ok(laptopOptions.every((facility) => /laptop/i.test(facility.acceptanceLabel)))
-  assert.ok(laptopOptions.some((facility) => facility.name === "SM North EDSA"))
-
-  const tvOptions = getFacilityRecommendations(collectionLocations, "TV", "Caloocan")
-  assert.ok(tvOptions.some((facility) => facility.name === "Bagong Silang TSD Facility"))
-  assert.ok(tvOptions.every((facility) => facility.isLocal))
+  const distances = laptopOptions.filter((facility) => facility.distanceKm !== null).map((facility) => facility.distanceKm)
+  assert.deepEqual(distances, [...distances].sort((a, b) => a - b))
+  const movedOptions = getFacilityRecommendations(mappedLocations, "Laptop", mallOfAsia)
+  assert.equal(movedOptions[0].name, "SM Mall of Asia")
+  assert.ok(movedOptions.some((facility) => facility.name === "SM North EDSA"))
 })
 
-test("when no local match exists, facility recommendations show matching options elsewhere", () => {
-  const options = getFacilityRecommendations(collectionLocations, "Mobile Phone", "Navotas")
+test("without location permission, listings have no distance or invented nearest facility", () => {
+  const options = getFacilityRecommendations(mappedLocations, "Mobile Phone")
   assert.ok(options.length > 0)
-  assert.ok(options.every((facility) => !facility.isLocal))
+  assert.ok(options.every((facility) => facility.distanceKm === null))
   assert.ok(options.some((facility) => facility.name === "SM North EDSA"))
 })
 
 test("potential device acceptance is labeled for confirmation and unsupported items do not match", () => {
-  const options = getFacilityRecommendations(collectionLocations, "TV", "Quezon City")
+  const options = getFacilityRecommendations(mappedLocations, "TV")
   const scheduledTv = options.find((facility) => facility.name === "UP Diliman Electrical and Electronics Engineering Institute")
   assert.ok(scheduledTv)
   assert.match(scheduledTv.acceptanceLabel, /confirm/i)
-  assert.deepEqual(getFacilityRecommendations(collectionLocations, "Tablet", "Quezon City"), [])
+  assert.deepEqual(getFacilityRecommendations(mappedLocations, "Tablet"), [])
+})
+
+test("distance outranks city boundaries and acceptance certainty; unmapped venues sort last", () => {
+  const sample = [
+    { municipality: "City A", locations: [
+      { name: "Farther listed venue", acceptedDevices: "Laptops", status: "Listed", coordinates: { latitude: 0, longitude: 0.2 } },
+      { name: "Unmapped venue", acceptedDevices: "Laptops", status: "Listed" },
+    ] },
+    { municipality: "City B", locations: [
+      { name: "Closer potential venue", acceptedDevices: "Electronics", status: "Confirm laptop acceptance", coordinates: { latitude: 0, longitude: 0.01 } },
+      { name: "Phone-only venue", acceptedDevices: "Mobile phones", status: "Listed", coordinates: { latitude: 0, longitude: 0 } },
+    ] },
+  ]
+  const results = getFacilityRecommendations(sample, "Laptop", { latitude: 0, longitude: 0 })
+  assert.deepEqual(results.map((facility) => facility.name), ["Closer potential venue", "Farther listed venue", "Unmapped venue"])
+  assert.equal(results[2].distanceKm, null)
+  assert.match(results[0].acceptanceLabel, /Potential.*confirm/)
+})
+
+test("distance calculation handles identical, equatorial, invalid, and antipodal coordinates", () => {
+  const origin = { latitude: 0, longitude: 0 }
+  assert.equal(distanceKmBetween(origin, origin), 0)
+  assert.ok(Math.abs(distanceKmBetween(origin, { latitude: 0, longitude: 1 }) - 111.195) < 0.001)
+  assert.ok(Number.isFinite(distanceKmBetween(origin, { latitude: 0, longitude: 180 })))
+  for (const invalid of [null, undefined, {}, { latitude: 91, longitude: 0 }, { latitude: 0, longitude: NaN }, { latitude: 0, longitude: 181 }]) {
+    assert.equal(isValidCoordinates(invalid), false)
+    assert.equal(distanceKmBetween(origin, invalid), null)
+  }
+})
+
+test("mapped coordinates belong to directory records and retain a source for every pin", () => {
+  const keys = new Set(collectionLocations.flatMap((entry) => entry.locations.map((location) => `${entry.municipality}/${location.name}`)))
+  for (const [key, point] of Object.entries(coordinateData.locations)) {
+    assert.ok(keys.has(key), key)
+    assert.ok(isValidCoordinates(point), key)
+    assert.match(point.source, /^https:\/\/www\.openstreetmap\.org\/(node|way|relation)\/\d+$/)
+  }
+})
+
+test("browser location requests retain accuracy and use a finite timeout", async () => {
+  const coords = { latitude: 14.65, longitude: 121.03, accuracy: 25 }
+  let options
+  const result = await readBrowserLocation({ getCurrentPosition(success, _failure, settings) { options = settings; success({ coords }) } }, true)
+  assert.deepEqual(result, coords)
+  assert.equal(options.enableHighAccuracy, true)
+  assert.equal(options.timeout, 15000)
+})
+
+test("browser location errors cover permission denial, timeout, unavailable GPS, and invalid coordinates", async () => {
+  for (const [code, message] of [[1, /denied.*site settings/], [2, /could not be found/], [3, /timed out/]]) {
+    await assert.rejects(readBrowserLocation({ getCurrentPosition(_success, fail) { fail({ code }) } }, true), message)
+  }
+  await assert.rejects(readBrowserLocation(null, true), /unavailable in this browser/)
+  await assert.rejects(readBrowserLocation({ getCurrentPosition() { throw new Error("Should not request GPS") } }, false), /HTTPS or localhost/)
+  await assert.rejects(readBrowserLocation({ getCurrentPosition(success) { success({ coords: { latitude: NaN, longitude: 121 } }) } }, true), /invalid location/)
+})
+
+test("nearest facility renders a pinned map and directions, while denied location renders a useful fallback", async () => {
+  const { createElement } = await import("react")
+  const { renderToStaticMarkup } = await import("react-dom/server")
+  const { createServer: createViteServer } = await import("vite")
+  const vite = await createViteServer({ server: { middlewareMode: true }, appType: "custom" })
+  try {
+    const { NearestFacilityPanel } = await vite.ssrLoadModule("/src/components/identification/NearestFacilityPanel.tsx")
+    const position = { ...coordinateData.locations["Quezon City/SM North EDSA"], accuracy: 10 }
+    const props = { category: "Laptop", recommendations: getFacilityRecommendations(mappedLocations, "Laptop", position), position, status: "ready", error: "", onLocate() {}, onDirectory() {} }
+    const ready = renderToStaticMarkup(createElement(NearestFacilityPanel, props))
+    assert.match(ready, /Map showing the nearest listed facility: SM North EDSA/)
+    assert.ok(ready.includes(`marker=${position.latitude}%2C${position.longitude}`))
+    assert.match(ready, /google\.com\/maps\/dir\/\?/)
+    assert.match(ready, /straight.line/)
+    const denied = renderToStaticMarkup(createElement(NearestFacilityPanel, { ...props, position: null, recommendations: getFacilityRecommendations(mappedLocations, "Laptop"), status: "error", error: "Location access was denied." }))
+    assert.match(denied, /Location access was denied/)
+    assert.match(denied, /Use my location/)
+    assert.match(denied, /Browse full directory/)
+    assert.doesNotMatch(denied, /<iframe/)
+  } finally { await vite.close() }
 })

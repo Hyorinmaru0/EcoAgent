@@ -31,7 +31,7 @@ export default defineConfig(({ mode }) => {
   }
 
   process.env.GEMINI_MODEL =
-    serverEnv.GEMINI_MODEL || 'gemini-3.5-flash-lite'
+    serverEnv.GEMINI_MODEL || 'gemini-3.1-flash-lite'
 
   return {
     plugins: [

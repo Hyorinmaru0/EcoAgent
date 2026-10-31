@@ -497,11 +497,11 @@ describe("EcoAgent Ask Bot project knowledge API", () => {
     assert.equal((await result.json()).status, "ok")
   })
 
-  it("uses Gemini with EcoAgent project data and conversation history", async () => {
+  it("uses Gemini 3.1 Flash-Lite by default with EcoAgent project data and conversation history", async () => {
     const previousKey = process.env.GEMINI_API_KEY
     const previousModel = process.env.GEMINI_MODEL
     process.env.GEMINI_API_KEY = "test-only-key"
-    process.env.GEMINI_MODEL = "gemini-3.5-flash-lite"
+    delete process.env.GEMINI_MODEL
     let providerRequest
     globalThis.fetch = async (url, options) => {
       if (!String(url).includes("generativelanguage.googleapis.com")) {
@@ -538,7 +538,7 @@ describe("EcoAgent Ask Bot project knowledge API", () => {
       assert.match(body.answer, /Repair or reuse/)
       assert.match(
         providerRequest.url,
-        /models\/gemini-3\.5-flash-lite:generateContent$/,
+        /models\/gemini-3\.1-flash-lite:generateContent$/,
       )
       const providerHeaders = new Headers(providerRequest.options.headers)
       assert.equal(providerHeaders.get("x-goog-api-key"), "test-only-key")

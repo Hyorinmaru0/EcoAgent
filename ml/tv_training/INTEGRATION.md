@@ -41,6 +41,8 @@ The default detector finds `.venv/Scripts/python.exe` on Windows or
 `DEVICE_DETECTOR_WEIGHTS` optionally selects different three-class weights, and
 `TV_DETECTOR_WEIGHTS` optionally selects different TV-specific weights. Restart
 Vite after changing environment variables. Both models use CPU inference.
+The three-class device model uses image size 640 to match its training size;
+the TV-specific model uses image size 416.
 
 `POST /api/tv-detection` takes `{ "image": "data:image/jpeg;base64,...",
 "category": "TV" }`. Category may also be `Mobile Phone` or `Laptop`. The

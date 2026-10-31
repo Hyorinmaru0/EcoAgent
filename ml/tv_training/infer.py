@@ -55,7 +55,8 @@ def main():
             if set(class_names.values()) != {"laptop", "cell phone", "television"}:
                 raise RuntimeError("Use device-detection weights trained for laptops, cell phones, and televisions.")
             device_result = device_model.predict(
-                source=image, device="cpu", imgsz=416, conf=CONFIDENCE_THRESHOLD,
+                # Match the 640-pixel size used to train the three-class model.
+                source=image, device="cpu", imgsz=640, conf=CONFIDENCE_THRESHOLD,
                 max_det=20, verbose=False, save=False,
             )[0]
             device_detections = []

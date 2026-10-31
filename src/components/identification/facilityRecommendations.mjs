@@ -11,15 +11,25 @@ const itemTerms = {
   Laptop: ["laptop"],
 }
 
-function locationMatches(municipality, requestedLocation) {
-  const place = normalize(requestedLocation.trim())
-  const city = normalize(municipality)
-  return Boolean(place) && (place === city || place.includes(city) || city.includes(place))
+export function isValidCoordinates(point) {
+  return Boolean(point) && Number.isFinite(point.latitude) &&
+    Number.isFinite(point.longitude) && Math.abs(point.latitude) <= 90 &&
+    Math.abs(point.longitude) <= 180
 }
 
-export function getFacilityRecommendations(locations, category, requestedLocation) {
+export function distanceKmBetween(from, to) {
+  if (!isValidCoordinates(from) || !isValidCoordinates(to)) return null
+  const radians = (degrees) => degrees * Math.PI / 180
+  const deltaLat = radians(to.latitude - from.latitude)
+  const deltaLon = radians(to.longitude - from.longitude)
+  const a = Math.sin(deltaLat / 2) ** 2 + Math.cos(radians(from.latitude)) *
+    Math.cos(radians(to.latitude)) * Math.sin(deltaLon / 2) ** 2
+  return 6371.0088 * 2 * Math.asin(Math.sqrt(Math.min(1, Math.max(0, a))))
+}
+
+export function getFacilityRecommendations(locations, category, userLocation = null) {
   const terms = itemTerms[category]
-  if (!terms || !requestedLocation.trim()) return []
+  if (!terms) return []
 
   const matches = locations.flatMap((entry) => entry.locations.flatMap((location) => {
     const listedDevices = normalize(location.acceptedDevices)
@@ -34,13 +44,13 @@ export function getFacilityRecommendations(locations, category, requestedLocatio
       acceptanceLabel: explicitlyListed
         ? `Listed acceptance: ${location.acceptedDevices}`
         : `Potential match for ${category} — confirm acceptance with the facility`,
-      isLocal: locationMatches(entry.municipality, requestedLocation),
+      distanceKm: distanceKmBetween(userLocation, location.coordinates),
     }]
   }))
 
-  const localMatches = matches.filter((location) => location.isLocal)
-  const recommendations = localMatches.length ? localMatches : matches
-  return recommendations.sort((a, b) => {
+  return matches.sort((a, b) => {
+    const distance = (a.distanceKm ?? Infinity) - (b.distanceKm ?? Infinity)
+    if (!Number.isNaN(distance) && distance !== 0) return distance
     const aNeedsConfirmation = a.acceptanceLabel.startsWith("Potential")
     const bNeedsConfirmation = b.acceptanceLabel.startsWith("Potential")
     return Number(aNeedsConfirmation) - Number(bNeedsConfirmation) ||
