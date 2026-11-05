@@ -1,0 +1,12 @@
+# Whole-photo damage detection. Positive laptop images target the entire crop;
+# phone labels remain bounding rectangles around the marked cracked-screen area.
+# damaged_tv frames come from ml/tv_training (one recording) and use a whole-image
+# box. Re-import with curate.py import-tv; see tv_frames_manifest_*.csv.
+path: .
+train: images/train
+val: images/val
+test: images/test
+names:
+  0: damaged_phone
+  1: damaged_laptop
+  2: damaged_tv

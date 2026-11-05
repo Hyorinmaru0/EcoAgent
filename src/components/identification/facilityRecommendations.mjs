@@ -6,7 +6,7 @@ function normalize(value) {
 }
 
 const itemTerms = {
-  TV: ["television", " tv"],
+  TV: ["television", "tv"],
   "Mobile Phone": ["mobile phone", "cell phone", "phone"],
   Laptop: ["laptop"],
 }

@@ -1,0 +1,3 @@
+# Training and ONNX export only. Not needed to run the website.
+-r requirements.txt
+ultralytics==8.4.187

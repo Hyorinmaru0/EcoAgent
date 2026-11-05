@@ -1,6 +1,9 @@
 # Dependencies and build output
 node_modules/
 dist/
+data/*.sqlite
+data/*.sqlite-shm
+data/*.sqlite-wal
 
 # Keep local environment values and secrets out of Git.
 .env
@@ -13,6 +16,11 @@ dist/
 .DS_Store
 __pycache__/
 .venv/
+.venv-train/
+ml/condition_training/dataset/
+ml/condition_training/runs/
+ml/condition_training/sources/
+ml/condition_training/weights/
 *.pyc
 
 # Ultralytics training artifacts; keep supplied weights trackable.
@@ -20,3 +28,25 @@ ml/tv_training/dataset/labels/*.cache
 ml/tv_training/runs/
 ml/tv_training/predictions/
 ml/tv_training/.ultralytics/
+ml/damage_detection/runs/
+ml/damage_detection/dataset/.resolved-data.yaml
+ml/damage_detection/dataset/**/*.cache
+ml/damage_detection/dataset_whole/.resolved-data.yaml
+ml/damage_detection/dataset_whole/**/*.cache
+ml/damage_detection/dataset*/labels_backup_*/
+
+# Imported public datasets are large and license-bound; keep them local.
+ml/damage_detection/dataset/images/
+ml/damage_detection/dataset/labels/
+ml/damage_detection/dataset_whole/images/
+ml/damage_detection/dataset_whole/labels/
+
+# Pretrained base weights downloaded by training scripts.
+yolo*.pt
+ml/device_detection/verifier/
+ml/device_detection/reference/
+
+# Local IDE settings and generated training output
+.idea/
+/runs/
+reports/*.log

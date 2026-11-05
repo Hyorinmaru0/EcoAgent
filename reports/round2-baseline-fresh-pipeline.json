@@ -1,0 +1,1338 @@
+{
+  "weights": "ml/damage_detection/weights/best.pt",
+  "passed": 28,
+  "total": 50,
+  "blocked": 12,
+  "cases": [
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02633__110986769.jpg",
+      "expectedDamaged": false,
+      "source": "commons-reviewed",
+      "actualCategory": null,
+      "identityStatus": "uncertain",
+      "damageStatus": "blocked",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.860151,
+          "box": [
+            0,
+            0.009232,
+            0.999226,
+            1
+          ]
+        }
+      ],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02636__115403571.jpg",
+      "expectedDamaged": false,
+      "source": "commons-reviewed",
+      "actualCategory": "Laptop",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.380992,
+          "box": [
+            0,
+            0,
+            0.999157,
+            0.999748
+          ]
+        },
+        {
+          "className": "damaged_laptop",
+          "score": 0.380992,
+          "origin": "device-crop",
+          "box": [
+            0,
+            0,
+            0.999157,
+            0.999748
+          ]
+        }
+      ],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02639__119503723.jpg",
+      "expectedDamaged": false,
+      "source": "commons-reviewed",
+      "actualCategory": null,
+      "identityStatus": "no-match",
+      "damageStatus": "blocked",
+      "damageSource": null,
+      "damageDetections": [],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02642__119503733.jpg",
+      "expectedDamaged": false,
+      "source": "commons-reviewed",
+      "actualCategory": "TV",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.369028,
+          "origin": "device-crop",
+          "box": [
+            0.107118,
+            0.137162,
+            0.753125,
+            0.997534
+          ]
+        }
+      ],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02647__119503757.jpg",
+      "expectedDamaged": false,
+      "source": "commons-reviewed",
+      "actualCategory": null,
+      "identityStatus": "no-match",
+      "damageStatus": "blocked",
+      "damageSource": null,
+      "damageDetections": [],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02656__127446358.jpg",
+      "expectedDamaged": false,
+      "source": "commons-reviewed",
+      "actualCategory": "Laptop",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.138166,
+          "box": [
+            0,
+            0.000609,
+            0.935197,
+            1
+          ]
+        },
+        {
+          "className": "damaged_laptop",
+          "score": 0.138166,
+          "origin": "device-crop",
+          "box": [
+            0,
+            0.000609,
+            0.935197,
+            1
+          ]
+        }
+      ],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02657__128326153.jpg",
+      "expectedDamaged": false,
+      "source": "commons-reviewed",
+      "actualCategory": null,
+      "identityStatus": "no-match",
+      "damageStatus": "blocked",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.288126,
+          "box": [
+            0,
+            0.010821,
+            0.99963,
+            1
+          ]
+        }
+      ],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02663__133166452.jpg",
+      "expectedDamaged": false,
+      "source": "commons-reviewed",
+      "actualCategory": "Mobile Phone",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02664__135875020.jpg",
+      "expectedDamaged": false,
+      "source": "commons-reviewed",
+      "actualCategory": null,
+      "identityStatus": "uncertain",
+      "damageStatus": "blocked",
+      "damageSource": null,
+      "damageDetections": [],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02670__148988863.jpg",
+      "expectedDamaged": false,
+      "source": "commons-reviewed",
+      "actualCategory": "Mobile Phone",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.86629,
+          "origin": "device-crop",
+          "box": [
+            0.073485,
+            0.051536,
+            0.389844,
+            0.914425
+          ]
+        },
+        {
+          "className": "damaged_laptop",
+          "score": 0.784225,
+          "origin": "device-crop",
+          "box": [
+            0.576349,
+            0.042617,
+            0.937613,
+            0.939587
+          ]
+        },
+        {
+          "className": "damaged_laptop",
+          "score": 0.341767,
+          "box": [
+            0.002105,
+            0.011281,
+            0.958309,
+            0.998942
+          ]
+        }
+      ],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02671__148988871.jpg",
+      "expectedDamaged": false,
+      "source": "commons-reviewed",
+      "actualCategory": "Mobile Phone",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.153481,
+          "box": [
+            0.020145,
+            0.239326,
+            0.511826,
+            0.978521
+          ]
+        },
+        {
+          "className": "damaged_laptop",
+          "score": 0.081815,
+          "box": [
+            0.381169,
+            0.010121,
+            0.991651,
+            0.994864
+          ]
+        }
+      ],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02672__148988927.jpg",
+      "expectedDamaged": false,
+      "source": "commons-reviewed",
+      "actualCategory": "Mobile Phone",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.328068,
+          "origin": "device-crop",
+          "box": [
+            0.045102,
+            0.27695,
+            0.524092,
+            1
+          ]
+        },
+        {
+          "className": "damaged_laptop",
+          "score": 0.245954,
+          "box": [
+            0.02805,
+            0.268356,
+            0.52774,
+            0.994403
+          ]
+        },
+        {
+          "className": "damaged_laptop",
+          "score": 0.107501,
+          "box": [
+            0.471255,
+            0.025303,
+            0.993112,
+            0.907308
+          ]
+        }
+      ],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02673__148989058.jpg",
+      "expectedDamaged": false,
+      "source": "commons-reviewed",
+      "actualCategory": "Mobile Phone",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.887273,
+          "box": [
+            0.021976,
+            0.030289,
+            0.992338,
+            0.988178
+          ]
+        },
+        {
+          "className": "damaged_laptop",
+          "score": 0.886042,
+          "origin": "device-crop",
+          "box": [
+            0.052076,
+            0.022252,
+            0.979769,
+            0.99105
+          ]
+        }
+      ],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02681__162852224.jpg",
+      "expectedDamaged": false,
+      "source": "commons-reviewed",
+      "actualCategory": "Mobile Phone",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.744945,
+          "origin": "device-crop",
+          "box": [
+            0,
+            0.088966,
+            0.554167,
+            0.940374
+          ]
+        },
+        {
+          "className": "damaged_laptop",
+          "score": 0.720312,
+          "box": [
+            0.0021,
+            0,
+            0.996369,
+            0.999437
+          ]
+        },
+        {
+          "className": "damaged_laptop",
+          "score": 0.384773,
+          "origin": "device-crop",
+          "box": [
+            0.482078,
+            0.111336,
+            1,
+            0.976281
+          ]
+        }
+      ],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02686__196941133.jpg",
+      "expectedDamaged": false,
+      "source": "commons-reviewed",
+      "actualCategory": null,
+      "identityStatus": "ambiguous",
+      "damageStatus": "blocked",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.585418,
+          "origin": "device-crop",
+          "box": [
+            0.413308,
+            0.167133,
+            0.676808,
+            0.891534
+          ]
+        },
+        {
+          "className": "damaged_laptop",
+          "score": 0.404684,
+          "origin": "device-crop",
+          "box": [
+            0.830599,
+            0.365079,
+            0.983893,
+            0.925926
+          ]
+        },
+        {
+          "className": "damaged_laptop",
+          "score": 0.334438,
+          "box": [
+            0.002673,
+            0.011604,
+            0.995555,
+            0.987834
+          ]
+        }
+      ],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02687__197146431.jpg",
+      "expectedDamaged": false,
+      "source": "commons-reviewed",
+      "actualCategory": null,
+      "identityStatus": "unverified",
+      "damageStatus": "blocked",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.606133,
+          "box": [
+            0.002072,
+            0.005789,
+            0.998949,
+            1
+          ]
+        }
+      ],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02688__197146434.jpg",
+      "expectedDamaged": false,
+      "source": "commons-reviewed",
+      "actualCategory": null,
+      "identityStatus": "uncertain",
+      "damageStatus": "blocked",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.857568,
+          "box": [
+            0,
+            0.003045,
+            0.998071,
+            0.996473
+          ]
+        }
+      ],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02694__37144180.jpg",
+      "expectedDamaged": false,
+      "source": "commons-reviewed",
+      "actualCategory": "Laptop",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_phone",
+          "score": 0.367743,
+          "box": [
+            0.002407,
+            0.016183,
+            0.968859,
+            0.996921
+          ]
+        },
+        {
+          "className": "damaged_phone",
+          "score": 0.367743,
+          "origin": "device-crop",
+          "box": [
+            0.002407,
+            0.016183,
+            0.968859,
+            0.996921
+          ]
+        },
+        {
+          "className": "damaged_laptop",
+          "score": 0.333325,
+          "box": [
+            0,
+            0.007067,
+            0.96969,
+            0.999484
+          ]
+        },
+        {
+          "className": "damaged_laptop",
+          "score": 0.333325,
+          "origin": "device-crop",
+          "box": [
+            0,
+            0.007067,
+            0.96969,
+            0.999484
+          ]
+        }
+      ],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02704__62707698.jpg",
+      "expectedDamaged": false,
+      "source": "commons-reviewed",
+      "actualCategory": "Mobile Phone",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02705__62952820.jpg",
+      "expectedDamaged": false,
+      "source": "commons-reviewed",
+      "actualCategory": "TV",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.342962,
+          "box": [
+            0.002373,
+            0,
+            0.996755,
+            1
+          ]
+        }
+      ],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02712__88874919.jpg",
+      "expectedDamaged": false,
+      "source": "commons-reviewed",
+      "actualCategory": "TV",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.163371,
+          "box": [
+            0,
+            0.013553,
+            0.998773,
+            1
+          ]
+        }
+      ],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02724__27413-30.jpg",
+      "expectedDamaged": true,
+      "source": "mhci-damage-study",
+      "expectedCategory": "Mobile Phone",
+      "actualCategory": "Mobile Phone",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [],
+      "score": null,
+      "pass": false
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02734__44491-1.jpg",
+      "expectedDamaged": true,
+      "source": "mhci-damage-study",
+      "expectedCategory": "Mobile Phone",
+      "actualCategory": "Mobile Phone",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.792687,
+          "origin": "device-crop",
+          "box": [
+            0.036505,
+            0,
+            0.864951,
+            0.997802
+          ]
+        },
+        {
+          "className": "damaged_laptop",
+          "score": 0.661001,
+          "box": [
+            0.004732,
+            0,
+            0.993173,
+            0.997992
+          ]
+        }
+      ],
+      "score": null,
+      "pass": false
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02740__44491-33.jpg",
+      "expectedDamaged": true,
+      "source": "mhci-damage-study",
+      "expectedCategory": "Mobile Phone",
+      "actualCategory": "Mobile Phone",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.801884,
+          "origin": "device-crop",
+          "box": [
+            0.001397,
+            0.18605,
+            0.998462,
+            0.916667
+          ]
+        },
+        {
+          "className": "damaged_laptop",
+          "score": 0.668358,
+          "box": [
+            0.003217,
+            0.215825,
+            0.999982,
+            1
+          ]
+        }
+      ],
+      "score": null,
+      "pass": false
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02746__44491-53.jpg",
+      "expectedDamaged": true,
+      "source": "mhci-damage-study",
+      "expectedCategory": "Mobile Phone",
+      "actualCategory": "Mobile Phone",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [],
+      "score": null,
+      "pass": false
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02756__46693-182.jpg",
+      "expectedDamaged": true,
+      "source": "mhci-damage-study",
+      "expectedCategory": "Mobile Phone",
+      "actualCategory": "Mobile Phone",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [],
+      "score": null,
+      "pass": false
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02757__46693-19.jpg",
+      "expectedDamaged": true,
+      "source": "mhci-damage-study",
+      "expectedCategory": "Mobile Phone",
+      "actualCategory": "Mobile Phone",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.687362,
+          "origin": "device-crop",
+          "box": [
+            0.239122,
+            0.214561,
+            0.75239,
+            0.8169
+          ]
+        },
+        {
+          "className": "damaged_laptop",
+          "score": 0.419978,
+          "box": [
+            0.20211,
+            0.207034,
+            0.754225,
+            0.817721
+          ]
+        },
+        {
+          "className": "damaged_phone",
+          "score": 0.144566,
+          "box": [
+            0.195468,
+            0.19642,
+            0.770204,
+            0.820015
+          ]
+        }
+      ],
+      "score": null,
+      "pass": false
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02767__46693-28.jpg",
+      "expectedDamaged": true,
+      "source": "mhci-damage-study",
+      "expectedCategory": "Mobile Phone",
+      "actualCategory": "Mobile Phone",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.719324,
+          "origin": "device-crop",
+          "box": [
+            0.001787,
+            0.152609,
+            0.99829,
+            0.895397
+          ]
+        },
+        {
+          "className": "damaged_laptop",
+          "score": 0.31026,
+          "box": [
+            0,
+            0,
+            1,
+            1
+          ]
+        }
+      ],
+      "score": null,
+      "pass": false
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02768__46693-29.jpg",
+      "expectedDamaged": true,
+      "source": "mhci-damage-study",
+      "expectedCategory": "Mobile Phone",
+      "actualCategory": "Mobile Phone",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.366024,
+          "box": [
+            0.005982,
+            0,
+            1,
+            0.998599
+          ]
+        },
+        {
+          "className": "damaged_laptop",
+          "score": 0.27904,
+          "origin": "device-crop",
+          "box": [
+            0.077813,
+            0,
+            0.811366,
+            0.998717
+          ]
+        }
+      ],
+      "score": null,
+      "pass": false
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02769__46693-356.jpg",
+      "expectedDamaged": true,
+      "source": "mhci-damage-study",
+      "expectedCategory": "Mobile Phone",
+      "actualCategory": "Mobile Phone",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.749263,
+          "origin": "device-crop",
+          "box": [
+            0.216372,
+            0.033099,
+            0.865431,
+            0.997153
+          ]
+        },
+        {
+          "className": "damaged_laptop",
+          "score": 0.737755,
+          "box": [
+            0.006809,
+            0.000918,
+            0.919686,
+            0.999152
+          ]
+        }
+      ],
+      "score": null,
+      "pass": false
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02802__46693-910.jpg",
+      "expectedDamaged": true,
+      "source": "mhci-damage-study",
+      "expectedCategory": "Mobile Phone",
+      "actualCategory": "Mobile Phone",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [],
+      "score": null,
+      "pass": false
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02809__46693-969.jpg",
+      "expectedDamaged": true,
+      "source": "mhci-damage-study",
+      "expectedCategory": "Mobile Phone",
+      "actualCategory": "Mobile Phone",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [],
+      "score": null,
+      "pass": false
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02815__brokentv_10.jpg",
+      "expectedDamaged": true,
+      "source": "hackathon-reviewed",
+      "expectedCategory": "TV",
+      "actualCategory": "TV",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [],
+      "score": null,
+      "pass": false
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02816__brokentv_11 (2).jpg",
+      "expectedDamaged": true,
+      "source": "hackathon-reviewed",
+      "expectedCategory": "Laptop",
+      "actualCategory": "Laptop",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.420094,
+          "box": [
+            0.00006,
+            0.002169,
+            0.996644,
+            1
+          ]
+        }
+      ],
+      "score": null,
+      "pass": false
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02817__brokentv_11.jpg",
+      "expectedDamaged": true,
+      "source": "hackathon-reviewed",
+      "expectedCategory": "TV",
+      "actualCategory": "TV",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [],
+      "score": null,
+      "pass": false
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02821__brokentv_13.jpg",
+      "expectedDamaged": true,
+      "source": "hackathon-reviewed",
+      "expectedCategory": "TV",
+      "actualCategory": "TV",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [],
+      "score": null,
+      "pass": false
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02822__brokentv_14 (2).jpg",
+      "expectedDamaged": true,
+      "source": "hackathon-reviewed",
+      "expectedCategory": "Laptop",
+      "actualCategory": "Laptop",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_phone",
+          "score": 0.545033,
+          "box": [
+            0.009552,
+            0.002353,
+            0.955269,
+            0.985691
+          ]
+        },
+        {
+          "className": "damaged_phone",
+          "score": 0.545033,
+          "origin": "device-crop",
+          "box": [
+            0.009552,
+            0.002353,
+            0.955269,
+            0.985691
+          ]
+        },
+        {
+          "className": "damaged_laptop",
+          "score": 0.44683,
+          "box": [
+            0.001657,
+            0.002332,
+            0.99263,
+            0.999363
+          ]
+        },
+        {
+          "className": "damaged_laptop",
+          "score": 0.44683,
+          "origin": "device-crop",
+          "box": [
+            0.001657,
+            0.002332,
+            0.99263,
+            0.999363
+          ]
+        }
+      ],
+      "score": null,
+      "pass": false
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02825__brokentv_15.jpg",
+      "expectedDamaged": true,
+      "source": "hackathon-reviewed",
+      "expectedCategory": "TV",
+      "actualCategory": null,
+      "identityStatus": "uncertain",
+      "damageStatus": "blocked",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.795626,
+          "box": [
+            0.002627,
+            0.02319,
+            1,
+            1
+          ]
+        }
+      ],
+      "score": null,
+      "pass": false
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02829__brokentv_17.jpg",
+      "expectedDamaged": true,
+      "source": "hackathon-reviewed",
+      "expectedCategory": "TV",
+      "actualCategory": null,
+      "identityStatus": "uncertain",
+      "damageStatus": "blocked",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.337593,
+          "box": [
+            0,
+            0.002295,
+            1,
+            1
+          ]
+        }
+      ],
+      "score": null,
+      "pass": false
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02845__brokentv_3 (2).jpg",
+      "expectedDamaged": true,
+      "source": "hackathon-reviewed",
+      "expectedCategory": "Laptop",
+      "actualCategory": null,
+      "identityStatus": "unverified",
+      "damageStatus": "blocked",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.176594,
+          "box": [
+            0.002042,
+            0.003397,
+            0.998899,
+            1
+          ]
+        }
+      ],
+      "score": null,
+      "pass": false
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02864__television_11.jpg",
+      "expectedDamaged": false,
+      "source": "hackathon-reviewed",
+      "actualCategory": "TV",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.470951,
+          "box": [
+            0.002712,
+            0,
+            0.998149,
+            1
+          ]
+        }
+      ],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02867__television_13 (2).jpg",
+      "expectedDamaged": false,
+      "source": "hackathon-reviewed",
+      "actualCategory": "Laptop",
+      "identityStatus": "accepted",
+      "damageStatus": "damaged",
+      "damageSource": "damage-model",
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.708837,
+          "box": [
+            0.001379,
+            0,
+            0.998593,
+            0.998952
+          ]
+        }
+      ],
+      "score": 0.708837,
+      "pass": false
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02872__television_15.jpg",
+      "expectedDamaged": false,
+      "source": "hackathon-reviewed",
+      "actualCategory": "TV",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.804877,
+          "origin": "device-crop",
+          "box": [
+            0.001047,
+            0.126259,
+            0.997646,
+            0.743
+          ]
+        },
+        {
+          "className": "damaged_laptop",
+          "score": 0.681415,
+          "box": [
+            0.000231,
+            0,
+            1,
+            1
+          ]
+        }
+      ],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02880__television_2 (2).jpg",
+      "expectedDamaged": false,
+      "source": "hackathon-reviewed",
+      "actualCategory": "Laptop",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.2191,
+          "box": [
+            0.003367,
+            0.050548,
+            0.991691,
+            0.999919
+          ]
+        }
+      ],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02882__television_20.jpg",
+      "expectedDamaged": false,
+      "source": "hackathon-reviewed",
+      "actualCategory": "Laptop",
+      "identityStatus": "accepted",
+      "damageStatus": "damaged",
+      "damageSource": "damage-model",
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.665828,
+          "box": [
+            0.001657,
+            0,
+            1,
+            1
+          ]
+        }
+      ],
+      "score": 0.665828,
+      "pass": false
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02884__television_22.jpg",
+      "expectedDamaged": false,
+      "source": "hackathon-reviewed",
+      "actualCategory": "Laptop",
+      "identityStatus": "accepted",
+      "damageStatus": "damaged",
+      "damageSource": "damage-model",
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.503719,
+          "box": [
+            0.000895,
+            0.019283,
+            1,
+            0.997416
+          ]
+        }
+      ],
+      "score": 0.503719,
+      "pass": false
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02886__television_24.jpg",
+      "expectedDamaged": false,
+      "source": "hackathon-reviewed",
+      "actualCategory": null,
+      "identityStatus": "unverified",
+      "damageStatus": "blocked",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.296384,
+          "box": [
+            0.003174,
+            0.129688,
+            0.967107,
+            1
+          ]
+        }
+      ],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02889__television_4 (2).jpg",
+      "expectedDamaged": false,
+      "source": "hackathon-reviewed",
+      "actualCategory": "Laptop",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.483361,
+          "box": [
+            0.001934,
+            0.005299,
+            1,
+            1
+          ]
+        },
+        {
+          "className": "damaged_laptop",
+          "score": 0.483361,
+          "origin": "device-crop",
+          "box": [
+            0.001934,
+            0.005299,
+            1,
+            1
+          ]
+        }
+      ],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02893__television_6 (2).jpg",
+      "expectedDamaged": false,
+      "source": "hackathon-reviewed",
+      "actualCategory": "Laptop",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.460428,
+          "origin": "device-crop",
+          "box": [
+            0,
+            0.083897,
+            1,
+            0.963281
+          ]
+        },
+        {
+          "className": "damaged_laptop",
+          "score": 0.318977,
+          "box": [
+            0.001275,
+            0.17614,
+            0.99799,
+            0.999635
+          ]
+        }
+      ],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02894__television_6.jpg",
+      "expectedDamaged": false,
+      "source": "hackathon-reviewed",
+      "actualCategory": "TV",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [
+        {
+          "className": "damaged_laptop",
+          "score": 0.129021,
+          "box": [
+            0.002702,
+            0.011669,
+            1,
+            1
+          ]
+        }
+      ],
+      "score": null,
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,792 @@
+[
+  {
+    "file": "cracked-screen__102k_jpg.rf.68a35cba309e500005083bdc1f08044d.jpg",
+    "identity": {
+      "status": "uncertain",
+      "category": null,
+      "detection": null
+    },
+    "condition": {
+      "detection": null,
+      "source": null,
+      "status": "blocked",
+      "title": "Condition not assessed",
+      "description": "Identify a supported device before assessing visible damage."
+    },
+    "raw": [
+      {
+        "className": "damaged_phone",
+        "score": 0.9245,
+        "box": [
+          0.1479,
+          0.106543,
+          0.759581,
+          0.917258
+        ]
+      }
+    ]
+  },
+  {
+    "file": "cracked-screen__104k_jpg.rf.8df0758ff2e85f4733b26c9813174521.jpg",
+    "identity": {
+      "status": "accepted",
+      "category": "Mobile Phone",
+      "detection": {
+        "className": "cell phone",
+        "score": 0.884163,
+        "box": [
+          0.20335,
+          0.008928,
+          0.784446,
+          0.9262
+        ],
+        "verification": {
+          "status": "accepted",
+          "label": "cell phone",
+          "similarity": 0.310889,
+          "margin": 0.014373
+        }
+      }
+    },
+    "condition": {
+      "status": "damaged",
+      "title": "Possible damaged / broken device",
+      "description": "The model found a damage candidate on this device. It cannot distinguish cosmetic damage from a non-working device or determine the specific fault.",
+      "detection": {
+        "className": "damaged_phone",
+        "score": 0.951006,
+        "box": [
+          0.177248,
+          0.001667,
+          0.811089,
+          0.934848
+        ]
+      },
+      "source": "damage-model"
+    },
+    "raw": [
+      {
+        "className": "damaged_phone",
+        "score": 0.951006,
+        "box": [
+          0.177248,
+          0.001667,
+          0.811089,
+          0.934848
+        ]
+      }
+    ]
+  },
+  {
+    "file": "cracked-screen__109k_jpg.rf.54654ef6f5967c4c4e7eceda169ab716.jpg",
+    "identity": {
+      "status": "no-match",
+      "category": null,
+      "detection": null
+    },
+    "condition": {
+      "detection": null,
+      "source": null,
+      "status": "blocked",
+      "title": "Condition not assessed",
+      "description": "Identify a supported device before assessing visible damage."
+    },
+    "raw": [
+      {
+        "className": "damaged_phone",
+        "score": 0.921693,
+        "box": [
+          0.228181,
+          0.14595,
+          0.770727,
+          0.898709
+        ]
+      }
+    ]
+  },
+  {
+    "file": "cracked-screen__118k_jpg.rf.2209c9195bf53376ddbd6bfdf2dd5bff.jpg",
+    "identity": {
+      "status": "accepted",
+      "category": "Mobile Phone",
+      "detection": {
+        "className": "cell phone",
+        "score": 0.821793,
+        "box": [
+          0.235431,
+          0.142064,
+          0.773655,
+          0.890314
+        ],
+        "verification": {
+          "status": "accepted",
+          "label": "cell phone",
+          "similarity": 0.322095,
+          "margin": 0.016649
+        }
+      }
+    },
+    "condition": {
+      "status": "damaged",
+      "title": "Possible damaged / broken device",
+      "description": "The model found a damage candidate on this device. It cannot distinguish cosmetic damage from a non-working device or determine the specific fault.",
+      "detection": {
+        "className": "damaged_phone",
+        "score": 0.915909,
+        "box": [
+          0.218219,
+          0.100883,
+          0.790245,
+          0.940432
+        ]
+      },
+      "source": "damage-model"
+    },
+    "raw": [
+      {
+        "className": "damaged_phone",
+        "score": 0.915909,
+        "box": [
+          0.218219,
+          0.100883,
+          0.790245,
+          0.940432
+        ]
+      }
+    ]
+  },
+  {
+    "file": "cracked-screen__125k_jpg.rf.8558a8e3bf1770ff78af9c7d3f70dd97.jpg",
+    "identity": {
+      "status": "no-match",
+      "category": null,
+      "detection": null
+    },
+    "condition": {
+      "detection": null,
+      "source": null,
+      "status": "blocked",
+      "title": "Condition not assessed",
+      "description": "Identify a supported device before assessing visible damage."
+    },
+    "raw": [
+      {
+        "className": "damaged_phone",
+        "score": 0.867132,
+        "box": [
+          0.085227,
+          0.325434,
+          0.845298,
+          0.641103
+        ]
+      }
+    ]
+  },
+  {
+    "file": "cracked-screen__137k_jpg.rf.ac5104a6cd71b9e1a6b3cde8c8c6eed3.jpg",
+    "identity": {
+      "status": "accepted",
+      "category": "Mobile Phone",
+      "detection": {
+        "className": "cell phone",
+        "score": 0.813488,
+        "box": [
+          0.182368,
+          0.540965,
+          0.541707,
+          0.946497
+        ],
+        "verification": {
+          "status": "accepted",
+          "label": "cell phone",
+          "similarity": 0.289633,
+          "margin": 0.016528
+        }
+      }
+    },
+    "condition": {
+      "status": "damaged",
+      "title": "Possible damaged / broken device",
+      "description": "The model found a damage candidate on this device. It cannot distinguish cosmetic damage from a non-working device or determine the specific fault.",
+      "detection": {
+        "className": "damaged_phone",
+        "score": 0.888307,
+        "box": [
+          0.156968,
+          0.004041,
+          0.828202,
+          0.897489
+        ]
+      },
+      "source": "damage-model"
+    },
+    "raw": [
+      {
+        "className": "damaged_phone",
+        "score": 0.888307,
+        "box": [
+          0.156968,
+          0.004041,
+          0.828202,
+          0.897489
+        ]
+      },
+      {
+        "className": "damaged_phone",
+        "score": 0.74669,
+        "box": [
+          0.163186,
+          0.532401,
+          0.554353,
+          0.870701
+        ]
+      }
+    ]
+  },
+  {
+    "file": "cracked-screen__157k_jpg.rf.44f80a07d31cd97275d68c5148590446.jpg",
+    "identity": {
+      "status": "no-match",
+      "category": null,
+      "detection": null
+    },
+    "condition": {
+      "detection": null,
+      "source": null,
+      "status": "blocked",
+      "title": "Condition not assessed",
+      "description": "Identify a supported device before assessing visible damage."
+    },
+    "raw": [
+      {
+        "className": "damaged_phone",
+        "score": 0.934571,
+        "box": [
+          0.11248,
+          0.030807,
+          0.830661,
+          0.942373
+        ]
+      }
+    ]
+  },
+  {
+    "file": "cracked-screen__159k_jpg.rf.c59ab7e1ea850395fcd16970d40b8563.jpg",
+    "identity": {
+      "status": "uncertain",
+      "category": null,
+      "detection": null
+    },
+    "condition": {
+      "detection": null,
+      "source": null,
+      "status": "blocked",
+      "title": "Condition not assessed",
+      "description": "Identify a supported device before assessing visible damage."
+    },
+    "raw": [
+      {
+        "className": "damaged_phone",
+        "score": 0.879628,
+        "box": [
+          0.280462,
+          0.231608,
+          0.685541,
+          0.807581
+        ]
+      }
+    ]
+  },
+  {
+    "file": "cracked-screen__162k_jpg.rf.c53af9f955178852e7a5f9ff7f238fde.jpg",
+    "identity": {
+      "status": "unverified",
+      "category": null,
+      "detection": null
+    },
+    "condition": {
+      "detection": null,
+      "source": null,
+      "status": "blocked",
+      "title": "Condition not assessed",
+      "description": "Identify a supported device before assessing visible damage."
+    },
+    "raw": [
+      {
+        "className": "damaged_phone",
+        "score": 0.94263,
+        "box": [
+          0.099461,
+          0,
+          0.909391,
+          0.899655
+        ]
+      }
+    ]
+  },
+  {
+    "file": "cracked-screen__171k_jpg.rf.b8381163de861696dd4147507ea495e6.jpg",
+    "identity": {
+      "status": "accepted",
+      "category": "Mobile Phone",
+      "detection": {
+        "className": "cell phone",
+        "score": 0.923058,
+        "box": [
+          0.245257,
+          0.0162,
+          0.73826,
+          0.781191
+        ],
+        "verification": {
+          "status": "accepted",
+          "label": "cell phone",
+          "similarity": 0.312944,
+          "margin": 0.018354
+        }
+      }
+    },
+    "condition": {
+      "status": "damaged",
+      "title": "Possible damaged / broken device",
+      "description": "The model found a damage candidate on this device. It cannot distinguish cosmetic damage from a non-working device or determine the specific fault.",
+      "detection": {
+        "className": "damaged_phone",
+        "score": 0.932374,
+        "box": [
+          0.21334,
+          0.012544,
+          0.733684,
+          0.771034
+        ]
+      },
+      "source": "damage-model"
+    },
+    "raw": [
+      {
+        "className": "damaged_phone",
+        "score": 0.932374,
+        "box": [
+          0.21334,
+          0.012544,
+          0.733684,
+          0.771034
+        ]
+      }
+    ]
+  },
+  {
+    "file": "cracked-screen__199k_jpeg.rf.db572833ed9db1c649110175e40fca66.jpg",
+    "identity": {
+      "status": "accepted",
+      "category": "Mobile Phone",
+      "detection": {
+        "className": "cell phone",
+        "score": 0.902593,
+        "box": [
+          0.139247,
+          0.087585,
+          0.730589,
+          1
+        ],
+        "verification": {
+          "status": "accepted",
+          "label": "cell phone",
+          "similarity": 0.319439,
+          "margin": 0.017236
+        }
+      }
+    },
+    "condition": {
+      "status": "damaged",
+      "title": "Possible damaged / broken device",
+      "description": "The model found a damage candidate on this device. It cannot distinguish cosmetic damage from a non-working device or determine the specific fault.",
+      "detection": {
+        "className": "damaged_phone",
+        "score": 0.949787,
+        "box": [
+          0.095601,
+          0.066652,
+          0.741136,
+          0.99549
+        ]
+      },
+      "source": "damage-model"
+    },
+    "raw": [
+      {
+        "className": "damaged_phone",
+        "score": 0.949787,
+        "box": [
+          0.095601,
+          0.066652,
+          0.741136,
+          0.99549
+        ]
+      }
+    ]
+  },
+  {
+    "file": "cracked-screen__19k_jpg.rf.91db2424aaacaee94aeca6f0544365ab.jpg",
+    "identity": {
+      "status": "accepted",
+      "category": "Mobile Phone",
+      "detection": {
+        "className": "cell phone",
+        "score": 0.867396,
+        "box": [
+          0.189092,
+          0.046783,
+          0.767913,
+          0.818564
+        ],
+        "verification": {
+          "status": "accepted",
+          "label": "cell phone",
+          "similarity": 0.313812,
+          "margin": 0.026039
+        }
+      }
+    },
+    "condition": {
+      "status": "damaged",
+      "title": "Possible damaged / broken device",
+      "description": "The model found a damage candidate on this device. It cannot distinguish cosmetic damage from a non-working device or determine the specific fault.",
+      "detection": {
+        "className": "damaged_phone",
+        "score": 0.905096,
+        "box": [
+          0.222938,
+          0.037404,
+          0.789103,
+          0.84456
+        ]
+      },
+      "source": "damage-model"
+    },
+    "raw": [
+      {
+        "className": "damaged_phone",
+        "score": 0.905096,
+        "box": [
+          0.222938,
+          0.037404,
+          0.789103,
+          0.84456
+        ]
+      }
+    ]
+  },
+  {
+    "file": "cracked-screen__215k_jpeg.rf.7ab3c94cde3b55e3cad12637869d1308.jpg",
+    "identity": {
+      "status": "uncertain",
+      "category": null,
+      "detection": null
+    },
+    "condition": {
+      "detection": null,
+      "source": null,
+      "status": "blocked",
+      "title": "Condition not assessed",
+      "description": "Identify a supported device before assessing visible damage."
+    },
+    "raw": [
+      {
+        "className": "damaged_phone",
+        "score": 0.905857,
+        "box": [
+          0.256219,
+          0.145975,
+          0.748808,
+          0.844135
+        ]
+      }
+    ]
+  },
+  {
+    "file": "cracked-screen__219k_jpeg.rf.0f1009660cb09cff018f593c62c7e424.jpg",
+    "identity": {
+      "status": "uncertain",
+      "category": null,
+      "detection": null
+    },
+    "condition": {
+      "detection": null,
+      "source": null,
+      "status": "blocked",
+      "title": "Condition not assessed",
+      "description": "Identify a supported device before assessing visible damage."
+    },
+    "raw": [
+      {
+        "className": "damaged_phone",
+        "score": 0.942527,
+        "box": [
+          0.001315,
+          0.138659,
+          0.999176,
+          0.994519
+        ]
+      }
+    ]
+  },
+  {
+    "file": "cracked-screen__232k_jpeg.rf.403be1e1cb86025ab21467788858101e.jpg",
+    "identity": {
+      "status": "unverified",
+      "category": null,
+      "detection": null
+    },
+    "condition": {
+      "detection": null,
+      "source": null,
+      "status": "blocked",
+      "title": "Condition not assessed",
+      "description": "Identify a supported device before assessing visible damage."
+    },
+    "raw": [
+      {
+        "className": "damaged_phone",
+        "score": 0.940396,
+        "box": [
+          0.31798,
+          0.050871,
+          0.670664,
+          0.906605
+        ]
+      }
+    ]
+  },
+  {
+    "file": "cracked-screen__23k_jpg.rf.c089f426d9544cae21054047f14a0898.jpg",
+    "identity": {
+      "status": "accepted",
+      "category": "Mobile Phone",
+      "detection": {
+        "className": "cell phone",
+        "score": 0.950419,
+        "box": [
+          0.234577,
+          0.201581,
+          0.706496,
+          0.890673
+        ],
+        "verification": {
+          "status": "accepted",
+          "label": "cell phone",
+          "similarity": 0.316638,
+          "margin": 0.011836
+        }
+      }
+    },
+    "condition": {
+      "status": "damaged",
+      "title": "Possible damaged / broken device",
+      "description": "The model found a damage candidate on this device. It cannot distinguish cosmetic damage from a non-working device or determine the specific fault.",
+      "detection": {
+        "className": "damaged_phone",
+        "score": 0.920931,
+        "box": [
+          0.20665,
+          0.179002,
+          0.729822,
+          0.9114
+        ]
+      },
+      "source": "damage-model"
+    },
+    "raw": [
+      {
+        "className": "damaged_phone",
+        "score": 0.920931,
+        "box": [
+          0.20665,
+          0.179002,
+          0.729822,
+          0.9114
+        ]
+      }
+    ]
+  },
+  {
+    "file": "cracked-screen__24k_jpg.rf.7904f7509e98de4f29e90810022f06da.jpg",
+    "identity": {
+      "status": "accepted",
+      "category": "Mobile Phone",
+      "detection": {
+        "className": "cell phone",
+        "score": 0.800951,
+        "box": [
+          0.193052,
+          0.101973,
+          0.760721,
+          0.935675
+        ],
+        "verification": {
+          "status": "accepted",
+          "label": "cell phone",
+          "similarity": 0.322311,
+          "margin": 0.018167
+        }
+      }
+    },
+    "condition": {
+      "status": "damaged",
+      "title": "Possible damaged / broken device",
+      "description": "The model found a damage candidate on this device. It cannot distinguish cosmetic damage from a non-working device or determine the specific fault.",
+      "detection": {
+        "className": "damaged_phone",
+        "score": 0.936931,
+        "box": [
+          0.231856,
+          0.095382,
+          0.739476,
+          0.810132
+        ]
+      },
+      "source": "damage-model"
+    },
+    "raw": [
+      {
+        "className": "damaged_phone",
+        "score": 0.936931,
+        "box": [
+          0.231856,
+          0.095382,
+          0.739476,
+          0.810132
+        ]
+      }
+    ]
+  },
+  {
+    "file": "cracked-screen__257k_jpeg.rf.002e385a3d59ae20cbfdd6afcf4b604f.jpg",
+    "identity": {
+      "status": "accepted",
+      "category": "Mobile Phone",
+      "detection": {
+        "className": "cell phone",
+        "score": 0.889419,
+        "box": [
+          0.231728,
+          0.072701,
+          0.722072,
+          0.909642
+        ],
+        "verification": {
+          "status": "accepted",
+          "label": "cell phone",
+          "similarity": 0.318295,
+          "margin": 0.024293
+        }
+      }
+    },
+    "condition": {
+      "status": "damaged",
+      "title": "Possible damaged / broken device",
+      "description": "The model found a damage candidate on this device. It cannot distinguish cosmetic damage from a non-working device or determine the specific fault.",
+      "detection": {
+        "className": "damaged_phone",
+        "score": 0.935802,
+        "box": [
+          0.209484,
+          0.130569,
+          0.741977,
+          0.940706
+        ]
+      },
+      "source": "damage-model"
+    },
+    "raw": [
+      {
+        "className": "damaged_phone",
+        "score": 0.935802,
+        "box": [
+          0.209484,
+          0.130569,
+          0.741977,
+          0.940706
+        ]
+      }
+    ]
+  },
+  {
+    "file": "cracked-screen__283k_jpeg.rf.15a8e44c98e11b2ab026e62c63037df9.jpg",
+    "identity": {
+      "status": "no-match",
+      "category": null,
+      "detection": null
+    },
+    "condition": {
+      "detection": null,
+      "source": null,
+      "status": "blocked",
+      "title": "Condition not assessed",
+      "description": "Identify a supported device before assessing visible damage."
+    },
+    "raw": [
+      {
+        "className": "damaged_phone",
+        "score": 0.922615,
+        "box": [
+          0.239765,
+          0.153399,
+          0.776289,
+          0.901668
+        ]
+      }
+    ]
+  },
+  {
+    "file": "cracked-screen__307k_jpeg.rf.ddf77100acf148e7d43a30aee84a1e8b.jpg",
+    "identity": {
+      "status": "accepted",
+      "category": "Mobile Phone",
+      "detection": {
+        "className": "cell phone",
+        "score": 0.903373,
+        "box": [
+          0.179563,
+          0.041603,
+          0.785363,
+          0.989305
+        ],
+        "verification": {
+          "status": "accepted",
+          "label": "cell phone",
+          "similarity": 0.315417,
+          "margin": 0.01036
+        }
+      }
+    },
+    "condition": {
+      "status": "damaged",
+      "title": "Possible damaged / broken device",
+      "description": "The model found a damage candidate on this device. It cannot distinguish cosmetic damage from a non-working device or determine the specific fault.",
+      "detection": {
+        "className": "damaged_phone",
+        "score": 0.944259,
+        "box": [
+          0.141137,
+          0.010686,
+          0.805349,
+          0.994946
+        ]
+      },
+      "source": "damage-model"
+    },
+    "raw": [
+      {
+        "className": "damaged_phone",
+        "score": 0.944259,
+        "box": [
+          0.141137,
+          0.010686,
+          0.805349,
+          0.994946
+        ]
+      }
+    ]
+  }
+]

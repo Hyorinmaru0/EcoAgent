@@ -2,6 +2,9 @@
   "name": "ecoagent",
   "private": true,
   "version": "1.0.0",
+  "engines": {
+    "node": ">=22.13.0"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +12,13 @@
     "test:auth": "node --test tests/auth.test.mjs",
     "test:ecobot": "node --test tests/ecobot.test.mjs",
     "test:tv": "node --test tests/tv-detection.test.mjs",
+    "test:detection": "node --test tests/device-detection-policy.test.mjs",
+    "test:damage": "node --test tests/damage-assessment.test.mjs",
+    "smoke:rejection": "node scripts/check-device-photos.mjs",
     "smoke:tv": "node scripts/smoke-tv.mjs",
+    "import:damage": "node scripts/import-damage.mjs",
+    "curate:damage": "node scripts/curate-damage.mjs",
+    "train:damage": "node scripts/train-damage.mjs",
     "build": "vite build",
     "preview": "vite preview",
     "format": "oxfmt"
@@ -22,6 +31,7 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.0.0",
+    "@types/google.maps": "^3.66.9",
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",

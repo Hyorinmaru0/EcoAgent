@@ -1,0 +1,10 @@
+.facility-locations-map-frame { position: relative; }
+.facility-locations-map { z-index: 0; width: 100%; height: 460px; border: 1px solid var(--line); border-radius: 12px; background: #eaf1e6; }
+.facility-map-message { position: absolute; z-index: 1; inset: 16px 16px auto; margin: auto; max-width: 620px; border: 1px solid var(--line); border-radius: 10px; background: #fff; padding: 14px 16px; color: #425047; box-shadow: 0 4px 18px #233e2a14; font-size: 13px; line-height: 1.6; }
+.facility-map-message code { border-radius: 4px; background: #f1f5ed; padding: 2px 4px; font-size: 12px; }
+.facility-map-search-status { margin: 8px 2px 0; color: #687465; font-size: 11px; }
+.facility-map-popup { min-width: 190px; max-width: 270px; color: #28362d; font-family: inherit; font-size: 12px; line-height: 1.5; }
+.facility-map-popup strong { font-size: 14px; }
+.facility-map-popup p { margin: 5px 0; }
+.facility-map-popup a { display: inline-block; margin-top: 5px; color: #315a32; font-weight: 700; }
+@media (max-width: 600px) { .facility-locations-map { height: 340px; } }

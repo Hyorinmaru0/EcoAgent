@@ -1,11 +1,14 @@
 export const userTypes = ["Student", "Household", "General User"] as const
 export type UserType = (typeof userTypes)[number]
 
-export type DemoProfile = {
+export type AccountProfile = {
+  id?: number
+  location?: string
   fullName: string
   email: string
   userType: UserType
 }
+export type DemoProfile = AccountProfile
 
 export type LoginValues = {
   email: string
@@ -24,7 +27,7 @@ export type RegistrationValues = {
 
 export type FieldErrors<T> = Partial<Record<keyof T, string>>
 
-export const passwordHint = "Use at least 8 characters, including a letter and a number."
+export const passwordHint = "Use 8–128 characters, including a letter and a number."
 
 function emailError(email: string) {
   if (!email.trim()) return "Enter your email address."
@@ -56,15 +59,16 @@ export function validateRegistration(values: RegistrationValues): FieldErrors<Re
     errors.confirmPassword = "Your passwords do not match."
   if (!userTypes.some((type) => type === values.userType))
     errors.userType = "Select your user type."
-  if (!values.terms) errors.terms = "Accept the demo Terms and Conditions to continue."
+  if (!values.terms) errors.terms = "Confirm how your account information is stored to continue."
   return errors
 }
 
-// Explicitly select public profile fields so passwords never leave the form.
-export function createDemoProfile(values: RegistrationValues): DemoProfile {
+// Select only the public profile fields; the password is sent separately to the auth API.
+export function createAccountProfile(values: RegistrationValues): AccountProfile {
   return {
     fullName: values.fullName.trim(),
     email: values.email.trim().toLowerCase(),
     userType: values.userType as UserType,
   }
 }
+export const createDemoProfile = createAccountProfile

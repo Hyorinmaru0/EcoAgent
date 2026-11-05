@@ -27,9 +27,9 @@ export function FieldError({ id, error }: { id: string; error?: string }) {
   return error ? <p id={id} className="auth-error" aria-live="polite">{error}</p> : null
 }
 
-export function AuthSubmitButton({ children }: { children: ReactNode }) {
+export function AuthSubmitButton({ children, disabled = false }: { children: ReactNode; disabled?: boolean }) {
   return (
-    <button className="btn btn-primary full-width" type="submit">
+    <button className="btn btn-primary full-width" type="submit" disabled={disabled}>
       {children}
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M4 12h16m-6-6 6 6-6 6" />

@@ -1,0 +1,1600 @@
+{
+  "summary": {
+    "note": "Diagnostic on COCO training subset; not independent accuracy. Multi-device photos can be deliberately rejected.",
+    "images": 128,
+    "errors": 0,
+    "negatives": 120,
+    "negativesAccepted": 0,
+    "positiveImages": 8,
+    "positiveImagesCorrectlyLocalized": 3,
+    "positiveImagesRejected": 5,
+    "positivesAcceptedIncorrectly": 0,
+    "referenceUnavailable": 0
+  },
+  "rows": [
+    {
+      "file": "000000000009.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000025.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000030.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000034.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000036.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000042.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "uncertain",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000049.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000061.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000064.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000071.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000072.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000073.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000074.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000077.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000078.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "uncertain",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000081.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000086.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000089.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "uncertain",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000092.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000094.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000109.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000110.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000113.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "uncertain",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000127.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "uncertain",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000133.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000136.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000138.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000142.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000143.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000144.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000149.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000151.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000154.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000164.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000165.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000192.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000194.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000196.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000201.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000208.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000241.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000247.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000250.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000257.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000260.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000263.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000283.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000294.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "unverified",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000307.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000308.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "uncertain",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000309.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "uncertain",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000312.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000315.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000321.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "unverified",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000322.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000326.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000328.jpg",
+      "truth": [
+        {
+          "className": "cell phone",
+          "box": [
+            0.67929645,
+            0.5766803500000001,
+            0.7339995500000001,
+            0.61464365
+          ]
+        }
+      ],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000332.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000338.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000349.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000357.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "uncertain",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000359.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "uncertain",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000360.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000368.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000370.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "uncertain",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000382.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000384.jpg",
+      "truth": [
+        {
+          "className": "laptop",
+          "box": [
+            0.27665955000000003,
+            0.73259425,
+            0.36426045,
+            0.76278175
+          ]
+        }
+      ],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000387.jpg",
+      "truth": [
+        {
+          "className": "laptop",
+          "box": [
+            0.389328,
+            0.10562450000000001,
+            0.975844,
+            0.6831455
+          ]
+        },
+        {
+          "className": "laptop",
+          "box": [
+            0.23809349999999996,
+            0.104771,
+            0.9738125,
+            0.755563
+          ]
+        },
+        {
+          "className": "cell phone",
+          "box": [
+            0.5195315,
+            0.23308399999999996,
+            0.8476565,
+            0.428396
+          ]
+        }
+      ],
+      "assessment": {
+        "status": "uncertain",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000389.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000394.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000395.jpg",
+      "truth": [
+        {
+          "className": "cell phone",
+          "box": [
+            0.454922,
+            0.4987763,
+            0.485922,
+            0.5383797
+          ]
+        },
+        {
+          "className": "cell phone",
+          "box": [
+            0.9672658,
+            0.5271376,
+            0.9920002,
+            0.5471204
+          ]
+        }
+      ],
+      "assessment": {
+        "status": "unverified",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000397.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000400.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000404.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000415.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000419.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000428.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000431.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000436.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000438.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "unverified",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000443.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "unverified",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000446.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000450.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000459.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000471.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000472.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000474.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000486.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "uncertain",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000488.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "uncertain",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000490.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000491.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000502.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000508.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000510.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000514.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000520.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000529.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000531.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000532.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "uncertain",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000536.jpg",
+      "truth": [
+        {
+          "className": "cell phone",
+          "box": [
+            0.46078115,
+            0.31711265,
+            0.49131685,
+            0.38002935000000004
+          ]
+        },
+        {
+          "className": "cell phone",
+          "box": [
+            0.22013404999999997,
+            0.2609525,
+            0.28470995,
+            0.3780655
+          ]
+        },
+        {
+          "className": "cell phone",
+          "box": [
+            0.8065848,
+            0.66860145,
+            0.8245312,
+            0.70571455
+          ]
+        }
+      ],
+      "assessment": {
+        "status": "accepted",
+        "category": "Mobile Phone",
+        "detection": {
+          "className": "cell phone",
+          "score": 0.781598,
+          "box": [
+            0.217716,
+            0.258874,
+            0.283726,
+            0.377468
+          ],
+          "origin": "reference-detector",
+          "verification": {
+            "status": "accepted",
+            "label": "cell phone",
+            "similarity": 0.275359,
+            "margin": 0.014524,
+            "method": "reference-and-visual"
+          }
+        }
+      },
+      "correct": true,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000540.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000542.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000544.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000560.jpg",
+      "truth": [
+        {
+          "className": "cell phone",
+          "box": [
+            0.34973895,
+            0.60294905,
+            0.37256504999999995,
+            0.6216669499999999
+          ]
+        }
+      ],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000562.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000564.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000569.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000572.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000575.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000581.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000584.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "uncertain",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000589.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000590.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000595.jpg",
+      "truth": [
+        {
+          "className": "television",
+          "box": [
+            0.5751095,
+            0.6187285,
+            0.7954065,
+            0.8518954999999999
+          ]
+        }
+      ],
+      "assessment": {
+        "status": "accepted",
+        "category": "TV",
+        "detection": {
+          "className": "television",
+          "score": 0.822345,
+          "box": [
+            0.5756,
+            0.632614,
+            0.794315,
+            0.827519
+          ],
+          "origin": "reference-detector",
+          "verification": {
+            "status": "accepted",
+            "label": "television",
+            "similarity": 0.289119,
+            "margin": 0.016255,
+            "method": "reference-and-visual"
+          }
+        }
+      },
+      "correct": true,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000597.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000599.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "unverified",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000605.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000612.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000620.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "uncertain",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000623.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000625.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000626.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000629.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000634.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000636.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000641.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000643.jpg",
+      "truth": [
+        {
+          "className": "television",
+          "box": [
+            0.21186,
+            0.4515465000000001,
+            0.6324799999999999,
+            0.9814395
+          ]
+        }
+      ],
+      "assessment": {
+        "status": "accepted",
+        "category": "TV",
+        "detection": {
+          "className": "television",
+          "score": 0.938018,
+          "box": [
+            0.21372,
+            0.455842,
+            0.626521,
+            0.960533
+          ],
+          "origin": "reference-detector",
+          "verification": {
+            "status": "accepted",
+            "label": "television",
+            "similarity": null,
+            "margin": null,
+            "method": "detector-agreement"
+          }
+        }
+      },
+      "correct": true,
+      "referenceModel": true
+    },
+    {
+      "file": "000000000650.jpg",
+      "truth": [],
+      "assessment": {
+        "status": "no-match",
+        "category": null,
+        "detection": null
+      },
+      "correct": false,
+      "referenceModel": true
+    }
+  ]
+}

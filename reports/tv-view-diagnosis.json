@@ -1,0 +1,115 @@
+[
+  {
+    "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02825__brokentv_15.jpg",
+    "results": {
+      "custom/full": [
+        {
+          "label": "laptops",
+          "score": 0.3592686653137207,
+          "box": [
+            0.093072,
+            0.06836,
+            0.892032,
+            0.895334
+          ]
+        }
+      ],
+      "custom/mirror": [
+        {
+          "label": "laptops",
+          "score": 0.17345938086509705,
+          "box": [
+            0.08399,
+            0.073212,
+            0.857122,
+            0.892289
+          ]
+        }
+      ],
+      "custom/center80": [
+        {
+          "label": "laptops",
+          "score": 0.7144384980201721,
+          "box": [
+            0.019223,
+            0.03343,
+            0.988957,
+            0.980804
+          ]
+        }
+      ],
+      "custom/center90": [
+        {
+          "label": "laptops",
+          "score": 0.8280220031738281,
+          "box": [
+            0.025962,
+            0.050727,
+            0.990284,
+            0.939184
+          ]
+        }
+      ],
+      "reference/full": [],
+      "reference/mirror": [],
+      "reference/center80": [],
+      "reference/center90": []
+    }
+  },
+  {
+    "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02829__brokentv_17.jpg",
+    "results": {
+      "custom/full": [
+        {
+          "label": "television",
+          "score": 0.398334801197052,
+          "box": [
+            0.10447,
+            0.034998,
+            0.677706,
+            0.901723
+          ]
+        },
+        {
+          "label": "cell phone",
+          "score": 0.16704660654067993,
+          "box": [
+            0.909935,
+            0.25447,
+            0.926133,
+            0.290791
+          ]
+        }
+      ],
+      "custom/mirror": [
+        {
+          "label": "television",
+          "score": 0.3492230772972107,
+          "box": [
+            0.322549,
+            0.030622,
+            0.900109,
+            0.892842
+          ]
+        }
+      ],
+      "custom/center80": [],
+      "custom/center90": [],
+      "reference/full": [],
+      "reference/mirror": [
+        {
+          "label": "tv",
+          "score": 0.5308341383934021,
+          "box": [
+            0.318737,
+            0.04503,
+            0.890329,
+            0.903704
+          ]
+        }
+      ],
+      "reference/center80": [],
+      "reference/center90": []
+    }
+  }
+]

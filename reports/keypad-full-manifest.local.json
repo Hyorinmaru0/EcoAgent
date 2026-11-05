@@ -1,0 +1,66 @@
+[
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-wallet-lossless.png",
+    "expected": null
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-wallet-q95.jpg",
+    "expected": null
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-wallet-q82.jpg",
+    "expected": null
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-wallet-q60.jpg",
+    "expected": null
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-rejection-photos\\bus.jpg",
+    "expected": null
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-rejection-photos\\people.jpg",
+    "expected": null
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-phone.jpg",
+    "expected": "Mobile Phone"
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-laptop-open.jpg",
+    "expected": "Laptop"
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-laptop.jpg",
+    "expected": "Laptop"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\tv_training\\dataset\\images\\val\\frame_000161.jpg",
+    "expected": "TV"
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-new-phone-back.jpg",
+    "expected": "Mobile Phone"
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-new-phone-hand.jpg",
+    "expected": "Mobile Phone"
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-new-laptop.jpg",
+    "expected": "Laptop"
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-new-tv.jpg",
+    "expected": "TV"
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ai-chat-custom-attachment-temp-file-73910fc3-ce01-4092-bbac-1a4f76890831-7080985362949046667.png",
+    "expected": "Mobile Phone"
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ai-chat-custom-attachment-temp-file-73910fc3-ce01-4092-bbac-1a4f76890831-12065828093330899766.png",
+    "expected": "Mobile Phone"
+  }
+]

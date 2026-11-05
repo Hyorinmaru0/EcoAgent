@@ -1,0 +1,69 @@
+{
+  "status": "training_complete_candidate_not_deployed",
+  "reason": "Improved damaged-phone recall, but false damage reports on intact phones and failed external TV examples prevent promotion.",
+  "completed_epochs": {
+    "v1": 15,
+    "v2": 8,
+    "v3": 5
+  },
+  "unique_train_images": 2484,
+  "validation_images": 266,
+  "test_images": 251,
+  "v3_training_draws": 3210,
+  "threshold": 0.5,
+  "baseline": {
+    "axon-heldout-intact": {
+      "total": 2,
+      "correct": 2
+    },
+    "axon-independent-broken": {
+      "total": 35,
+      "correct": 1
+    },
+    "commons-independent-tv": {
+      "total": 3,
+      "correct": 0
+    },
+    "local-reviewed-intact-regression": {
+      "total": 7,
+      "correct": 5
+    },
+    "user-shattered-phone-regression": {
+      "total": 1,
+      "correct": 0
+    }
+  },
+  "candidate": {
+    "axon-heldout-intact": {
+      "total": 2,
+      "correct": 2
+    },
+    "axon-independent-broken": {
+      "total": 35,
+      "correct": 34
+    },
+    "commons-independent-tv": {
+      "total": 3,
+      "correct": 0
+    },
+    "local-reviewed-intact-regression": {
+      "total": 7,
+      "correct": 4
+    },
+    "user-shattered-phone-regression": {
+      "total": 1,
+      "correct": 1
+    }
+  },
+  "candidate_weights": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\runs\\visible-damage-v3\\weights\\best.pt",
+  "candidate_onnx": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\runs\\visible-damage-v3\\weights\\best.onnx",
+  "original_device_model_unchanged": true,
+  "original_damage_model_unchanged": true,
+  "limitations": [
+    "Development benchmark, not overall accuracy.",
+    "Near-duplicate and same-device views cannot be fully ruled out.",
+    "No functional working/broken labels or reliable three-state classifier.",
+    "No independent TV class in the internal held-out test.",
+    "Only two intact AXON test images."
+  ]
+}

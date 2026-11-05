@@ -1,0 +1,42 @@
+{
+  "classes": {
+    "0": "damaged_phone",
+    "1": "damaged_laptop",
+    "2": "damaged_tv"
+  },
+  "modelFile": "weights/best.pt",
+  "onnxFile": "weights/best.onnx",
+  "sha256": "f3519fc5260ef278d7e48a6d2ed75a79b4d438f0ee3ceececa41292edf2e98e7",
+  "sourceRun": "runs\\damage_20261104_150425\\weights\\best.pt",
+  "trainingEpochs": 10,
+  "imageSize": 320,
+  "onnxImageSize": 640,
+  "splits": {
+    "train": {
+      "images": 2644,
+      "instances": 7127,
+      "missingLabels": 0,
+      "labelsWithoutImages": 0
+    },
+    "val": {
+      "images": 192,
+      "instances": 729,
+      "missingLabels": 0,
+      "labelsWithoutImages": 0
+    },
+    "test": {
+      "images": 180,
+      "instances": 644,
+      "missingLabels": 0,
+      "labelsWithoutImages": 0
+    }
+  },
+  "instancesPerClass": {
+    "0:damaged_phone": 1012,
+    "1:damaged_laptop": 7488,
+    "2:damaged_tv": 0
+  },
+  "independentTestSet": true,
+  "ultralyticsVersion": "8.4.187",
+  "createdAt": "2026-11-04T15:52:58.237811+00:00"
+}

@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react"
 import { readBrowserLocation } from "./browserLocation.mjs"
-import type { UserLocation } from "./browserLocation.mjs"
+import type { UserLocation as BrowserUserLocation } from "./browserLocation.mjs"
 
-export type { UserLocation } from "./browserLocation.mjs"
+export type UserLocation = BrowserUserLocation & { source?: "device" | "approximate"; municipality?: string }
 export type LocationStatus = "idle" | "loading" | "ready" | "error"
+export type LocationChoice = { municipality: string; latitude: number; longitude: number }
 
 export function useUserLocation() {
   const [position, setPosition] = useState<UserLocation | null>(null)
@@ -30,5 +31,19 @@ export function useUserLocation() {
     }
   }
 
-  return { position, status, error, requestLocation }
+  function useApproximateLocation(choice: LocationChoice) {
+    requestId.current += 1
+    setPosition({ latitude: choice.latitude, longitude: choice.longitude, accuracy: 5000, source: "approximate", municipality: choice.municipality })
+    setError("")
+    setStatus("ready")
+  }
+
+  function clearLocation() {
+    requestId.current += 1
+    setPosition(null)
+    setStatus("idle")
+    setError("")
+  }
+
+  return { position, status, error, requestLocation, useApproximateLocation, clearLocation }
 }

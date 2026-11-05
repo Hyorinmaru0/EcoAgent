@@ -1,0 +1,460 @@
+{
+  "baseUrl": "http://127.0.0.1:5180",
+  "generatedAt": "2026-11-05T10:22:03.693Z",
+  "results": [
+    {
+      "name": "Desktop page: home",
+      "pass": true,
+      "ms": 1830,
+      "details": {
+        "h1": "Understand your e-waste.\nFind the right place for it."
+      }
+    },
+    {
+      "name": "Desktop page: dashboard",
+      "pass": true,
+      "ms": 238,
+      "details": {
+        "h1": "Hello, Raven!"
+      }
+    },
+    {
+      "name": "Desktop page: identify",
+      "pass": true,
+      "ms": 185,
+      "details": {
+        "h1": "Identify your electronic waste"
+      }
+    },
+    {
+      "name": "Desktop page: recommendations",
+      "pass": true,
+      "ms": 160,
+      "details": {
+        "h1": "Find your nearest collection option"
+      }
+    },
+    {
+      "name": "Desktop page: facilities",
+      "pass": true,
+      "ms": 379,
+      "details": {
+        "h1": "Facility directory"
+      }
+    },
+    {
+      "name": "Desktop page: learn",
+      "pass": true,
+      "ms": 250,
+      "details": {
+        "h1": "Educational resources"
+      }
+    },
+    {
+      "name": "Desktop page: flow",
+      "pass": true,
+      "ms": 267,
+      "details": {
+        "h1": "How EcoAgent works"
+      }
+    },
+    {
+      "name": "Desktop page: profile",
+      "pass": true,
+      "ms": 179,
+      "details": {
+        "h1": "Your profile"
+      }
+    },
+    {
+      "name": "Desktop page: items",
+      "pass": true,
+      "ms": 216,
+      "details": {
+        "h1": "Registered e-waste items"
+      }
+    },
+    {
+      "name": "Desktop page: login",
+      "pass": true,
+      "ms": 111,
+      "details": {
+        "h1": "Good information.\nBetter decisions."
+      }
+    },
+    {
+      "name": "Facility directory loads actual API records and filters",
+      "pass": true,
+      "ms": 682,
+      "details": {
+        "facilityCount": 47
+      }
+    },
+    {
+      "name": "Manual guidance without photo is labeled unverified",
+      "pass": true,
+      "ms": 642,
+      "details": {
+        "verifiedPhoto": false,
+        "guidanceVisible": true
+      }
+    },
+    {
+      "name": "Editing category invalidates an existing manual result",
+      "pass": true,
+      "ms": 73
+    },
+    {
+      "name": "Camera denial offers a file fallback and closes with Escape",
+      "pass": true,
+      "ms": 1889
+    },
+    {
+      "name": "Wallet rejected end to end",
+      "pass": true,
+      "ms": 3820,
+      "details": {
+        "automatic": {
+          "status": "unverified",
+          "category": null,
+          "detection": null
+        },
+        "submitted": {
+          "status": "unverified",
+          "category": null,
+          "detection": null
+        },
+        "guidanceVisible": false,
+        "candidates": [
+          {
+            "className": "cell phone",
+            "score": 0.932498,
+            "verification": {
+              "status": "rejected",
+              "label": "wallet",
+              "similarity": 0.301526,
+              "margin": 0.005137
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Real phone accepted end to end",
+      "pass": true,
+      "ms": 4129,
+      "details": {
+        "automatic": {
+          "status": "accepted",
+          "category": "Mobile Phone",
+          "detection": {
+            "className": "cell phone",
+            "score": 0.943732,
+            "box": [
+              0.15875,
+              0.084505,
+              0.756249,
+              0.794982
+            ],
+            "verification": {
+              "status": "accepted",
+              "label": "cell phone",
+              "similarity": 0.289708,
+              "margin": 0.012724
+            }
+          }
+        },
+        "submitted": {
+          "status": "accepted",
+          "category": "Mobile Phone",
+          "detection": {
+            "className": "cell phone",
+            "score": 0.943732,
+            "box": [
+              0.15875,
+              0.084505,
+              0.756249,
+              0.794982
+            ],
+            "verification": {
+              "status": "accepted",
+              "label": "cell phone",
+              "similarity": 0.289708,
+              "margin": 0.012724
+            }
+          }
+        },
+        "guidanceVisible": true,
+        "candidates": [
+          {
+            "className": "cell phone",
+            "score": 0.943732,
+            "verification": {
+              "status": "accepted",
+              "label": "cell phone",
+              "similarity": 0.289708,
+              "margin": 0.012724
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Real TV accepted end to end",
+      "pass": true,
+      "ms": 4266,
+      "details": {
+        "automatic": {
+          "status": "accepted",
+          "category": "TV",
+          "detection": {
+            "className": "television",
+            "score": 0.844046,
+            "box": [
+              0.000261,
+              0.017784,
+              0.812242,
+              0.998042
+            ],
+            "verification": {
+              "status": "accepted",
+              "label": "television",
+              "similarity": 0.314674,
+              "margin": 0.028189
+            }
+          }
+        },
+        "submitted": {
+          "status": "accepted",
+          "category": "TV",
+          "detection": {
+            "className": "television",
+            "score": 0.844046,
+            "box": [
+              0.000261,
+              0.017784,
+              0.812242,
+              0.998042
+            ],
+            "verification": {
+              "status": "accepted",
+              "label": "television",
+              "similarity": 0.314674,
+              "margin": 0.028189
+            }
+          }
+        },
+        "guidanceVisible": true,
+        "candidates": [
+          {
+            "className": "television",
+            "score": 0.844046,
+            "verification": {
+              "status": "accepted",
+              "label": "television",
+              "similarity": 0.314674,
+              "margin": 0.028189
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Real laptop accepted end to end",
+      "pass": false,
+      "ms": 4054,
+      "error": "{\"automatic\":{\"status\":\"unverified\",\"category\":null,\"detection\":null},\"submitted\":{\"status\":\"unverified\",\"category\":null,\"detection\":null},\"guidanceVisible\":false,\"candidates\":[{\"className\":\"laptop\",\"score\":0.774319,\"verification\":{\"status\":\"uncertain\",\"label\":\"laptop\",\"similarity\":0.298785,\"margin\":0.008201}}]}\n+ actual - expected\n\n+ 'unverified'\n- 'accepted'\n"
+    },
+    {
+      "name": "Laptop close-up classified correctly",
+      "pass": false,
+      "ms": 4601,
+      "error": "{\"automatic\":{\"status\":\"unverified\",\"category\":null,\"detection\":null},\"submitted\":{\"status\":\"unverified\",\"category\":null,\"detection\":null},\"guidanceVisible\":false,\"candidates\":[{\"className\":\"cell phone\",\"score\":0.900728,\"verification\":{\"status\":\"rejected\",\"label\":\"laptop\",\"similarity\":0.266246,\"margin\":0.000033}}]}\n+ actual - expected\n\n+ 'unverified'\n- 'accepted'\n"
+    },
+    {
+      "name": "Wrong selected category blocks phone guidance",
+      "pass": true,
+      "ms": 4070,
+      "details": {
+        "automatic": {
+          "status": "accepted",
+          "category": "Mobile Phone",
+          "detection": {
+            "className": "cell phone",
+            "score": 0.943732,
+            "box": [
+              0.15875,
+              0.084505,
+              0.756249,
+              0.794982
+            ],
+            "verification": {
+              "status": "accepted",
+              "label": "cell phone",
+              "similarity": 0.289708,
+              "margin": 0.012724
+            }
+          }
+        },
+        "submitted": {
+          "status": "mismatch",
+          "category": "Mobile Phone",
+          "detection": {
+            "className": "cell phone",
+            "score": 0.943732,
+            "box": [
+              0.15875,
+              0.084505,
+              0.756249,
+              0.794982
+            ],
+            "verification": {
+              "status": "accepted",
+              "label": "cell phone",
+              "similarity": 0.289708,
+              "margin": 0.012724
+            }
+          }
+        },
+        "guidanceVisible": false,
+        "candidates": [
+          {
+            "className": "cell phone",
+            "score": 0.943732,
+            "verification": {
+              "status": "accepted",
+              "label": "cell phone",
+              "similarity": 0.289708,
+              "margin": 0.012724
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Granted location ranks the exact SM North EDSA venue first",
+      "pass": true,
+      "ms": 543,
+      "details": {
+        "nearest": "SM North EDSA",
+        "distanceText": "NEAREST MAPPED OPTION\nSM North EDSA\n\nQuezon City · 0 m away in a straight line\n\nListed acceptance: Mobile phones and laptops\n\nListed as accepting mobile phones and laptops\n\nGet directions in Google Maps ↗",
+        "mapInitialized": true
+      }
+    },
+    {
+      "name": "Learn cards open and close their educational content",
+      "pass": true,
+      "ms": 2587
+    },
+    {
+      "name": "Chat UI sends an unsupported-device question and displays the answer",
+      "pass": true,
+      "ms": 738,
+      "details": {
+        "topic": "unsupported-device",
+        "answer": "This pilot currently provides item-specific guidance for TVs, mobile phones, and laptops. Which of those devices are you asking about?"
+      }
+    },
+    {
+      "name": "Dashboard item count agrees with the item list",
+      "pass": false,
+      "ms": 475,
+      "error": "Dashboard reports 5; Registered E-Waste lists 3\n\n5 !== 3\n"
+    },
+    {
+      "name": "Registration creates an authenticated account",
+      "pass": true,
+      "ms": 670,
+      "details": {
+        "authenticated": true,
+        "httpOnlyCookie": true
+      }
+    },
+    {
+      "name": "Session survives browser reload",
+      "pass": true,
+      "ms": 330
+    },
+    {
+      "name": "Saved profile changes survive a reload",
+      "pass": false,
+      "ms": 1107,
+      "error": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'System Audit'\n- 'System Audit Updated'\n               ^\n"
+    },
+    {
+      "name": "Logout invalidates the session",
+      "pass": true,
+      "ms": 227
+    },
+    {
+      "name": "Wrong password is rejected and correct login works",
+      "pass": true,
+      "ms": 437
+    },
+    {
+      "name": "Duplicate account is rejected",
+      "pass": true,
+      "ms": 220
+    },
+    {
+      "name": "Login form signs the test account in",
+      "pass": true,
+      "ms": 557
+    },
+    {
+      "name": "Mobile page: home",
+      "pass": true,
+      "ms": 305,
+      "details": {
+        "width": 390,
+        "scrollWidth": 390
+      }
+    },
+    {
+      "name": "Mobile page: identify",
+      "pass": true,
+      "ms": 198,
+      "details": {
+        "width": 390,
+        "scrollWidth": 390
+      }
+    },
+    {
+      "name": "Mobile page: facilities",
+      "pass": true,
+      "ms": 372,
+      "details": {
+        "width": 390,
+        "scrollWidth": 390
+      }
+    },
+    {
+      "name": "Mobile page: dashboard",
+      "pass": true,
+      "ms": 268,
+      "details": {
+        "width": 390,
+        "scrollWidth": 390
+      }
+    },
+    {
+      "name": "Mobile page: login",
+      "pass": true,
+      "ms": 137,
+      "details": {
+        "width": 390,
+        "scrollWidth": 390
+      }
+    },
+    {
+      "name": "No uncaught browser JavaScript errors",
+      "pass": true,
+      "ms": 1
+    }
+  ],
+  "pageErrors": [],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "failedResources": []
+}

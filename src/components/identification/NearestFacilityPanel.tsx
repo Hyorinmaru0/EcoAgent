@@ -1,5 +1,6 @@
 import type { FacilityRecommendation } from "./facilityRecommendations.mjs"
-import type { LocationStatus, UserLocation } from "./useUserLocation"
+import type { LocationChoice, LocationStatus, UserLocation } from "./useUserLocation"
+import { NearestFacilityMap } from "./NearestFacilityMap"
 import "./nearest-facility.css"
 
 type Props = {
@@ -9,35 +10,51 @@ type Props = {
   status: LocationStatus
   error: string
   onLocate: () => void
+  locationChoices: LocationChoice[]
+  onApproximateLocation: (choice: LocationChoice) => void
   onDirectory: () => void
+  onDetails: (facility: FacilityRecommendation) => void
 }
 
 function formatDistance(km: number) {
   return km < 1 ? `${Math.round(km * 1000)} m` : `${km.toFixed(1)} km`
 }
 
-function mapUrl(facility: FacilityRecommendation) {
-  const { latitude, longitude } = facility.coordinates!
-  const params = new URLSearchParams({
-    bbox: [longitude - 0.008, latitude - 0.005, longitude + 0.008, latitude + 0.005].join(","),
-    layer: "mapnik", marker: `${latitude},${longitude}`,
-  })
-  return `https://www.openstreetmap.org/export/embed.html?${params}`
+function formatAccuracy(meters: number) {
+  return meters < 1000 ? `${Math.round(meters)} m` : `${(meters / 1000).toFixed(1)} km`
 }
 
 function directionsUrl(facility: FacilityRecommendation, position: UserLocation) {
-  return `https://www.google.com/maps/dir/?${new URLSearchParams({
-    api: "1", origin: `${position.latitude},${position.longitude}`,
+  const params = new URLSearchParams({
+    api: "1",
+    origin: `${position.latitude},${position.longitude}`,
     destination: `${facility.coordinates!.latitude},${facility.coordinates!.longitude}`,
-  })}`
+  })
+  return `https://www.google.com/maps/dir/?${params}`
 }
 
-export function NearestFacilityPanel({ category, recommendations, position, status, error, onLocate, onDirectory }: Props) {
-  const mapped = recommendations.filter((facility) => facility.distanceKm !== null && facility.coordinates)
-  const nearest = mapped[0]
+export function NearestFacilityPanel({
+  category,
+  recommendations,
+  position,
+  status,
+  error,
+  onLocate,
+  locationChoices,
+  onApproximateLocation,
+  onDirectory,
+  onDetails,
+}: Props) {
+  const isApproximate = position?.source === "approximate"
+  const mapped = position
+    ? recommendations.filter((facility) => facility.coordinates && facility.distanceKm !== null)
+    : []
+  const nearest = mapped[0] ?? null
+  const otherOptions = mapped.slice(1)
   const unmappedCount = recommendations.filter((facility) => !facility.coordinates).length
+
   return (
-    <section className="panel nearest-facility" aria-label="Nearest e-waste facility">
+    <section id="nearest-facility-panel" className="panel nearest-facility" aria-label="Nearest e-waste facility">
       <div className="nearest-facility-heading">
         <div>
           <span className="eyebrow">CLOSE TO YOU</span>
@@ -45,57 +62,94 @@ export function NearestFacilityPanel({ category, recommendations, position, stat
         </div>
         {category && <span className="badge badge-blue">{category}</span>}
       </div>
+
       {!category ? (
-        <p>Select your item category in Identify E-Waste to find matching collection options.</p>
+        <p>Select an item category to find facilities that list acceptance for that device.</p>
       ) : (
         <>
           <div className="nearest-location-status">
-            <p role="status">{status === "loading"
-              ? "Finding your current location…"
-              : position
-                ? "Collection options are ordered by distance from your current location."
-                : "Use your current location to find the closest collection option for your device."}</p>
+            <p role="status">
+              {status === "loading"
+                ? "Waiting for your device location. This can take up to 45 seconds..."
+                : position
+                  ? isApproximate
+                    ? `Showing a rough estimate for ${position.municipality}.`
+                    : `Using your device location, reported accurate to about ${formatAccuracy(position.accuracy)}.`
+                  : "Your device location is needed to rank facilities by distance."}
+            </p>
             <button type="button" className="btn btn-secondary" onClick={onLocate} disabled={status === "loading"}>
-              {status === "loading" ? "Locating…" : position ? "Refresh my location" : "Use my location"}
+              {status === "loading" ? "Waiting for location..." : position ? "Refresh my location" : "Use my location"}
             </button>
           </div>
+
           {error && <p className="nearest-location-error" role="alert">{error}</p>}
-          {position && position.accuracy > 1000 && (
-            <p className="nearest-location-error">Your location is approximate (within about {formatDistance(position.accuracy / 1000)}). Nearby options may change with a more accurate location.</p>
+
+          {locationChoices.length > 0 && (
+            <div className="nearest-approximate-location">
+              <label htmlFor="nearest-location-choice">If the device cannot provide a location, select a city for a rough estimate.</label>
+              <select
+                id="nearest-location-choice"
+                value={isApproximate ? position?.municipality ?? "" : ""}
+                onChange={(event) => {
+                  const selected = locationChoices.find((choice) => choice.municipality === event.target.value)
+                  if (selected) onApproximateLocation(selected)
+                }}
+              >
+                <option value="">Choose a municipality</option>
+                {locationChoices.map((choice) => <option key={choice.municipality} value={choice.municipality}>{choice.municipality}</option>)}
+              </select>
+            </div>
           )}
-          {position && nearest && (
+
+          {nearest ? (
             <>
               <div className="nearest-facility-summary">
-                <span className="badge badge-green">NEAREST MAPPED OPTION</span>
+                <span className="badge badge-green">
+                  {isApproximate ? "ROUGH CITY ESTIMATE" : (position?.accuracy ?? Infinity) <= 250 ? "NEAREST MAPPED OPTION" : "NEAREST DEVICE ESTIMATE"}
+                </span>
                 <h3>{nearest.name}</h3>
                 <p>{nearest.municipality} · {formatDistance(nearest.distanceKm!)} away in a straight line</p>
                 <p className={nearest.acceptanceLabel.startsWith("Potential") ? "facility-acceptance-caution" : "facility-acceptance-listed"}>{nearest.acceptanceLabel}</p>
                 <p>{nearest.status}</p>
                 {nearest.address && <p>{nearest.address}</p>}
-                <a className="collection-directions-link" href={directionsUrl(nearest, position)} target="_blank" rel="noreferrer">Get directions ↗</a>
+                <button type="button" className="btn btn-primary" onClick={() => onDetails(nearest)}>View facility details</button>
+                {!isApproximate && position && position.accuracy > 250 && (
+                  <p className="nearest-location-error">This is the closest mapped result to the coordinates returned by your device. The {formatAccuracy(position.accuracy)} accuracy radius means the actual nearest facility may differ.</p>
+                )}
+                {isApproximate && <p className="nearest-map-note">The city estimate uses mapped facility locations and may not identify the closest option to your exact location.</p>}
+                <a className="collection-directions-link" href={directionsUrl(nearest, position!)} target="_blank" rel="noreferrer">Get directions in Google Maps ↗</a>
               </div>
-              <iframe className="nearest-facility-map" title={`Map showing the nearest listed facility: ${nearest.name}`} src={mapUrl(nearest)} loading="lazy" referrerPolicy="strict-origin-when-cross-origin" />
-              <p className="nearest-map-note">The pin marks the venue. Confirm the exact drop-off point and device acceptance before visiting. Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap contributors</a>.</p>
-              {mapped.length > 1 && (
+
+              {otherOptions.length > 0 && (
                 <div className="nearest-other-options">
-                  <h3>Other nearby options</h3>
+                  <h3>Other matching facilities</h3>
                   <ol>
-                    {mapped.slice(1).map((facility) => (
+                    {otherOptions.map((facility) => (
                       <li key={`${facility.municipality}-${facility.name}`}>
-                        <div><strong>{facility.name}</strong><span>{facility.municipality} · {formatDistance(facility.distanceKm!)} away</span><small>{facility.acceptanceLabel}</small></div>
-                        <a className="collection-directions-link" href={directionsUrl(facility, position)} target="_blank" rel="noreferrer" aria-label={`Get directions to ${facility.name}`}>Directions ↗</a>
+                        <div>
+                          <strong>{facility.name}</strong>
+                          <span>{facility.municipality} · {formatDistance(facility.distanceKm!)}</span>
+                          <small>{facility.acceptanceLabel}</small>
+                          <button type="button" className="btn btn-secondary" onClick={() => onDetails(facility)}>View facility details</button>
+                        </div>
+                        <a className="collection-directions-link" href={directionsUrl(facility, position!)} target="_blank" rel="noreferrer">Directions ↗</a>
                       </li>
                     ))}
                   </ol>
                 </div>
               )}
             </>
-          )}
-          {position && !nearest && <p role="status">No mapped collection option is available for {category}. Check the full directory for listings that need location confirmation.</p>}
-          {position && unmappedCount > 0 && <p className="nearest-map-note">{unmappedCount} matching {unmappedCount === 1 ? "listing has" : "listings have"} no confirmed map coordinates and {unmappedCount === 1 ? "is" : "are"} excluded from the distance ranking.</p>}
+          ) : position ? (
+            <p role="status">No matching facility with map coordinates was found for {category}. Browse the full directory for other listings.</p>
+          ) : null}
+
+          <NearestFacilityMap position={position} facility={nearest} />
+
+          {unmappedCount > 0 && <p className="nearest-map-note">{unmappedCount} matching {unmappedCount === 1 ? "listing has" : "listings have"} no mapped coordinates and cannot be ranked by distance.</p>}
         </>
       )}
-      <p className="nearest-map-note">Distances are straight-line estimates, not road distances or travel times. Location is used in this browser and is not stored in your profile. The directory covers listed Metro Manila venues; confirm current collection arrangements.</p>
+
+      <p className="nearest-map-note">Distances are straight-line estimates. Facility pins mark venue coordinates, not necessarily the exact collection bin. Confirm device acceptance and collection arrangements before visiting.</p>
       <button type="button" className="btn btn-secondary" onClick={onDirectory}>Browse full directory</button>
     </section>
   )

@@ -1,0 +1,254 @@
+{
+  "weights": "ml/condition_training/weights/round2-candidate/best.pt",
+  "passed": 16,
+  "total": 16,
+  "blocked": 6,
+  "cases": [
+    {
+      "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-wallet-lossless.png",
+      "expectedCategory": null,
+      "expectedDamaged": false,
+      "actualCategory": null,
+      "identityStatus": "unverified",
+      "damageStatus": "blocked",
+      "damageSource": null,
+      "damageDetections": [],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-wallet-q95.jpg",
+      "expectedCategory": null,
+      "expectedDamaged": false,
+      "actualCategory": null,
+      "identityStatus": "unverified",
+      "damageStatus": "blocked",
+      "damageSource": null,
+      "damageDetections": [],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-wallet-q82.jpg",
+      "expectedCategory": null,
+      "expectedDamaged": false,
+      "actualCategory": null,
+      "identityStatus": "unverified",
+      "damageStatus": "blocked",
+      "damageSource": null,
+      "damageDetections": [],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-wallet-q60.jpg",
+      "expectedCategory": null,
+      "expectedDamaged": false,
+      "actualCategory": null,
+      "identityStatus": "unverified",
+      "damageStatus": "blocked",
+      "damageSource": null,
+      "damageDetections": [],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-rejection-photos\\bus.jpg",
+      "expectedCategory": null,
+      "expectedDamaged": false,
+      "actualCategory": null,
+      "identityStatus": "uncertain",
+      "damageStatus": "blocked",
+      "damageSource": null,
+      "damageDetections": [],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-rejection-photos\\people.jpg",
+      "expectedCategory": null,
+      "expectedDamaged": false,
+      "actualCategory": null,
+      "identityStatus": "no-match",
+      "damageStatus": "blocked",
+      "damageSource": null,
+      "damageDetections": [],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-phone.jpg",
+      "expectedCategory": "Mobile Phone",
+      "expectedDamaged": false,
+      "actualCategory": "Mobile Phone",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-laptop-open.jpg",
+      "expectedCategory": "Laptop",
+      "expectedDamaged": false,
+      "actualCategory": "Laptop",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-laptop.jpg",
+      "expectedCategory": "Laptop",
+      "expectedDamaged": false,
+      "actualCategory": "Laptop",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\tv_training\\dataset\\images\\val\\frame_000161.jpg",
+      "expectedCategory": "TV",
+      "expectedDamaged": true,
+      "actualCategory": "TV",
+      "identityStatus": "accepted",
+      "damageStatus": "damaged",
+      "damageSource": "damage-model",
+      "damageDetections": [
+        {
+          "className": "damaged_tv",
+          "score": 0.99078,
+          "origin": "device-crop",
+          "deviceBox": [
+            0.001997,
+            0.004632,
+            0.80807,
+            0.983211
+          ],
+          "box": [
+            0,
+            0.000352,
+            0.871675,
+            1
+          ]
+        },
+        {
+          "className": "damaged_tv",
+          "score": 0.990771,
+          "origin": "device-crop",
+          "deviceBox": [
+            0.000146,
+            0.01711,
+            0.812025,
+            0.997948
+          ],
+          "box": [
+            0,
+            0.000138,
+            0.876221,
+            1
+          ]
+        }
+      ],
+      "score": 0.99078,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-new-phone-back.jpg",
+      "expectedCategory": "Mobile Phone",
+      "expectedDamaged": false,
+      "actualCategory": "Mobile Phone",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-new-phone-hand.jpg",
+      "expectedCategory": "Mobile Phone",
+      "expectedDamaged": false,
+      "actualCategory": "Mobile Phone",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-new-laptop.jpg",
+      "expectedCategory": "Laptop",
+      "expectedDamaged": false,
+      "actualCategory": "Laptop",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-new-tv.jpg",
+      "expectedCategory": "TV",
+      "expectedDamaged": false,
+      "actualCategory": "TV",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ai-chat-custom-attachment-temp-file-73910fc3-ce01-4092-bbac-1a4f76890831-7080985362949046667.png",
+      "expectedCategory": "Mobile Phone",
+      "expectedDamaged": false,
+      "actualCategory": "Mobile Phone",
+      "identityStatus": "accepted",
+      "damageStatus": "uncertain",
+      "damageSource": null,
+      "damageDetections": [],
+      "score": null,
+      "pass": true
+    },
+    {
+      "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ai-chat-custom-attachment-temp-file-73910fc3-ce01-4092-bbac-1a4f76890831-12065828093330899766.png",
+      "expectedCategory": "Mobile Phone",
+      "expectedDamaged": true,
+      "expectedSource": "damage-model",
+      "actualCategory": "Mobile Phone",
+      "identityStatus": "accepted",
+      "damageStatus": "damaged",
+      "damageSource": "damage-model",
+      "damageDetections": [
+        {
+          "className": "damaged_phone",
+          "score": 0.983465,
+          "origin": "device-crop",
+          "deviceBox": [
+            0.101119,
+            0.026358,
+            0.95179,
+            0.976717
+          ],
+          "box": [
+            0.033886,
+            0,
+            1,
+            0.998439
+          ]
+        }
+      ],
+      "score": 0.983465,
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "initial_split_counts": {
+    "test": 251,
+    "train": 2300,
+    "val": 266
+  },
+  "reviewed_new_phone_images": 154,
+  "excluded_reviewed_phone_images": 5,
+  "reviewed_new_laptop_negatives": 30,
+  "v2_train_images": 2484,
+  "v2_val_images": 266,
+  "v2_test_images": 251,
+  "original_device_model_sha256": "e7ad740684c13a68b9b4f8cc4faeb9f7ab2defe372f3923f5825c024a6eeec26",
+  "original_damage_model_sha256": "1e4345b0c666cbc62305448c90323f8e02e4c3fec1d8157b31f22294269f297a",
+  "class_training_counts": {
+    "0": 827,
+    "2": 174,
+    "1": 1275
+  }
+}

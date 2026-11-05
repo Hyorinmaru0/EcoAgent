@@ -92,7 +92,8 @@ test("auth components render the existing layout and accessible form controls", 
     const registration = renderToStaticMarkup(createElement(RegistrationForm, { onRegister() {} }))
     for (const name of ["fullName", "email", "password", "confirmPassword", "userType", "terms"])
       assert.ok(registration.includes(`name="${name}"`), name)
-    assert.match(registration, /Terms and Conditions/)
+    assert.match(registration, /Account information/)
+    assert.match(registration, /I understand how my account information is stored/)
     assert.match(registration, /aria-label="Show confirm password"/)
     assert.match(registration, /autoComplete="new-password"/)
   } finally {

@@ -1,0 +1,26 @@
+{
+  "splits": {
+    "test": 392,
+    "train": 2136,
+    "val": 371
+  },
+  "sources": {
+    "original": 2448,
+    "datacluster-reviewed": 154,
+    "reviewed-intact-laptop": 30,
+    "commons-reviewed": 85,
+    "mhci-damage-study": 95,
+    "hackathon-reviewed": 87
+  },
+  "train_positive_unique": 1998,
+  "train_negative_unique": 138,
+  "negative_repeat": 15,
+  "train_draws": 4068,
+  "fresh_test": 50,
+  "fresh_test_counts": {
+    "negative": 31,
+    "0": 11,
+    "2": 5,
+    "1": 3
+  }
+}

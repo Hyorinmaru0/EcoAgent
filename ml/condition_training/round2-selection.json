@@ -1,0 +1,424 @@
+{
+  "selection_split": "fresh-validation-only",
+  "threshold": 0.5,
+  "selected": {
+    "checkpoint": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\runs\\visible-damage-round2\\weights\\epoch10.pt",
+    "summary": {
+      "total": 30,
+      "threshold": 0.5,
+      "positive_total": 16,
+      "positive_detected": 12,
+      "negative_total": 14,
+      "negative_correct": 13,
+      "exact_photo_matches": 25,
+      "per_class": {
+        "damaged_phone": {
+          "total": 8,
+          "detected": 8
+        },
+        "damaged_laptop": {
+          "total": 4,
+          "detected": 0
+        },
+        "damaged_tv": {
+          "total": 4,
+          "detected": 4
+        }
+      },
+      "balanced_presence_score": 0.8392857142857143
+    },
+    "rank": [
+      false,
+      0.8392857142857143,
+      13
+    ]
+  },
+  "candidates": [
+    {
+      "checkpoint": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\runs\\visible-damage-round2\\weights\\epoch0.pt",
+      "summary": {
+        "total": 30,
+        "threshold": 0.5,
+        "positive_total": 16,
+        "positive_detected": 0,
+        "negative_total": 14,
+        "negative_correct": 14,
+        "exact_photo_matches": 14,
+        "per_class": {
+          "damaged_phone": {
+            "total": 8,
+            "detected": 0
+          },
+          "damaged_laptop": {
+            "total": 4,
+            "detected": 0
+          },
+          "damaged_tv": {
+            "total": 4,
+            "detected": 0
+          }
+        },
+        "balanced_presence_score": 0.5
+      },
+      "rank": [
+        false,
+        0.5,
+        14
+      ]
+    },
+    {
+      "checkpoint": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\runs\\visible-damage-round2\\weights\\epoch1.pt",
+      "summary": {
+        "total": 30,
+        "threshold": 0.5,
+        "positive_total": 16,
+        "positive_detected": 8,
+        "negative_total": 14,
+        "negative_correct": 13,
+        "exact_photo_matches": 21,
+        "per_class": {
+          "damaged_phone": {
+            "total": 8,
+            "detected": 8
+          },
+          "damaged_laptop": {
+            "total": 4,
+            "detected": 0
+          },
+          "damaged_tv": {
+            "total": 4,
+            "detected": 0
+          }
+        },
+        "balanced_presence_score": 0.7142857142857143
+      },
+      "rank": [
+        false,
+        0.7142857142857143,
+        13
+      ]
+    },
+    {
+      "checkpoint": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\runs\\visible-damage-round2\\weights\\epoch10.pt",
+      "summary": {
+        "total": 30,
+        "threshold": 0.5,
+        "positive_total": 16,
+        "positive_detected": 12,
+        "negative_total": 14,
+        "negative_correct": 13,
+        "exact_photo_matches": 25,
+        "per_class": {
+          "damaged_phone": {
+            "total": 8,
+            "detected": 8
+          },
+          "damaged_laptop": {
+            "total": 4,
+            "detected": 0
+          },
+          "damaged_tv": {
+            "total": 4,
+            "detected": 4
+          }
+        },
+        "balanced_presence_score": 0.8392857142857143
+      },
+      "rank": [
+        false,
+        0.8392857142857143,
+        13
+      ]
+    },
+    {
+      "checkpoint": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\runs\\visible-damage-round2\\weights\\epoch11.pt",
+      "summary": {
+        "total": 30,
+        "threshold": 0.5,
+        "positive_total": 16,
+        "positive_detected": 12,
+        "negative_total": 14,
+        "negative_correct": 10,
+        "exact_photo_matches": 22,
+        "per_class": {
+          "damaged_phone": {
+            "total": 8,
+            "detected": 8
+          },
+          "damaged_laptop": {
+            "total": 4,
+            "detected": 0
+          },
+          "damaged_tv": {
+            "total": 4,
+            "detected": 4
+          }
+        },
+        "balanced_presence_score": 0.7321428571428572
+      },
+      "rank": [
+        false,
+        0.7321428571428572,
+        10
+      ]
+    },
+    {
+      "checkpoint": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\runs\\visible-damage-round2\\weights\\epoch2.pt",
+      "summary": {
+        "total": 30,
+        "threshold": 0.5,
+        "positive_total": 16,
+        "positive_detected": 8,
+        "negative_total": 14,
+        "negative_correct": 13,
+        "exact_photo_matches": 21,
+        "per_class": {
+          "damaged_phone": {
+            "total": 8,
+            "detected": 8
+          },
+          "damaged_laptop": {
+            "total": 4,
+            "detected": 0
+          },
+          "damaged_tv": {
+            "total": 4,
+            "detected": 0
+          }
+        },
+        "balanced_presence_score": 0.7142857142857143
+      },
+      "rank": [
+        false,
+        0.7142857142857143,
+        13
+      ]
+    },
+    {
+      "checkpoint": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\runs\\visible-damage-round2\\weights\\epoch3.pt",
+      "summary": {
+        "total": 30,
+        "threshold": 0.5,
+        "positive_total": 16,
+        "positive_detected": 10,
+        "negative_total": 14,
+        "negative_correct": 13,
+        "exact_photo_matches": 23,
+        "per_class": {
+          "damaged_phone": {
+            "total": 8,
+            "detected": 8
+          },
+          "damaged_laptop": {
+            "total": 4,
+            "detected": 0
+          },
+          "damaged_tv": {
+            "total": 4,
+            "detected": 2
+          }
+        },
+        "balanced_presence_score": 0.7767857142857143
+      },
+      "rank": [
+        false,
+        0.7767857142857143,
+        13
+      ]
+    },
+    {
+      "checkpoint": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\runs\\visible-damage-round2\\weights\\epoch4.pt",
+      "summary": {
+        "total": 30,
+        "threshold": 0.5,
+        "positive_total": 16,
+        "positive_detected": 10,
+        "negative_total": 14,
+        "negative_correct": 14,
+        "exact_photo_matches": 24,
+        "per_class": {
+          "damaged_phone": {
+            "total": 8,
+            "detected": 8
+          },
+          "damaged_laptop": {
+            "total": 4,
+            "detected": 0
+          },
+          "damaged_tv": {
+            "total": 4,
+            "detected": 2
+          }
+        },
+        "balanced_presence_score": 0.8125
+      },
+      "rank": [
+        false,
+        0.8125,
+        14
+      ]
+    },
+    {
+      "checkpoint": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\runs\\visible-damage-round2\\weights\\epoch5.pt",
+      "summary": {
+        "total": 30,
+        "threshold": 0.5,
+        "positive_total": 16,
+        "positive_detected": 10,
+        "negative_total": 14,
+        "negative_correct": 12,
+        "exact_photo_matches": 21,
+        "per_class": {
+          "damaged_phone": {
+            "total": 8,
+            "detected": 8
+          },
+          "damaged_laptop": {
+            "total": 4,
+            "detected": 0
+          },
+          "damaged_tv": {
+            "total": 4,
+            "detected": 2
+          }
+        },
+        "balanced_presence_score": 0.7410714285714286
+      },
+      "rank": [
+        false,
+        0.7410714285714286,
+        12
+      ]
+    },
+    {
+      "checkpoint": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\runs\\visible-damage-round2\\weights\\epoch6.pt",
+      "summary": {
+        "total": 30,
+        "threshold": 0.5,
+        "positive_total": 16,
+        "positive_detected": 10,
+        "negative_total": 14,
+        "negative_correct": 9,
+        "exact_photo_matches": 19,
+        "per_class": {
+          "damaged_phone": {
+            "total": 8,
+            "detected": 8
+          },
+          "damaged_laptop": {
+            "total": 4,
+            "detected": 0
+          },
+          "damaged_tv": {
+            "total": 4,
+            "detected": 2
+          }
+        },
+        "balanced_presence_score": 0.6339285714285714
+      },
+      "rank": [
+        false,
+        0.6339285714285714,
+        9
+      ]
+    },
+    {
+      "checkpoint": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\runs\\visible-damage-round2\\weights\\epoch7.pt",
+      "summary": {
+        "total": 30,
+        "threshold": 0.5,
+        "positive_total": 16,
+        "positive_detected": 11,
+        "negative_total": 14,
+        "negative_correct": 11,
+        "exact_photo_matches": 22,
+        "per_class": {
+          "damaged_phone": {
+            "total": 8,
+            "detected": 8
+          },
+          "damaged_laptop": {
+            "total": 4,
+            "detected": 0
+          },
+          "damaged_tv": {
+            "total": 4,
+            "detected": 3
+          }
+        },
+        "balanced_presence_score": 0.7366071428571428
+      },
+      "rank": [
+        false,
+        0.7366071428571428,
+        11
+      ]
+    },
+    {
+      "checkpoint": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\runs\\visible-damage-round2\\weights\\epoch8.pt",
+      "summary": {
+        "total": 30,
+        "threshold": 0.5,
+        "positive_total": 16,
+        "positive_detected": 11,
+        "negative_total": 14,
+        "negative_correct": 11,
+        "exact_photo_matches": 22,
+        "per_class": {
+          "damaged_phone": {
+            "total": 8,
+            "detected": 8
+          },
+          "damaged_laptop": {
+            "total": 4,
+            "detected": 0
+          },
+          "damaged_tv": {
+            "total": 4,
+            "detected": 3
+          }
+        },
+        "balanced_presence_score": 0.7366071428571428
+      },
+      "rank": [
+        false,
+        0.7366071428571428,
+        11
+      ]
+    },
+    {
+      "checkpoint": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\runs\\visible-damage-round2\\weights\\epoch9.pt",
+      "summary": {
+        "total": 30,
+        "threshold": 0.5,
+        "positive_total": 16,
+        "positive_detected": 12,
+        "negative_total": 14,
+        "negative_correct": 11,
+        "exact_photo_matches": 23,
+        "per_class": {
+          "damaged_phone": {
+            "total": 8,
+            "detected": 8
+          },
+          "damaged_laptop": {
+            "total": 4,
+            "detected": 0
+          },
+          "damaged_tv": {
+            "total": 4,
+            "detected": 4
+          }
+        },
+        "balanced_presence_score": 0.7678571428571428
+      },
+      "rank": [
+        false,
+        0.7678571428571428,
+        11
+      ]
+    }
+  ],
+  "test_used_for_selection": false,
+  "automatic_deployment": false
+}

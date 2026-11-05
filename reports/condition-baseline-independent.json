@@ -1,0 +1,658 @@
+{
+  "weights": "ml\\damage_detection\\weights\\best.onnx",
+  "thresholds": {
+    "0.25": {
+      "axon-heldout-intact": {
+        "total": 2,
+        "correct": 2
+      },
+      "axon-independent-broken": {
+        "total": 35,
+        "correct": 3
+      },
+      "commons-independent-tv": {
+        "total": 3,
+        "correct": 0
+      },
+      "local-reviewed-intact-regression": {
+        "total": 7,
+        "correct": 5
+      },
+      "user-shattered-phone-regression": {
+        "total": 1,
+        "correct": 0
+      }
+    },
+    "0.5": {
+      "axon-heldout-intact": {
+        "total": 2,
+        "correct": 2
+      },
+      "axon-independent-broken": {
+        "total": 35,
+        "correct": 1
+      },
+      "commons-independent-tv": {
+        "total": 3,
+        "correct": 0
+      },
+      "local-reviewed-intact-regression": {
+        "total": 7,
+        "correct": 5
+      },
+      "user-shattered-phone-regression": {
+        "total": 1,
+        "correct": 0
+      }
+    },
+    "0.7": {
+      "axon-heldout-intact": {
+        "total": 2,
+        "correct": 2
+      },
+      "axon-independent-broken": {
+        "total": 35,
+        "correct": 0
+      },
+      "commons-independent-tv": {
+        "total": 3,
+        "correct": 0
+      },
+      "local-reviewed-intact-regression": {
+        "total": 7,
+        "correct": 5
+      },
+      "user-shattered-phone-regression": {
+        "total": 1,
+        "correct": 0
+      }
+    }
+  },
+  "cases": [
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5407.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": []
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5408.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": [
+        {
+          "label": "damaged_laptop",
+          "score": 0.24945136904716492
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5409.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": [
+        {
+          "label": "damaged_laptop",
+          "score": 0.552952766418457
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5410.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": []
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5411.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.026625216007232666,
+      "top_predictions": [
+        {
+          "label": "damaged_laptop",
+          "score": 0.09343251585960388
+        },
+        {
+          "label": "damaged_phone",
+          "score": 0.026625216007232666
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5413.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": []
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5414.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": []
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5415.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": []
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5416.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.4281489849090576,
+      "top_predictions": [
+        {
+          "label": "damaged_laptop",
+          "score": 0.44195088744163513
+        },
+        {
+          "label": "damaged_phone",
+          "score": 0.4281489849090576
+        },
+        {
+          "label": "damaged_laptop",
+          "score": 0.2534325122833252
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5418.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": []
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5419.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": [
+        {
+          "label": "damaged_laptop",
+          "score": 0.4040426015853882
+        },
+        {
+          "label": "damaged_laptop",
+          "score": 0.4025387763977051
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5420.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": []
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5421.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": [
+        {
+          "label": "damaged_laptop",
+          "score": 0.042717814445495605
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5422.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.5759799480438232,
+      "top_predictions": [
+        {
+          "label": "damaged_phone",
+          "score": 0.5759799480438232
+        },
+        {
+          "label": "damaged_laptop",
+          "score": 0.1352955400943756
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5423.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": [
+        {
+          "label": "damaged_laptop",
+          "score": 0.6547046899795532
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5424.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": [
+        {
+          "label": "damaged_laptop",
+          "score": 0.39472055435180664
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5425.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": []
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5426.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.14899244904518127,
+      "top_predictions": [
+        {
+          "label": "damaged_phone",
+          "score": 0.14899244904518127
+        },
+        {
+          "label": "damaged_laptop",
+          "score": 0.06977269053459167
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5428.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": []
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5429.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": []
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5430.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": [
+        {
+          "label": "damaged_laptop",
+          "score": 0.15016049146652222
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5431.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": [
+        {
+          "label": "damaged_laptop",
+          "score": 0.43352073431015015
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5432.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": []
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5433.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": []
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5434.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": []
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5435.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": [
+        {
+          "label": "damaged_laptop",
+          "score": 0.27573513984680176
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5436.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": []
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5437.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": [
+        {
+          "label": "damaged_laptop",
+          "score": 0.49477964639663696
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5438.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.49574288725852966,
+      "top_predictions": [
+        {
+          "label": "damaged_phone",
+          "score": 0.49574288725852966
+        },
+        {
+          "label": "damaged_laptop",
+          "score": 0.05484607815742493
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5439.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.012528210878372192,
+      "top_predictions": [
+        {
+          "label": "damaged_phone",
+          "score": 0.012528210878372192
+        },
+        {
+          "label": "damaged_laptop",
+          "score": 0.010021209716796875
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5440.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": []
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5441.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": [
+        {
+          "label": "damaged_laptop",
+          "score": 0.08516296744346619
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5442.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": [
+        {
+          "label": "damaged_laptop",
+          "score": 0.02994099259376526
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5443.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": [
+        {
+          "label": "damaged_laptop",
+          "score": 0.31370478868484497
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\axon-phone\\Image_brokenphones\\IMG_5444.PNG",
+      "target": 0,
+      "positive": true,
+      "source": "axon-independent-broken",
+      "score": 0.0,
+      "top_predictions": [
+        {
+          "label": "damaged_laptop",
+          "score": 0.022330492734909058
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\images\\test\\axon-intact__33.png",
+      "target": 0,
+      "positive": false,
+      "source": "axon-heldout-intact",
+      "score": 0.0,
+      "top_predictions": [
+        {
+          "label": "damaged_laptop",
+          "score": 0.07382571697235107
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\images\\test\\axon-intact__38.png",
+      "target": 0,
+      "positive": false,
+      "source": "axon-heldout-intact",
+      "score": 0.0,
+      "top_predictions": []
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\commons-tv\\113607064.jpg",
+      "target": 2,
+      "positive": true,
+      "source": "commons-independent-tv",
+      "score": 0.0,
+      "top_predictions": [
+        {
+          "label": "damaged_laptop",
+          "score": 0.19253545999526978
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\commons-tv\\179317368.jpg",
+      "target": 2,
+      "positive": true,
+      "source": "commons-independent-tv",
+      "score": 0.0,
+      "top_predictions": [
+        {
+          "label": "damaged_laptop",
+          "score": 0.220903217792511
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\commons-tv\\179317410.jpg",
+      "target": 2,
+      "positive": true,
+      "source": "commons-independent-tv",
+      "score": 0.0,
+      "top_predictions": []
+    },
+    {
+      "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-phone.jpg",
+      "target": 0,
+      "positive": false,
+      "source": "local-reviewed-intact-regression",
+      "score": 0.0,
+      "top_predictions": [
+        {
+          "label": "damaged_laptop",
+          "score": 0.21731016039848328
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-laptop-open.jpg",
+      "target": 1,
+      "positive": false,
+      "source": "local-reviewed-intact-regression",
+      "score": 0.7247129678726196,
+      "top_predictions": [
+        {
+          "label": "damaged_laptop",
+          "score": 0.7247129678726196
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-laptop.jpg",
+      "target": 1,
+      "positive": false,
+      "source": "local-reviewed-intact-regression",
+      "score": 0.8542317152023315,
+      "top_predictions": [
+        {
+          "label": "damaged_laptop",
+          "score": 0.8542317152023315
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-new-phone-back.jpg",
+      "target": 0,
+      "positive": false,
+      "source": "local-reviewed-intact-regression",
+      "score": 0.0,
+      "top_predictions": [
+        {
+          "label": "damaged_laptop",
+          "score": 0.11270040273666382
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-new-phone-hand.jpg",
+      "target": 0,
+      "positive": false,
+      "source": "local-reviewed-intact-regression",
+      "score": 0.0,
+      "top_predictions": [
+        {
+          "label": "damaged_laptop",
+          "score": 0.2793194055557251
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-new-laptop.jpg",
+      "target": 1,
+      "positive": false,
+      "source": "local-reviewed-intact-regression",
+      "score": 0.0,
+      "top_predictions": []
+    },
+    {
+      "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-new-tv.jpg",
+      "target": 2,
+      "positive": false,
+      "source": "local-reviewed-intact-regression",
+      "score": 0.0,
+      "top_predictions": [
+        {
+          "label": "damaged_laptop",
+          "score": 0.47951725125312805
+        },
+        {
+          "label": "damaged_laptop",
+          "score": 0.09301388263702393
+        },
+        {
+          "label": "damaged_laptop",
+          "score": 0.01624298095703125
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ai-chat-custom-attachment-temp-file-73910fc3-ce01-4092-bbac-1a4f76890831-12065828093330899766.png",
+      "target": 0,
+      "positive": true,
+      "source": "user-shattered-phone-regression",
+      "score": 0.03143557906150818,
+      "top_predictions": [
+        {
+          "label": "damaged_laptop",
+          "score": 0.05019059777259827
+        },
+        {
+          "label": "damaged_phone",
+          "score": 0.03143557906150818
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Small convenience sample; not overall real-world accuracy.",
+    "Phone cracked sample can contain duplicate device views.",
+    "TV sample is only two devices with three photos.",
+    "No independent intact-TV or laptop-negative benchmark available.",
+    "Visible damage only; no working/nonworking ground truth."
+  ]
+}

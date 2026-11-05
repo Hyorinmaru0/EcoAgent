@@ -1,0 +1,168 @@
+[
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02648__120211166.jpg",
+    "expectedDamaged": false,
+    "source": "commons-reviewed"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02654__12521030.jpg",
+    "expectedDamaged": false,
+    "source": "commons-reviewed"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02667__144029935.jpg",
+    "expectedDamaged": false,
+    "source": "commons-reviewed"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02668__144029959.jpg",
+    "expectedDamaged": false,
+    "source": "commons-reviewed"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02669__144030009.jpg",
+    "expectedDamaged": false,
+    "source": "commons-reviewed"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02675__152917512.jpg",
+    "expectedDamaged": false,
+    "source": "commons-reviewed"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02676__153087731.jpg",
+    "expectedDamaged": false,
+    "source": "commons-reviewed"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02689__22620000.jpg",
+    "expectedDamaged": false,
+    "source": "commons-reviewed"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02697__42743388.jpg",
+    "expectedDamaged": false,
+    "source": "commons-reviewed"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02700__51439983.jpg",
+    "expectedDamaged": false,
+    "source": "commons-reviewed"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02714__95147120.jpg",
+    "expectedDamaged": false,
+    "source": "commons-reviewed"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02718__27413-13.jpg",
+    "expectedDamaged": true,
+    "source": "mhci-damage-study",
+    "expectedCategory": "Mobile Phone"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02723__27413-27.jpg",
+    "expectedDamaged": true,
+    "source": "mhci-damage-study",
+    "expectedCategory": "Mobile Phone"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02729__27413-52.jpg",
+    "expectedDamaged": true,
+    "source": "mhci-damage-study",
+    "expectedCategory": "Mobile Phone"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02755__46693-17.jpg",
+    "expectedDamaged": true,
+    "source": "mhci-damage-study",
+    "expectedCategory": "Mobile Phone"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02782__46693-672.jpg",
+    "expectedDamaged": true,
+    "source": "mhci-damage-study",
+    "expectedCategory": "Mobile Phone"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02794__46693-801.jpg",
+    "expectedDamaged": true,
+    "source": "mhci-damage-study",
+    "expectedCategory": "Mobile Phone"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02801__46693-908.jpg",
+    "expectedDamaged": true,
+    "source": "mhci-damage-study",
+    "expectedCategory": "Mobile Phone"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02808__46693-964.jpg",
+    "expectedDamaged": true,
+    "source": "mhci-damage-study",
+    "expectedCategory": "Mobile Phone"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02812__brokentv_1 (2).jpg",
+    "expectedDamaged": true,
+    "source": "hackathon-reviewed",
+    "expectedCategory": "Laptop"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02818__brokentv_12 (2).jpg",
+    "expectedDamaged": true,
+    "source": "hackathon-reviewed",
+    "expectedCategory": "Laptop"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02820__brokentv_13 (2).jpg",
+    "expectedDamaged": true,
+    "source": "hackathon-reviewed",
+    "expectedCategory": "TV"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02830__brokentv_18 (2).jpg",
+    "expectedDamaged": true,
+    "source": "hackathon-reviewed",
+    "expectedCategory": "Laptop"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02833__brokentv_19.jpg",
+    "expectedDamaged": true,
+    "source": "hackathon-reviewed",
+    "expectedCategory": "TV"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02840__brokentv_22 (2).jpg",
+    "expectedDamaged": true,
+    "source": "hackathon-reviewed",
+    "expectedCategory": "Laptop"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02844__brokentv_24.jpg",
+    "expectedDamaged": false,
+    "source": "hackathon-reviewed"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02848__brokentv_4.jpg",
+    "expectedDamaged": true,
+    "source": "hackathon-reviewed",
+    "expectedCategory": "TV"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02856__brokentv_8.jpg",
+    "expectedDamaged": true,
+    "source": "hackathon-reviewed",
+    "expectedCategory": "TV"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02878__television_18.jpg",
+    "expectedDamaged": false,
+    "source": "hackathon-reviewed"
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\val\\02885__television_23.jpg",
+    "expectedDamaged": false,
+    "source": "hackathon-reviewed"
+  }
+]

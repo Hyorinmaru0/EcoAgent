@@ -1,0 +1,83 @@
+[
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-wallet-lossless.png",
+    "expectedCategory": null,
+    "expectedDamaged": false
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-wallet-q95.jpg",
+    "expectedCategory": null,
+    "expectedDamaged": false
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-wallet-q82.jpg",
+    "expectedCategory": null,
+    "expectedDamaged": false
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-wallet-q60.jpg",
+    "expectedCategory": null,
+    "expectedDamaged": false
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-rejection-photos\\bus.jpg",
+    "expectedCategory": null,
+    "expectedDamaged": false
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-rejection-photos\\people.jpg",
+    "expectedCategory": null,
+    "expectedDamaged": false
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-phone.jpg",
+    "expectedCategory": "Mobile Phone",
+    "expectedDamaged": false
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-laptop-open.jpg",
+    "expectedCategory": "Laptop",
+    "expectedDamaged": false
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-laptop.jpg",
+    "expectedCategory": "Laptop",
+    "expectedDamaged": false
+  },
+  {
+    "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\tv_training\\dataset\\images\\val\\frame_000161.jpg",
+    "expectedCategory": "TV",
+    "expectedDamaged": true
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-new-phone-back.jpg",
+    "expectedCategory": "Mobile Phone",
+    "expectedDamaged": false
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-new-phone-hand.jpg",
+    "expectedCategory": "Mobile Phone",
+    "expectedDamaged": false
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-new-laptop.jpg",
+    "expectedCategory": "Laptop",
+    "expectedDamaged": false
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ecocycle-new-tv.jpg",
+    "expectedCategory": "TV",
+    "expectedDamaged": false
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ai-chat-custom-attachment-temp-file-73910fc3-ce01-4092-bbac-1a4f76890831-7080985362949046667.png",
+    "expectedCategory": "Mobile Phone",
+    "expectedDamaged": false
+  },
+  {
+    "path": "C:\\Users\\REEYAN~1\\AppData\\Local\\Temp\\ai-chat-custom-attachment-temp-file-73910fc3-ce01-4092-bbac-1a4f76890831-12065828093330899766.png",
+    "expectedCategory": "Mobile Phone",
+    "expectedDamaged": true,
+    "expectedSource": "damage-model"
+  }
+]

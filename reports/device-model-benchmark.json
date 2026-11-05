@@ -1,0 +1,1461 @@
+{
+  "note": "COCO128 is a training subset for COCO-pretrained models; these scores are diagnostic and biased, not independent validation.",
+  "images": 128,
+  "positive_images": 8,
+  "summaries": [
+    {
+      "model": "custom",
+      "threshold": 0.25,
+      "tp": 1,
+      "fp": 30,
+      "fn": 12,
+      "per_class": {
+        "television": {
+          "tp": 1,
+          "fp": 8,
+          "fn": 1
+        },
+        "laptop": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 3
+        },
+        "cell phone": {
+          "tp": 0,
+          "fp": 22,
+          "fn": 8
+        }
+      }
+    },
+    {
+      "model": "custom",
+      "threshold": 0.5,
+      "tp": 1,
+      "fp": 16,
+      "fn": 12,
+      "per_class": {
+        "television": {
+          "tp": 1,
+          "fp": 4,
+          "fn": 1
+        },
+        "laptop": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 3
+        },
+        "cell phone": {
+          "tp": 0,
+          "fp": 12,
+          "fn": 8
+        }
+      }
+    },
+    {
+      "model": "custom",
+      "threshold": 0.7,
+      "tp": 1,
+      "fp": 7,
+      "fn": 12,
+      "per_class": {
+        "television": {
+          "tp": 1,
+          "fp": 2,
+          "fn": 1
+        },
+        "laptop": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 3
+        },
+        "cell phone": {
+          "tp": 0,
+          "fp": 5,
+          "fn": 8
+        }
+      }
+    },
+    {
+      "model": "reference",
+      "threshold": 0.25,
+      "tp": 2,
+      "fp": 1,
+      "fn": 11,
+      "per_class": {
+        "television": {
+          "tp": 2,
+          "fp": 0,
+          "fn": 0
+        },
+        "laptop": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 3
+        },
+        "cell phone": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 8
+        }
+      }
+    },
+    {
+      "model": "reference",
+      "threshold": 0.5,
+      "tp": 2,
+      "fp": 0,
+      "fn": 11,
+      "per_class": {
+        "television": {
+          "tp": 2,
+          "fp": 0,
+          "fn": 0
+        },
+        "laptop": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 3
+        },
+        "cell phone": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 8
+        }
+      }
+    },
+    {
+      "model": "reference",
+      "threshold": 0.7,
+      "tp": 2,
+      "fp": 0,
+      "fn": 11,
+      "per_class": {
+        "television": {
+          "tp": 2,
+          "fp": 0,
+          "fn": 0
+        },
+        "laptop": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 3
+        },
+        "cell phone": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 8
+        }
+      }
+    }
+  ],
+  "rows": [
+    {
+      "image": "000000000009.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000025.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000030.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000034.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000036.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000042.jpg",
+      "truth": [],
+      "custom": [
+        {
+          "className": "cell phone",
+          "score": 0.335717,
+          "box": [
+            0.265299,
+            0.402216,
+            0.385188,
+            0.536128
+          ]
+        }
+      ],
+      "reference": []
+    },
+    {
+      "image": "000000000049.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000061.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000064.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000071.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000072.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000073.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000074.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000077.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000078.jpg",
+      "truth": [],
+      "custom": [
+        {
+          "className": "cell phone",
+          "score": 0.537127,
+          "box": [
+            0.029564,
+            0.0,
+            0.979605,
+            0.998581
+          ]
+        }
+      ],
+      "reference": []
+    },
+    {
+      "image": "000000000081.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000086.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000089.jpg",
+      "truth": [],
+      "custom": [
+        {
+          "className": "television",
+          "score": 0.490314,
+          "box": [
+            0.0,
+            0.042813,
+            0.204956,
+            0.403843
+          ]
+        }
+      ],
+      "reference": []
+    },
+    {
+      "image": "000000000092.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000094.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000109.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000110.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000113.jpg",
+      "truth": [],
+      "custom": [
+        {
+          "className": "cell phone",
+          "score": 0.608099,
+          "box": [
+            0.414085,
+            0.163031,
+            0.503348,
+            0.215147
+          ]
+        }
+      ],
+      "reference": []
+    },
+    {
+      "image": "000000000127.jpg",
+      "truth": [],
+      "custom": [
+        {
+          "className": "cell phone",
+          "score": 0.516854,
+          "box": [
+            0.757065,
+            0.705578,
+            0.800174,
+            0.765018
+          ]
+        }
+      ],
+      "reference": []
+    },
+    {
+      "image": "000000000133.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000136.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000138.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000142.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000143.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000144.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000149.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000151.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000154.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000164.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000165.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000192.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000194.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000196.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000201.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000208.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000241.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000247.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000250.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000257.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000260.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000263.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000283.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000294.jpg",
+      "truth": [],
+      "custom": [
+        {
+          "className": "television",
+          "score": 0.766094,
+          "box": [
+            0.0,
+            0.133301,
+            0.190857,
+            0.513999
+          ],
+          "verification": {
+            "status": "rejected",
+            "label": "computer monitor",
+            "similarity": 0.264774,
+            "margin": 0.001782
+          }
+        },
+        {
+          "className": "television",
+          "score": 0.539743,
+          "box": [
+            0.788841,
+            0.732107,
+            0.999951,
+            0.997996
+          ]
+        },
+        {
+          "className": "cell phone",
+          "score": 0.483565,
+          "box": [
+            0.412549,
+            0.343017,
+            0.481718,
+            0.44343
+          ]
+        }
+      ],
+      "reference": []
+    },
+    {
+      "image": "000000000307.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000308.jpg",
+      "truth": [],
+      "custom": [
+        {
+          "className": "cell phone",
+          "score": 0.360765,
+          "box": [
+            0.371189,
+            0.404803,
+            0.404623,
+            0.433162
+          ]
+        },
+        {
+          "className": "cell phone",
+          "score": 0.272058,
+          "box": [
+            0.683304,
+            0.548959,
+            0.70698,
+            0.595396
+          ]
+        }
+      ],
+      "reference": []
+    },
+    {
+      "image": "000000000309.jpg",
+      "truth": [],
+      "custom": [
+        {
+          "className": "cell phone",
+          "score": 0.617315,
+          "box": [
+            0.003998,
+            0.0,
+            0.993474,
+            0.994162
+          ]
+        }
+      ],
+      "reference": []
+    },
+    {
+      "image": "000000000312.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000315.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000321.jpg",
+      "truth": [],
+      "custom": [
+        {
+          "className": "cell phone",
+          "score": 0.887219,
+          "box": [
+            0.0,
+            0.016726,
+            0.997763,
+            0.957546
+          ],
+          "verification": {
+            "status": "rejected",
+            "label": "box",
+            "similarity": 0.233523,
+            "margin": 0.017256
+          }
+        },
+        {
+          "className": "cell phone",
+          "score": 0.782861,
+          "box": [
+            0.540578,
+            0.054623,
+            1.0,
+            0.979136
+          ],
+          "verification": {
+            "status": "rejected",
+            "label": "other object",
+            "similarity": 0.230987,
+            "margin": 0.005022
+          }
+        },
+        {
+          "className": "cell phone",
+          "score": 0.449174,
+          "box": [
+            0.000527,
+            0.001775,
+            0.513377,
+            0.944672
+          ]
+        }
+      ],
+      "reference": []
+    },
+    {
+      "image": "000000000322.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000326.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000328.jpg",
+      "truth": [
+        {
+          "className": "cell phone",
+          "box": [
+            0.67929645,
+            0.5766803500000001,
+            0.7339995500000001,
+            0.61464365
+          ]
+        }
+      ],
+      "custom": [],
+      "reference": [
+        {
+          "className": "cell phone",
+          "score": 0.250288,
+          "box": [
+            0.214632,
+            0.212381,
+            0.26312,
+            0.328851
+          ]
+        }
+      ]
+    },
+    {
+      "image": "000000000332.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000338.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000349.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000357.jpg",
+      "truth": [],
+      "custom": [
+        {
+          "className": "cell phone",
+          "score": 0.323316,
+          "box": [
+            0.434577,
+            0.108096,
+            0.451134,
+            0.141089
+          ]
+        }
+      ],
+      "reference": []
+    },
+    {
+      "image": "000000000359.jpg",
+      "truth": [],
+      "custom": [
+        {
+          "className": "cell phone",
+          "score": 0.341756,
+          "box": [
+            0.81373,
+            0.296346,
+            0.920971,
+            0.429279
+          ]
+        }
+      ],
+      "reference": []
+    },
+    {
+      "image": "000000000360.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000368.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000370.jpg",
+      "truth": [],
+      "custom": [
+        {
+          "className": "cell phone",
+          "score": 0.335177,
+          "box": [
+            0.285763,
+            0.848278,
+            0.629939,
+            1.0
+          ]
+        }
+      ],
+      "reference": []
+    },
+    {
+      "image": "000000000382.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000384.jpg",
+      "truth": [
+        {
+          "className": "laptop",
+          "box": [
+            0.27665955000000003,
+            0.73259425,
+            0.36426045,
+            0.76278175
+          ]
+        }
+      ],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000387.jpg",
+      "truth": [
+        {
+          "className": "laptop",
+          "box": [
+            0.389328,
+            0.10562450000000001,
+            0.975844,
+            0.6831455
+          ]
+        },
+        {
+          "className": "laptop",
+          "box": [
+            0.23809349999999996,
+            0.104771,
+            0.9738125,
+            0.755563
+          ]
+        },
+        {
+          "className": "cell phone",
+          "box": [
+            0.5195315,
+            0.23308399999999996,
+            0.8476565,
+            0.428396
+          ]
+        }
+      ],
+      "custom": [
+        {
+          "className": "television",
+          "score": 0.514461,
+          "box": [
+            0.023352,
+            0.089817,
+            0.992057,
+            0.773124
+          ]
+        },
+        {
+          "className": "television",
+          "score": 0.279075,
+          "box": [
+            0.335656,
+            0.096867,
+            0.99542,
+            0.702011
+          ]
+        }
+      ],
+      "reference": []
+    },
+    {
+      "image": "000000000389.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000394.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000395.jpg",
+      "truth": [
+        {
+          "className": "cell phone",
+          "box": [
+            0.454922,
+            0.4987763,
+            0.485922,
+            0.5383797
+          ]
+        },
+        {
+          "className": "cell phone",
+          "box": [
+            0.9672658,
+            0.5271376,
+            0.9920002,
+            0.5471204
+          ]
+        }
+      ],
+      "custom": [
+        {
+          "className": "cell phone",
+          "score": 0.788406,
+          "box": [
+            0.448329,
+            0.435118,
+            0.615011,
+            0.558281
+          ],
+          "verification": {
+            "status": "uncertain",
+            "label": "cell phone",
+            "similarity": 0.268692,
+            "margin": 0.003595
+          }
+        }
+      ],
+      "reference": []
+    },
+    {
+      "image": "000000000397.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000400.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000404.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000415.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000419.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000428.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000431.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000436.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000438.jpg",
+      "truth": [],
+      "custom": [
+        {
+          "className": "television",
+          "score": 0.764796,
+          "box": [
+            0.0,
+            0.0,
+            0.991079,
+            1.0
+          ],
+          "verification": {
+            "status": "rejected",
+            "label": "box",
+            "similarity": 0.232487,
+            "margin": 0.012956
+          }
+        }
+      ],
+      "reference": []
+    },
+    {
+      "image": "000000000443.jpg",
+      "truth": [],
+      "custom": [
+        {
+          "className": "cell phone",
+          "score": 0.920172,
+          "box": [
+            0.780362,
+            0.402451,
+            0.999764,
+            0.725833
+          ],
+          "verification": {
+            "status": "rejected",
+            "label": "remote control",
+            "similarity": 0.3015,
+            "margin": 0.007883
+          }
+        }
+      ],
+      "reference": []
+    },
+    {
+      "image": "000000000446.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000450.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000459.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000471.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000472.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000474.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000486.jpg",
+      "truth": [],
+      "custom": [
+        {
+          "className": "television",
+          "score": 0.305695,
+          "box": [
+            0.136342,
+            0.48336,
+            0.246401,
+            0.585858
+          ]
+        }
+      ],
+      "reference": []
+    },
+    {
+      "image": "000000000488.jpg",
+      "truth": [],
+      "custom": [
+        {
+          "className": "cell phone",
+          "score": 0.269377,
+          "box": [
+            0.264601,
+            0.672163,
+            0.279904,
+            0.69491
+          ]
+        }
+      ],
+      "reference": []
+    },
+    {
+      "image": "000000000490.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000491.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000502.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000508.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000510.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000514.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000520.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000529.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000531.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000532.jpg",
+      "truth": [],
+      "custom": [
+        {
+          "className": "cell phone",
+          "score": 0.595697,
+          "box": [
+            0.767763,
+            0.611971,
+            0.841069,
+            0.688805
+          ]
+        }
+      ],
+      "reference": []
+    },
+    {
+      "image": "000000000536.jpg",
+      "truth": [
+        {
+          "className": "cell phone",
+          "box": [
+            0.46078115,
+            0.31711265,
+            0.49131685,
+            0.38002935000000004
+          ]
+        },
+        {
+          "className": "cell phone",
+          "box": [
+            0.22013404999999997,
+            0.2609525,
+            0.28470995,
+            0.3780655
+          ]
+        },
+        {
+          "className": "cell phone",
+          "box": [
+            0.8065848,
+            0.66860145,
+            0.8245312,
+            0.70571455
+          ]
+        }
+      ],
+      "custom": [
+        {
+          "className": "cell phone",
+          "score": 0.508965,
+          "box": [
+            0.452802,
+            0.324872,
+            0.485563,
+            0.397419
+          ]
+        },
+        {
+          "className": "cell phone",
+          "score": 0.274223,
+          "box": [
+            0.24912,
+            0.299337,
+            0.282671,
+            0.376652
+          ]
+        }
+      ],
+      "reference": []
+    },
+    {
+      "image": "000000000540.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000542.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000544.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000560.jpg",
+      "truth": [
+        {
+          "className": "cell phone",
+          "box": [
+            0.34973895,
+            0.60294905,
+            0.37256504999999995,
+            0.6216669499999999
+          ]
+        }
+      ],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000562.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000564.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000569.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000572.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000575.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000581.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000584.jpg",
+      "truth": [],
+      "custom": [
+        {
+          "className": "cell phone",
+          "score": 0.554001,
+          "box": [
+            0.727714,
+            0.44798,
+            0.847417,
+            0.648285
+          ]
+        }
+      ],
+      "reference": []
+    },
+    {
+      "image": "000000000589.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000590.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000595.jpg",
+      "truth": [
+        {
+          "className": "television",
+          "box": [
+            0.5751095,
+            0.6187285,
+            0.7954065,
+            0.8518954999999999
+          ]
+        }
+      ],
+      "custom": [],
+      "reference": [
+        {
+          "className": "television",
+          "score": 0.862793,
+          "box": [
+            0.576752,
+            0.634041,
+            0.79444,
+            0.841505
+          ]
+        }
+      ]
+    },
+    {
+      "image": "000000000597.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000599.jpg",
+      "truth": [],
+      "custom": [
+        {
+          "className": "cell phone",
+          "score": 0.876989,
+          "box": [
+            0.682671,
+            0.487141,
+            0.966724,
+            0.696157
+          ],
+          "verification": {
+            "status": "rejected",
+            "label": "remote control",
+            "similarity": 0.313299,
+            "margin": 0.037734
+          }
+        }
+      ],
+      "reference": []
+    },
+    {
+      "image": "000000000605.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000612.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000620.jpg",
+      "truth": [],
+      "custom": [
+        {
+          "className": "television",
+          "score": 0.341038,
+          "box": [
+            0.071549,
+            0.096376,
+            0.838817,
+            0.870451
+          ]
+        }
+      ],
+      "reference": []
+    },
+    {
+      "image": "000000000623.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000625.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000626.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000629.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000634.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000636.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000641.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    },
+    {
+      "image": "000000000643.jpg",
+      "truth": [
+        {
+          "className": "television",
+          "box": [
+            0.21186,
+            0.4515465000000001,
+            0.6324799999999999,
+            0.9814395
+          ]
+        }
+      ],
+      "custom": [
+        {
+          "className": "television",
+          "score": 0.810468,
+          "box": [
+            0.151875,
+            0.453216,
+            0.627349,
+            0.968214
+          ],
+          "verification": {
+            "status": "rejected",
+            "label": "computer monitor",
+            "similarity": 0.307162,
+            "margin": 0.003396
+          }
+        }
+      ],
+      "reference": [
+        {
+          "className": "television",
+          "score": 0.898206,
+          "box": [
+            0.204449,
+            0.4598,
+            0.629492,
+            0.961661
+          ]
+        }
+      ]
+    },
+    {
+      "image": "000000000650.jpg",
+      "truth": [],
+      "custom": [],
+      "reference": []
+    }
+  ]
+}

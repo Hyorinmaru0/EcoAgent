@@ -1,0 +1,8 @@
+{
+  "status": "latest_model_deactivated",
+  "previous_active": "ml/condition_training/weights/round2-binary-20261105/best.pt",
+  "restored_setting": "ml/damage_detection/weights/best.pt",
+  "datasets_deleted": false,
+  "original_weights_overwritten": false,
+  "accuracy_restored_claim": false
+}

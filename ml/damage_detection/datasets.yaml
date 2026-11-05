@@ -1,0 +1,67 @@
+# Public datasets that fit EcoCycle's damage detector.
+#
+# Download each dataset from its page, export as YOLO (or COCO), then run:
+#   python ml/damage_detection/import_dataset.py --dataset <name> --source <zip-or-folder>
+#
+# Licenses are shown as a starting point, not legal advice. Re-check the source
+# page before commercial use. Roboflow projects can change their license.
+datasets:
+  laptop_defects:
+    url: https://universe.roboflow.com/gharavi/laptop-defects-all-sides
+    format: yolo
+    target_class: damaged_laptop
+    box_mode: whole_image
+    license: Check the Roboflow project page.
+    notes: Prefer raw v8 (2,010 images) over v9 augmented (5,438 images); remap each positive photo to one whole-image damaged_laptop box. The photos mostly show one laptop or laptop part, so boxes follow the visible photo crop.
+
+  cracked_screen:
+    url: https://universe.roboflow.com/detection-bc2gz/cracked-screen-vvrtv
+    format: yolo
+    target_class: damaged_phone
+    license: CC BY 4.0
+    notes: Version 1 export has 1,006 images (930 train, 40 validation, 36 test); the project page lists 386 source images and the export includes augmentation.
+
+  broken_mobile_phone:
+    url: https://universe.roboflow.com/vision-safe/broken-mobile-phone
+    format: yolo
+    target_class: damaged_phone
+    license: CC BY 4.0
+    notes: 96 images, one whole-device Broken Mobile Phone class; small alternative phone dataset, not crack-region labels.
+
+  large_screen_defect:
+    url: https://universe.roboflow.com/raj-sxsqi/large_screen_defect
+    format: yolo
+    target_class: damaged_tv
+    license: Check the Roboflow project page.
+    notes: 369 large-display images with scratch, line, and mura defects. Import with box_mode whole_image or keep the defect regions, but keep the choice consistent with the other TV data.
+
+  screen_malfunction:
+    url: https://universe.roboflow.com/romera/screens-malfunction-yh5zw
+    format: yolo
+    target_class: damaged_tv
+    license: Check the Roboflow project page.
+    notes: About 2k screen-malfunction images. Verify the classes and split before training. This is the best next source for a real damaged_tv class because the bundled TV frames come from only one recording.
+
+# The bundled damaged_tv examples come from ml/tv_training: 174 usable frames
+# from one damaged-TV recording. Re-import them with:
+#   python ml/damage_detection/curate.py import-tv --data ml/damage_detection/dataset_whole/data.yaml --apply
+# Collect independent TVs and healthy-TV negatives before trusting TV metrics.
+
+# Identity datasets are listed for retraining ml/device_detection, not the damage
+# model. Export them separately and map TV, Laptops, and phones to the existing
+# device classes.
+identity_datasets:
+  e_waste_77:
+    url: https://universe.roboflow.com/electronic-waste-detection/e-waste-dataset-r0ojc
+    license: CC BY 4.0
+    notes: 19,613 images, 77 device classes. Best base for TV, phone, and laptop identity.
+
+  giz_e_waste_yolo:
+    url: https://huggingface.co/datasets/GIZ/e-waste-dataset-yolo-labels
+    license: CC BY 4.0
+    notes: 752 real scrapyard photos from Ghana, 243 labeled, classes include TV and Laptops.
+
+  screen_detection_yolov8:
+    url: https://data.mendeley.com/datasets/kp89xh68p2/1
+    license: CC BY 4.0
+    notes: 2,042 images of phone, laptop, tablet, TV, and desktop screens.

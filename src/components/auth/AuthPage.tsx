@@ -1,12 +1,12 @@
 import { useState, type ReactNode } from "react"
 import { LoginForm } from "./LoginForm"
 import { RegistrationForm } from "./RegistrationForm"
-import type { DemoProfile } from "./authValidation"
+import type { AccountProfile } from "./authValidation"
 import "./auth.css"
 
 type AuthPageProps = {
-  onLogin: (email: string) => void
-  onRegister: (profile: DemoProfile) => void
+  onLogin: (email: string, password: string) => Promise<void>
+  onRegister: (profile: AccountProfile, password: string) => Promise<void>
   onGuest: () => void
   illustration: ReactNode
   shield: ReactNode
@@ -21,7 +21,7 @@ export function AuthPage({ onLogin, onRegister, onGuest, illustration, shield }:
       <div className="auth-intro">
         <span className="eyebrow">YOUR NEXT RESPONSIBLE CHOICE</span>
         <h1>Good information.<br /><span>Better decisions.</span></h1>
-        <p>Save identified items, AI recommendations, facilities, and educational resources in one accessible workspace.</p>
+        <p>Save identified items, analysis summaries, and collection facilities in your personal workspace.</p>
         <div className="auth-leaf">{illustration}</div>
         <div className="auth-proof">{shield}Your data remains yours.</div>
       </div>
@@ -39,7 +39,7 @@ export function AuthPage({ onLogin, onRegister, onGuest, illustration, shield }:
         {register ? <RegistrationForm onRegister={onRegister} /> : <LoginForm onLogin={onLogin} />}
         <div className="auth-divider"><span />or<span /></div>
         <button type="button" className="btn btn-secondary full-width" onClick={onGuest}>Continue as Guest</button>
-        <p className="demo-note">Prototype access — no real account is created. Passwords are never saved.</p>
+        <p className="demo-note">Account credentials are handled by the EcoAgent backend. You can also continue as a guest.</p>
       </div>
     </div>
   )

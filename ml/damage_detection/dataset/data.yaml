@@ -1,0 +1,12 @@
+# YOLO dataset for damaged phones, laptops, and TVs.
+# Put images in images/<split> and matching YOLO .txt labels in labels/<split>.
+# Edit the class names to match your labels, then run:
+#   python ml/damage_detection/build.py
+path: .
+train: images/train
+val: images/val
+test: images/test
+names:
+  0: damaged_phone
+  1: damaged_laptop
+  2: damaged_tv

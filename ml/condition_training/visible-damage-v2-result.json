@@ -1,0 +1,24 @@
+{
+  "weights": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\runs\\visible-damage-v2\\weights\\best.pt",
+  "metrics": {
+    "metrics/precision(B)": 0.9900647629973701,
+    "metrics/recall(B)": 0.9966561290411509,
+    "metrics/mAP50(B)": 0.995,
+    "metrics/mAP50-95(B)": 0.9925827152955293,
+    "fitness": 0.9925827152955293
+  },
+  "per_class": {
+    "damaged_phone": {
+      "precision": 0.9801295259947402,
+      "recall": 1.0,
+      "map50": 0.995
+    },
+    "damaged_laptop": {
+      "precision": 1.0,
+      "recall": 0.9933122580823017,
+      "map50": 0.995
+    }
+  },
+  "independent_tv_test": false,
+  "automatic_deployment": false
+}

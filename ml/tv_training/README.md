@@ -41,8 +41,23 @@ Training outputs go under tv_training\runs. The one-epoch check uses a separate
 smoke_test run; the full run uses damaged_tv. Repeated runs get numbered folders.
 The downloaded pretrained yolo26n.pt is not your trained damaged-TV model.
 
-If imports fail, use your environment's interpreter to install missing packages.
-Do not install NVIDIA CUDA packages for this CPU setup.
+If imports fail, install the training and export packages with
+`python -m pip install -r requirements-export.txt`. Do not install NVIDIA CUDA
+packages for this CPU setup.
+
+## Export for the website (ONNX)
+
+The website runs the exported ONNX models and does not need PyTorch. After
+training or replacing a weight file, export it once:
+
+```powershell
+.\yolo-env\Scripts\python.exe .\tv_training\export_onnx.py --weights .\tv_training\weights\best.pt --imgsz 416
+.\yolo-env\Scripts\python.exe .\tv_training\export_onnx.py --weights ..\device_detection\weights\best.pt --imgsz 640
+```
+
+The export writes `best.onnx` beside each `.pt` file. The website runtime only
+needs `requirements.txt` (onnxruntime, numpy, and Pillow). If an `.onnx` file is
+missing, inference falls back to the `.pt` weights and `requirements-export.txt`.
 
 ## Test with a separate picture
 

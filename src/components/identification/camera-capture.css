@@ -1,0 +1,226 @@
+.camera-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: #14210fcc;
+  backdrop-filter: blur(3px);
+  animation: camera-fade 0.18s ease;
+}
+
+.camera-dialog {
+  width: min(760px, 100%);
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 30px 100px #18372140;
+  animation: camera-rise 0.2s ease;
+}
+
+.camera-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.camera-head h2 {
+  font-size: 20px;
+  letter-spacing: -0.4px;
+  color: #2f4633;
+}
+
+.camera-head p {
+  margin-top: 7px;
+  max-width: 460px;
+  font-size: 10px;
+  line-height: 1.7;
+  color: #7f916f;
+}
+
+.camera-close {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  padding: 8px;
+  border: 0;
+  border-radius: 50%;
+  background: #f4f7ef;
+  color: #94a587;
+}
+
+.camera-close:hover {
+  background: #e8f0df;
+  color: #557241;
+}
+
+.camera-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  margin-top: 18px;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #14210f;
+}
+
+.camera-stage video,
+.camera-stage img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.camera-stage .camera-captured {
+  position: absolute;
+  inset: 0;
+}
+
+.camera-message {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 24px;
+  text-align: center;
+  font-size: 11px;
+  color: #e8f0df;
+  background: #14210fcc;
+}
+
+.camera-message-error strong {
+  font-size: 12px;
+  color: #fff;
+}
+
+.camera-message-error p {
+  max-width: 400px;
+  line-height: 1.7;
+  color: #cfdcc4;
+}
+
+.camera-spinner {
+  width: 26px;
+  height: 26px;
+  border: 2px solid #ffffff40;
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: camera-spin 0.8s linear infinite;
+}
+
+.camera-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.camera-actions .btn {
+  min-height: 42px;
+  font-size: 11px;
+}
+
+.camera-fallbacks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #edf0e8;
+}
+
+.camera-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 10px;
+  color: #5a7f42;
+  text-decoration: underline;
+}
+
+.camera-link:hover {
+  color: #2f5a24;
+}
+
+.camera-file-error {
+  margin-top: 10px;
+  padding: 9px 11px;
+  border: 1px solid #eccfc9;
+  border-radius: 7px;
+  background: #fdf3f1;
+  font-size: 10px;
+  line-height: 1.6;
+  color: #a4523f;
+}
+
+@keyframes camera-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes camera-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes camera-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .camera-overlay {
+    padding: 0;
+  }
+
+  .camera-dialog {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    max-height: 100vh;
+    padding: 16px;
+    border-radius: 0;
+  }
+
+  .camera-stage {
+    flex: 1;
+    aspect-ratio: auto;
+  }
+
+  .camera-actions .btn {
+    flex: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .camera-overlay,
+  .camera-dialog {
+    animation: none;
+  }
+
+  .camera-spinner {
+    animation-duration: 2s;
+  }
+}

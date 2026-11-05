@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "actualBrowserUploadCompression": true,
+  "activeBinaryModel": true,
+  "cases": [
+    {
+      "photo": "ai-chat-custom-attachment-temp-file-73910fc3-ce01-4092-bbac-1a4f76890831-12065828093330899766.png",
+      "category": "Mobile Phone",
+      "status": "accepted",
+      "condition": "damaged",
+      "source": "damage-model",
+      "damageScore": 0.989899
+    },
+    {
+      "photo": "ecocycle-new-phone-hand.jpg",
+      "category": "Mobile Phone",
+      "status": "accepted",
+      "condition": "uncertain",
+      "source": null,
+      "damageScore": null
+    },
+    {
+      "photo": "ecocycle-wallet-q82.jpg",
+      "category": null,
+      "status": "unverified",
+      "condition": "blocked",
+      "source": null,
+      "damageScore": null
+    },
+    {
+      "photo": "ai-chat-custom-attachment-temp-file-73910fc3-ce01-4092-bbac-1a4f76890831-7080985362949046667.png",
+      "category": "Mobile Phone",
+      "status": "accepted",
+      "condition": "uncertain",
+      "source": null,
+      "damageScore": null
+    }
+  ]
+}

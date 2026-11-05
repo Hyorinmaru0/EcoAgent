@@ -4,10 +4,24 @@
 .nearest-location-status { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; padding: 16px; border-radius: 10px; background: var(--mint); }
 .nearest-facility p { font-size: 12px; line-height: 1.7; color: #5e6c64; }
 .nearest-location-status p { flex: 1 1 200px; }
+.nearest-approximate-location { display: grid; gap: 8px; margin-top: 12px; }
+.nearest-approximate-location label { color: #526356; font-size: 12px; }
+.nearest-approximate-location select { width: 100%; max-width: 360px; padding: 11px 12px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--dark); }
 .nearest-location-error { margin-top: 12px; padding: 12px; border-radius: 8px; background: #fff8ed; color: #865d21 !important; }
+.nearest-location-help { margin-top: 10px; border: 1px solid var(--line); border-radius: 9px; padding: 11px 13px; color: #526356; font-size: 12px; }
+.nearest-location-help > summary { cursor: pointer; color: #426638; font-weight: 700; }
+.nearest-location-help ol { display: grid; gap: 7px; margin: 10px 0; padding-left: 20px; line-height: 1.6; }
+.nearest-location-help p { margin: 0; font-size: 11px; }
 .nearest-facility-summary { display: grid; justify-items: start; gap: 9px; padding: 22px 0 18px; }
 .nearest-facility-summary h3 { font-size: 19px; }
+.nearest-map-frame { position: relative; }
 .nearest-facility-map { display: block; width: 100%; height: 330px; border: 1px solid var(--line); border-radius: 12px; background: var(--mint); }
+.nearest-map-message { position: absolute; inset: 12px 12px auto; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--dark); font-size: 12px; }
+.nearest-map-legend { display: flex; flex-wrap: wrap; gap: 14px; margin: 10px 0 16px; color: #526356; font-size: 11px; }
+.nearest-map-legend > span { display: inline-flex; align-items: center; gap: 6px; }
+.nearest-map-dot { width: 11px; height: 11px; display: inline-block; border: 2px solid white; border-radius: 50%; box-shadow: 0 0 0 1px #7e8b80; }
+.nearest-map-user { background: #2478e5; }
+.nearest-map-facility { background: #278443; }
 .nearest-facility .nearest-map-note { margin: 12px 0 16px; font-size: 11px; }
 .nearest-other-options { margin-top: 22px; }
 .nearest-other-options > h3 { font-size: 15px; }

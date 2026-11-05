@@ -1,0 +1,34 @@
+{
+  "active_weights": "ml/condition_training/weights/round2-binary-20261105/best.pt",
+  "previous_weights": "ml/damage_detection/weights/best.pt",
+  "hashes": {
+    "best.pt": "d81c3580ac13153f8b971a963bd48a552a4dc78810cb0b81585b1970371967c0",
+    "best.onnx": "71b11eca5edf6651916dc70754b006e860963d2419f23f6890860a4e22de10a7",
+    "damage-policy.json": "f7da624cafa5fd5c3dc80bc2f6113ba61a717521a45e2a89dc7cbcb9e839a30b"
+  },
+  "original_weights_overwritten": false,
+  "mode": "verified-device-crops",
+  "trained_classes": [
+    "visible_damage"
+  ],
+  "identity_classes_unchanged": [
+    "cell phone",
+    "laptop",
+    "television"
+  ],
+  "regression": {
+    "passed": 16,
+    "total": 16
+  },
+  "pipeline_comparison": {
+    "original_detected": 0,
+    "new_detected": 16,
+    "original_false_reports": 3,
+    "new_false_reports": 3
+  },
+  "limitations": [
+    "Small development diagnostics; not universal accuracy.",
+    "Device identity may abstain before condition assessment.",
+    "Visible damage cannot establish electrical working/broken status."
+  ]
+}

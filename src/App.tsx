@@ -1,28 +1,52 @@
 import { useEffect, useRef, useState, type ReactNode } from "react"
 import { AuthPage } from "./components/auth/AuthPage"
-import type { DemoProfile } from "./components/auth/authValidation"
-import collectionLocations from "../data/collection-locations.json"
-import facilityCoordinates from "../data/facility-coordinates.json"
+import { FacilityLocationsMap } from "./components/facilities/FacilityLocationsMap"
+import type { AccountProfile } from "./components/auth/authValidation"
+import { authRequest } from "./components/auth/authApi"
+import { useAccountWorkspace } from "./components/auth/useAccountWorkspace"
 import { TvDetectionPanel } from "./components/identification/TvDetectionPanel"
+import { CameraCapture } from "./components/identification/CameraCapture"
 import { NearestFacilityPanel } from "./components/identification/NearestFacilityPanel"
-import { useUserLocation } from "./components/identification/useUserLocation"
-import { getDetectedCategory, useTvDetection, validateDevicePhoto } from "./components/identification/useTvDetection"
-import { getFacilityRecommendations, type Coordinates } from "./components/identification/facilityRecommendations.mjs"
+import { useUserLocation, type LocationChoice } from "./components/identification/useUserLocation"
+import { getDetectedCategory, useTvDetection, validateDevicePhoto, type DeviceCategory } from "./components/identification/useTvDetection"
+import { assessDeviceDetections } from "./components/identification/deviceDetectionPolicy.mjs"
+import { assessPhotoDamage } from "./components/identification/damageAssessment.mjs"
+import { getFacilityRecommendations, type Coordinates, type FacilityRecord } from "./components/identification/facilityRecommendations.mjs"
 
-const municipalities = [...new Set(collectionLocations.map((entry) => entry.municipality))]
-  .sort((a, b) => a.localeCompare(b))
-const coordinateLookup: Record<string, Coordinates> = facilityCoordinates.locations
-const mappedCollectionLocations = collectionLocations.map((entry) => ({
-  ...entry,
-  locations: entry.locations.map((location) => ({
-    ...location,
-    coordinates: coordinateLookup[`${entry.municipality}/${location.name}`],
-  })),
-}))
+type CollectionSchedule = { days: string; opens: string; closes: string }
+type CollectionCoordinates = Coordinates & { source?: string; venueName?: string }
+type CollectionLocation = {
+  name: string
+  operator: string
+  acceptedDevices: string
+  status: string
+  address?: string
+  operatingHours: CollectionSchedule[]
+  coordinates?: CollectionCoordinates
+}
+type CollectionArea = { municipality: string; locations: CollectionLocation[] }
+type SelectedFacility = FacilityRecord & { municipality: string }
+
+function WorkflowSteps({ current, analyzed }: { current: number; analyzed: boolean }) {
+  return <nav className="workflow-steps" aria-label="E-waste identification progress">
+    {["Identify e-waste", "AI analysis", "Facility recommendation", "Facility details"].map((label, index) => (
+      <span key={label} className={current === index + 1 ? "current" : analyzed && index + 1 < current ? "completed" : ""} aria-current={current === index + 1 ? "step" : undefined}>
+        {index + 1} <b>{label}</b>
+      </span>
+    ))}
+  </nav>
+}
+
+function facilityDirectionsUrl(name: string, municipality: string, address?: string, coordinates?: Coordinates) {
+  const destination = coordinates
+    ? `${coordinates.latitude},${coordinates.longitude}`
+    : `${name}, ${municipality}${address ? `, ${address}` : ""}, Metro Manila, Philippines`
+  return `https://www.google.com/maps/dir/?${new URLSearchParams({ api: "1", destination })}`
+}
 
 type Page = "home" | "login" | "dashboard" | "identify" | "recommendations" | "facilities" | "facility" | "learn" | "flow" | "profile" | "items"
 
-type IconName = "recycle" | "arrow" | "leaf" | "pin" | "shield" | "robot" | "upload" | "check" | "clock" | "search" | "grid" | "box" | "book" | "user" | "close" | "send" | "sparkles" | "phone" | "laptop" | "battery" | "tv" | "menu" | "plus" | "heart"
+type IconName = "recycle" | "arrow" | "leaf" | "pin" | "shield" | "robot" | "upload" | "camera" | "check" | "clock" | "search" | "grid" | "box" | "book" | "user" | "close" | "send" | "sparkles" | "phone" | "laptop" | "battery" | "tv" | "menu" | "plus" | "heart"
 type ChatMessage = { role: "bot" | "user" | "error"; text: string }
 
 function renderChatInline(text: string, keyPrefix: string): ReactNode[] {
@@ -155,6 +179,12 @@ function Icon({
     upload: (
       <>
         <path d="M12 16V3m-5 5 5-5 5 5M4 15v5h16v-5" />
+      </>
+    ),
+    camera: (
+      <>
+        <path d="M4 7h3l2-3h6l2 3h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z" />
+        <circle cx="12" cy="13" r="4" />
       </>
     ),
     check: <path d="m5 12 4 4L19 6" />,
@@ -299,53 +329,6 @@ function Field({ label, children }: { label: string; children: ReactNode }) {
   )
 }
 
-type Facility = {
-  name: string
-  location: string
-  items: string[]
-  days: string
-  hours: string
-  description: string
-  info: string
-  icon: IconName
-}
-
-const facilities: Facility[] = [
-  {
-    name: "GreenTech Recycling Center",
-    location: "Sample facility address, Quezon City",
-    items: ["Laptops", "Mobile phones", "TVs"],
-    days: "Monday–Friday",
-    hours: "9:00 AM–5:00 PM",
-    description:
-      "An illustrative facility example listing laptop, mobile phone, and TV categories.",
-    info: "Please review the facility's accepted-item requirements and operating hours before visiting. Contact the facility directly to verify any information that may have changed.",
-    icon: "leaf",
-  },
-  {
-    name: "Eco Recovery Hub",
-    location: "Sample facility address, Marikina City",
-    items: ["Mobile phones", "TVs"],
-    days: "Monday–Saturday",
-    hours: "9:00 AM–6:00 PM",
-    description:
-      "A sample facility focused on mobile phones and TVs.",
-    info: "Confirm accepted device condition and handling requirements with the facility before visiting.",
-    icon: "recycle",
-  },
-  {
-    name: "Circular Electronics Center",
-    location: "Sample facility address, Pasig City",
-    items: ["Laptops", "Mobile phones", "TVs"],
-    days: "Tuesday–Saturday",
-    hours: "8:30 AM–4:30 PM",
-    description:
-      "An illustrative electronics resource center listing laptops, mobile phones, and TVs.",
-    info: "Erase personal information from devices where possible and verify current acceptance requirements directly with the facility.",
-    icon: "box",
-  },
-]
-
 const lessons = [
   {
     title: "What Is E-Waste?",
@@ -415,23 +398,35 @@ export default function App() {
       text: "Hi! I'm EcoAgent Ask Bot. I can help identify e-waste, explain safe handling, discuss repair and reuse, and look up the facility information available in this prototype.",
     },
   ])
-  const [demoProfile, setDemoProfile] = useState<DemoProfile | null>(null)
-  const [userName, setUserName] = useState("Raven")
-  const [userType, setUserType] = useState("Household")
+  const [accountProfile, setAccountProfile] = useState<AccountProfile | null>(null)
+  const workspace = useAccountWorkspace(accountProfile)
+  const [authReturnPage, setAuthReturnPage] = useState<Page>("dashboard")
+  const [profileSaving, setProfileSaving] = useState(false)
+  const [savedSignature, setSavedSignature] = useState("")
+  const saveKey = useRef({ signature: "", key: "" })
+  const authEpoch = useRef(0)
+  const [collectionLocations, setCollectionLocations] = useState<CollectionArea[]>([])
+  const [facilityDataError, setFacilityDataError] = useState("")
+  const [userName, setUserName] = useState("Guest")
+  const [userType, setUserType] = useState("General User")
   const [category, setCategory] = useState("")
+  const [categorySuggestion, setCategorySuggestion] = useState<DeviceCategory | null>(null)
   const [device, setDevice] = useState("")
   const [condition, setCondition] = useState("")
   const [quantity, setQuantity] = useState("")
-  const [profileLocation, setProfileLocation] = useState("Quezon City")
+  const [profileLocation, setProfileLocation] = useState("")
   const userLocation = useUserLocation()
   const [analyzed, setAnalyzed] = useState(false)
   const [photo, setPhoto] = useState<string | null>(null)
   const [photoName, setPhotoName] = useState("")
   const [photoFile, setPhotoFile] = useState<File | null>(null)
+  const [cameraOpen, setCameraOpen] = useState(false)
   const tvDetection = useTvDetection(photoFile, category)
-  const [selectedFacility] = useState<Facility>(facilities[0])
-  const [returnPage] = useState<Page>("facilities")
-  const [saved, setSaved] = useState<string[]>([facilities[1].name])
+  const itemGuidanceReady = analyzed && (!photo || Boolean(tvDetection.result &&
+    !tvDetection.isAnalyzing && assessDeviceDetections(tvDetection.result.detections, category).status === "accepted"))
+  const [selectedFacility, setSelectedFacility] = useState<SelectedFacility | null>(null)
+  const [returnPage, setReturnPage] = useState<Page>("facilities")
+  const saved = workspace.savedFacilities
   const [search, setSearch] = useState("")
   const [filter, setFilter] = useState("All categories")
   const [locationFilter, setLocationFilter] = useState("All locations")
@@ -442,17 +437,141 @@ export default function App() {
   const chatInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    const detectedCategory = tvDetection.result
-      ? getDetectedCategory(tvDetection.result.detections)
-      : null
-    if (detectedCategory) setCategory(detectedCategory)
+    let active = true
+    fetch("/api/facilities")
+      .then(async (response) => {
+        if (!response.ok) throw new Error("Facility data is unavailable.")
+        return response.json() as Promise<{ facilities: CollectionArea[] }>
+      })
+      .then((data) => {
+        if (active) setCollectionLocations(data.facilities)
+      })
+      .catch(() => {
+        if (active) setFacilityDataError("Hindi makuha ang facility data sa database. Tiyaking tumatakbo ang backend at i-refresh ang page.")
+      })
+    return () => { active = false }
+  }, [])
+
+  useEffect(() => {
+    let active = true
+    const epoch = authEpoch.current
+    authRequest<{ user: AccountProfile | null }>("/api/auth/me")
+      .then(({ user }) => {
+        if (!active || !user || epoch !== authEpoch.current) return
+        setAccountProfile(user)
+        setUserName(user.fullName)
+        setUserType(user.userType)
+      })
+      .catch(() => {
+        // Keep the public site usable if the optional account service is unavailable.
+      })
+    return () => { active = false }
+  }, [])
+
+  useEffect(() => {
+    if (!tvDetection.result) { setCategorySuggestion(null); return }
+    const detectedCategory = getDetectedCategory(tvDetection.result.detections)
+    // Suggest the photo's strongest match instead of silently replacing a
+    // category the user may have chosen deliberately.
+    setCategorySuggestion(detectedCategory && detectedCategory !== category ? detectedCategory : null)
+    // Compare against the category only when a new result arrives.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tvDetection.result])
+
+  useEffect(() => {
+    if (!analyzed) return
+    document.getElementById("analysis-result")?.scrollIntoView({ behavior: "smooth", block: "start" })
+  }, [analyzed])
+
+  const applyPhoto = (file: File) => {
+    const error = validateDevicePhoto(file)
+    if (error) {
+      setNotice(error)
+      return false
+    }
+    // A replacement photo is a new identification attempt. The previous item's
+    // category must not reject a different device before it can be identified.
+    if (photoFile) {
+      setCategory("")
+      setCategorySuggestion(null)
+      setDevice("")
+      setQuantity("1")
+    }
+    setPhotoFile(file)
+    setPhoto(URL.createObjectURL(file))
+    setPhotoName(file.name)
+    setCondition("Unknown")
+    setQuantity((current) => current || "1")
+    setAnalyzed(false)
+    return true
+  }
 
   const go = (next: Page) => {
     location.hash = next
     setPage(next)
     setMenuOpen(false)
     window.scrollTo({ top: 0, behavior: "instant" })
+  }
+
+  const acceptCategorySuggestion = async () => {
+    if (!categorySuggestion) return
+    const next = categorySuggestion
+    setCategory(next)
+    setCategorySuggestion(null)
+    setAnalyzed(false)
+    if (!device.trim()) setDevice(`Old ${next}`)
+    if (await tvDetection.analyze(next)) setAnalyzed(true)
+  }
+
+  const openFacility = (facility: SelectedFacility) => {
+    setSelectedFacility(facility)
+    setReturnPage(page)
+    go("facility")
+  }
+
+  useEffect(() => {
+    setUserName(accountProfile?.fullName || "Guest")
+    setUserType(accountProfile?.userType || "General User")
+    setProfileLocation(accountProfile?.location || "")
+    setSavedSignature("")
+    saveKey.current = { signature: "", key: "" }
+  }, [accountProfile])
+
+  const requireAccount = () => {
+    if (accountProfile) return true
+    setAuthReturnPage(page)
+    setNotice("Sign in to save items and facilities to your own account.")
+    go("login")
+    return false
+  }
+  const signOut = async (asGuest = false) => {
+    authEpoch.current += 1
+    try {
+      await authRequest<{ ok: boolean }>("/api/auth/logout", {})
+      setAccountProfile(null)
+      userLocation.clearLocation()
+      setPhoto(null); setPhotoFile(null); setPhotoName("")
+      setDevice(""); setCategory(""); setCondition(""); setQuantity(""); setAnalyzed(false)
+      setSelectedFacility(null)
+      setMessages([{ role: "bot", text: "Hi! I can help with device handling and collection facilities." }])
+      setNotice(asGuest ? "You are exploring EcoAgent as a guest. Sign in to save your activity." : "You have been signed out.")
+      go(asGuest ? "dashboard" : "home")
+    } catch (error) { setNotice(error instanceof Error ? error.message : "Unable to sign out. Please try again.") }
+  }
+  const isFacilitySaved = (facility: SelectedFacility) => saved.some((entry) => entry.name === facility.name && entry.municipality === facility.municipality)
+  const itemSignature = JSON.stringify([device, category, condition, quantity, photoName, photoFile?.lastModified])
+  const saveIdentifiedItem = async () => {
+    if (!requireAccount() || !itemGuidanceReady || workspace.busy) return
+    if (saveKey.current.signature !== itemSignature) saveKey.current = { signature: itemSignature, key: crypto.randomUUID() }
+    try {
+      await workspace.update("/api/account/items", {
+        clientKey: saveKey.current.key, name: device, category, condition, quantity: Number(quantity),
+        analysisKind: photo ? "photo" : "manual",
+        photoCondition: photo ? assessPhotoDamage(tvDetection.result, category).title : null,
+      })
+      setSavedSignature(itemSignature)
+      setNotice("Item and analysis summary saved to your account.")
+    } catch (error) { setNotice(error instanceof Error ? error.message : "Unable to save this item.") }
   }
 
   useEffect(() => {
@@ -492,6 +611,28 @@ export default function App() {
   )
 
   const normalizedCategory = category
+  const municipalities = [...new Set(collectionLocations.map((entry) => entry.municipality))]
+    .sort((a, b) => a.localeCompare(b))
+  const mappedCollectionLocations = collectionLocations
+  const mappedFacilityPins = mappedCollectionLocations.flatMap((entry) => entry.locations.flatMap((facility) => facility.coordinates
+    ? [{ ...facility, municipality: entry.municipality, coordinates: facility.coordinates }]
+    : []))
+  const locationChoices: LocationChoice[] = municipalities.flatMap((municipality) => {
+    const points = mappedFacilityPins.filter((facility) => facility.municipality === municipality)
+    if (!points.length) return []
+    return [{
+      municipality,
+      latitude: points.reduce((sum, point) => sum + point.coordinates.latitude, 0) / points.length,
+      longitude: points.reduce((sum, point) => sum + point.coordinates.longitude, 0) / points.length,
+    }]
+  })
+  useEffect(() => {
+    if (userLocation.position || !accountProfile?.location) return
+    const preferred = locationChoices.find((choice) => choice.municipality.toLowerCase() === accountProfile.location?.trim().toLowerCase())
+    if (preferred) userLocation.useApproximateLocation(preferred)
+    // Apply a saved city only when profile/directory data changes; never replace GPS.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [accountProfile?.location, collectionLocations])
   const facilityRecommendations = getFacilityRecommendations(
     mappedCollectionLocations,
     category,
@@ -509,18 +650,38 @@ export default function App() {
     .normalize("NFD")
     .replace(/\p{Diacritic}/gu, "")
     .toLowerCase()
-  const toggleSaved = (facility: Facility) => {
-    const isSaved = saved.includes(facility.name)
-    setSaved((current) =>
-      isSaved
-        ? current.filter((name) => name !== facility.name)
-        : [...current, facility.name],
-    )
-    setNotice(
-      isSaved
-        ? "Facility removed from saved facilities."
-        : "Facility saved to your dashboard.",
-    )
+    .trim()
+  const searchTerms = normalizedSearch.split(/\s+/).filter(Boolean)
+  const filteredCollectionLocations = collectionLocations.flatMap((entry) => {
+    if (locationFilter !== "All locations" && entry.municipality !== locationFilter) return []
+    const locations = entry.locations.filter((location) => {
+      const acceptanceText = `${location.acceptedDevices} ${location.status}`
+        .normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase()
+      const categoryMatches = filter === "All categories" ||
+        (filter === "TVs" ? acceptanceText.includes("tv") || acceptanceText.includes("television")
+          : filter === "Laptops" ? acceptanceText.includes("laptop")
+            : acceptanceText.includes("phone"))
+      if (!categoryMatches) return false
+      const searchable = `${entry.municipality} ${location.name} ${location.operator} ${location.status} ${location.acceptedDevices} ${location.address ?? ""} ${location.operatingHours?.map((schedule) => `${schedule.days} ${schedule.opens} ${schedule.closes}`).join(" ") ?? ""}`
+        .normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase()
+      return searchTerms.every((term) => searchable.includes(term))
+    })
+    return locations.length ? [{ ...entry, locations }] : []
+  })
+  const filteredCollectionCount = filteredCollectionLocations.reduce((count, entry) => count + entry.locations.length, 0)
+  const hasDirectoryFilters = Boolean(normalizedSearch) || filter !== "All categories" || locationFilter !== "All locations"
+  const clearDirectoryFilters = () => {
+    setSearch("")
+    setFilter("All categories")
+    setLocationFilter("All locations")
+  }
+  const toggleSaved = async (facility: SelectedFacility) => {
+    if (!requireAccount() || workspace.busy) return
+    const wasSaved = isFacilitySaved(facility)
+    try {
+      await workspace.update("/api/account/facilities/toggle", { name: facility.name, municipality: facility.municipality, saved: !wasSaved })
+      setNotice(wasSaved ? "Facility removed from your account." : "Facility saved to your account.")
+    } catch (error) { setNotice(error instanceof Error ? error.message : "Unable to save this facility.") }
   }
   const sendMessage = async (text = chatInput) => {
     const question = text.trim()
@@ -633,10 +794,10 @@ export default function App() {
           <Button
             variant="secondary"
             className="login-button"
-            onClick={() => go("login")}
+            onClick={() => go(accountProfile ? "profile" : "login")}
           >
             <Icon name="user" size={17} />
-            Login / Register
+            {accountProfile ? "My Account" : "Login / Register"}
           </Button>
           <button
             className="mobile-menu"
@@ -867,30 +1028,41 @@ export default function App() {
           <main
             className={`page-content ${page === "login" ? "auth-content" : ""}`}
           >
+            {accountProfile && ["dashboard", "profile", "items", "facility", "identify"].includes(page) && <>
+              {workspace.loading && <p role="status">Loading your saved account data...</p>}
+              {workspace.error && <section className="panel" role="alert"><p>{workspace.error}</p><Button onClick={async () => {
+                try {
+                  authEpoch.current += 1
+                  const { user } = await authRequest<{ user: AccountProfile | null }>("/api/auth/me")
+                  setAccountProfile(user)
+                  workspace.reload()
+                  if (!user) { setAuthReturnPage(page); go("login") }
+                } catch (error) { setNotice(error instanceof Error ? error.message : "Unable to reconnect your account.") }
+              }}>Reload account data</Button></section>}
+            </>}
             {page === "login" && (
               <AuthPage
                 illustration={<Icon name="recycle" size={110} />}
                 shield={<Icon name="shield" />}
-                onLogin={(email) => {
-                  const profile = demoProfile?.email === email ? demoProfile : null
-                  setUserName(profile?.fullName ?? "Demo User")
-                  setUserType(profile?.userType ?? "General User")
-                  go("dashboard")
-                  setNotice("Welcome! You are signed in to a demo session.")
+                onLogin={async (email, password) => {
+                  authEpoch.current += 1
+                  const { user } = await authRequest<{ user: AccountProfile }>("/api/auth/login", { email, password })
+                  setAccountProfile(user)
+                  setUserName(user.fullName)
+                  setUserType(user.userType)
+                  go(authReturnPage)
+                  setNotice(`Welcome back, ${user.fullName}!`)
                 }}
-                onRegister={(profile) => {
-                  setDemoProfile(profile)
-                  setUserName(profile.fullName)
-                  setUserType(profile.userType)
-                  go("dashboard")
-                  setNotice("Demo registration complete. Welcome to your workspace!")
+                onRegister={async (profile, password) => {
+                  authEpoch.current += 1
+                  const { user } = await authRequest<{ user: AccountProfile }>("/api/auth/register", { ...profile, password })
+                  setAccountProfile(user)
+                  setUserName(user.fullName)
+                  setUserType(user.userType)
+                  go(authReturnPage)
+                  setNotice("Account created. Welcome to your workspace!")
                 }}
-                onGuest={() => {
-                  setUserName("Guest")
-                  setUserType("General User")
-                  go("dashboard")
-                  setNotice("You are exploring EcoAgent as a guest.")
-                }}
+                onGuest={() => { void signOut(true) }}
               />
             )}
 
@@ -905,16 +1077,16 @@ export default function App() {
                   {[
                     {
                       icon: "box" as IconName,
-                      value: "5",
+                      value: String(workspace.items.length),
                       label: "Registered E-Waste Items",
                       sub: "Identified or saved electronics",
                       page: "items" as Page,
                     },
                     {
                       icon: "sparkles" as IconName,
-                      value: "3",
-                      label: "Facility Guidance",
-                      sub: "Project-directory information",
+                      value: String(facilityRecommendations.length),
+                      label: "Matching Facilities",
+                      sub: "For your current device category",
                       page: "recommendations" as Page,
                     },
                     {
@@ -926,7 +1098,7 @@ export default function App() {
                     },
                     {
                       icon: "book" as IconName,
-                      value: "5",
+                      value: String(lessons.length),
                       label: "Educational Resources",
                       sub: "Safe handling and disposal guides",
                       page: "learn" as Page,
@@ -944,6 +1116,16 @@ export default function App() {
                     </button>
                   ))}
                 </div>
+                <section className="panel">
+                  <h2>Your saved facilities</h2>
+                  {!accountProfile ? <p>Sign in to keep facility bookmarks across visits.</p>
+                    : saved.length === 0 ? <p>No saved facilities yet. Open a facility and select Save Facility.</p>
+                    : <div className="facility-grid">{saved.map((facility) => <article className="facility-card" key={`${facility.municipality}/${facility.name}`}>
+                      <h3>{facility.name}</h3><p>{facility.municipality}</p>
+                      <Button onClick={() => openFacility(facility)}>View facility details</Button>
+                      <Button variant="secondary" disabled={workspace.busy} onClick={() => toggleSaved(facility)}>Remove bookmark</Button>
+                    </article>)}</div>}
+                </section>
                 <section className="panel dashboard-assistant">
                   <div className="assistant-intro">
                     <span className="bot-avatar">
@@ -984,8 +1166,7 @@ export default function App() {
                   </div>
                 </section>
                 <p className="demo-note">
-                  Dashboard counts and recommendations are illustrative
-                  prototype data.
+                  {accountProfile ? "Your items and bookmarks are saved to your account." : "You are browsing as a guest. Sign in to keep your items and bookmarks."}
                 </p>
               </>
             )}
@@ -997,23 +1178,7 @@ export default function App() {
                   "Identify your electronic waste",
                   "Identify a TV, mobile phone, or laptop to review its general hazard note and handling guidance.",
                 )}
-                <div className="workflow-steps">
-                  <span className="current">
-                    1 <b>Identify e-waste</b>
-                  </span>
-                  <i />
-                  <span>
-                    2 <b>AI analysis</b>
-                  </span>
-                  <i />
-                  <span>
-                    3 <b>Facility recommendation</b>
-                  </span>
-                  <i />
-                  <span>
-                    4 <b>Facility details</b>
-                  </span>
-                </div>
+                <WorkflowSteps current={tvDetection.isAnalyzing || analyzed ? 2 : 1} analyzed={itemGuidanceReady} />
                 <div className="two-column">
                   <section className="panel">
                     <h2>Tell us about your item</h2>
@@ -1057,19 +1222,8 @@ export default function App() {
                           hidden
                           onChange={(event) => {
                             const file = event.target.files?.[0]
-                            if (file) {
-                              const error = validateDevicePhoto(file)
-                              if (error) {
-                                setNotice(error)
-                                event.target.value = ""
-                                return
-                              }
-                              setPhotoFile(file)
-                              setPhoto(URL.createObjectURL(file))
-                              setPhotoName(file.name)
-                              setCondition("")
-                              setAnalyzed(false)
-                            }
+                            if (file) applyPhoto(file)
+                            event.target.value = ""
                           }}
                         />
                         {photo ? (
@@ -1087,15 +1241,28 @@ export default function App() {
                         <span>
                           {photo
                             ? "Select to replace image"
-                            : "JPG, PNG or WEBP · up to 5 MB"}
+                            : "JPG, PNG or WEBP · up to 25 MB · resized automatically"}
                         </span>
+                      </div>
+                      <div className="photo-actions">
+                        <button
+                          type="button"
+                          className="btn btn-secondary"
+                          onClick={() => setCameraOpen(true)}
+                        >
+                          <Icon name="camera" size={17} />
+                          Take a photo
+                        </button>
+                        <span>Use your camera, or select the photo area to choose a saved file.</span>
                       </div>
                       <Field label="Item Category">
                         <select
                           required
                           value={category}
                           onChange={(event) => {
-                            setCategory(event.target.value)
+                            const next = event.target.value
+                            setCategory(next)
+                            setCategorySuggestion((current) => current === next ? null : current)
                             setAnalyzed(false)
                           }}
                         >
@@ -1105,22 +1272,34 @@ export default function App() {
                           <option>Laptop</option>
                         </select>
                       </Field>
+                      {categorySuggestion && (
+                        <div className="category-suggestion" role="status">
+                          <div>
+                            <strong>Photo suggests {categorySuggestion}</strong>
+                            <p>Use this category for matching handling guidance and facility results?</p>
+                          </div>
+                          <div className="category-suggestion-actions">
+                            <Button onClick={acceptCategorySuggestion} disabled={tvDetection.isAnalyzing}>
+                              Use {categorySuggestion}
+                            </Button>
+                            <Button variant="secondary" onClick={() => setCategorySuggestion(null)}>Not now</Button>
+                          </div>
+                        </div>
+                      )}
                       <Field label="Item Name">
                         <input
                           required
                           value={device}
-                          onChange={(event) => setDevice(event.target.value)}
+                            onChange={(event) => { setDevice(event.target.value); setAnalyzed(false) }}
                           placeholder="e.g. Old Laptop"
                         />
                       </Field>
                       <div className="form-grid">
-                        <Field label="Condition">
+                        <Field label="Condition (your observation)">
                           <select
                             required
                             value={condition}
-                            onChange={(event) =>
-                              setCondition(event.target.value)
-                            }
+                            onChange={(event) => { setCondition(event.target.value); setAnalyzed(false) }}
                           >
                             <option value="" disabled>Select condition</option>
                             <option>Working</option>
@@ -1137,9 +1316,7 @@ export default function App() {
                             required
                             placeholder="e.g. 1"
                             value={quantity}
-                            onChange={(event) =>
-                              setQuantity(event.target.value)
-                            }
+                            onChange={(event) => { setQuantity(event.target.value); setAnalyzed(false) }}
                           />
                         </Field>
                       </div>
@@ -1150,7 +1327,7 @@ export default function App() {
                     </form>
                   </section>
                   <div>
-                    <section className="panel analysis-panel">
+                    <section id="analysis-result" className="panel analysis-panel">
                       <div className="panel-heading">
                         <div className="heading-with-icon">
                           <span className="feature-icon blue">
@@ -1164,13 +1341,14 @@ export default function App() {
                         photo={photo} category={category} result={tvDetection.result}
                         error={tvDetection.error} isAnalyzing={tvDetection.isAnalyzing}
                       />}
-                      {analyzed ? (
+                      {itemGuidanceReady ? (
                         <>
                           <div className="analysis-ready">
                             <Icon name="check" size={18} />
-                            Analysis complete
+                            {photo ? "Photo accepted — item guidance ready" : "Manual item guidance — no photo verification"}
                           </div>
                           <dl className="analysis-list">
+                            {photo && <div><dt>Photo Condition</dt><dd>{assessPhotoDamage(tvDetection.result, category).title}</dd></div>}
                             <div>
                               <dt>Item</dt>
                               <dd>{device}</dd>
@@ -1198,6 +1376,9 @@ export default function App() {
                               </dd>
                             </div>
                           </dl>
+                          <Button className="full-width" variant="secondary" disabled={workspace.busy || (Boolean(accountProfile) && savedSignature === itemSignature)} onClick={saveIdentifiedItem}>
+                            {accountProfile && savedSignature === itemSignature ? "Saved to My Items" : workspace.busy ? "Saving..." : accountProfile ? "Save to My Items" : "Sign in to save this item"}
+                          </Button>
                           <Button
                             className="full-width"
                             onClick={() => go("recommendations")}
@@ -1222,11 +1403,12 @@ export default function App() {
                           : "Upload a device photo to try the local detector for TVs, phones, and laptops. Photo results are practice-model candidates, not verified item or condition assessments."}
                       </p>
                     </section>
-                    {analyzed && <NearestFacilityPanel
+                    {itemGuidanceReady && <NearestFacilityPanel
                       category={category} recommendations={facilityRecommendations}
                       position={userLocation.position} status={userLocation.status}
                       error={userLocation.error} onLocate={userLocation.requestLocation}
-                      onDirectory={() => go("facilities")}
+                      locationChoices={locationChoices} onApproximateLocation={userLocation.useApproximateLocation}
+                      onDirectory={() => go("facilities")} onDetails={openFacility}
                     />}
                     <div className="safety-note">
                       <Icon name="robot" size={23} />
@@ -1251,6 +1433,7 @@ export default function App() {
 
             {page === "recommendations" && (
               <>
+                <WorkflowSteps current={3} analyzed={itemGuidanceReady} />
                 {title(
                   "FACILITY GUIDANCE",
                   "Find your nearest collection option",
@@ -1271,7 +1454,8 @@ export default function App() {
                   category={category} recommendations={facilityRecommendations}
                   position={userLocation.position} status={userLocation.status}
                   error={userLocation.error} onLocate={userLocation.requestLocation}
-                  onDirectory={() => go("facilities")}
+                  locationChoices={locationChoices} onApproximateLocation={userLocation.useApproximateLocation}
+                  onDirectory={() => go("facilities")} onDetails={openFacility}
                 />
               </>
             )}
@@ -1288,11 +1472,15 @@ export default function App() {
                     <Icon name="search" />
                     <input
                       aria-label="Search facilities"
-                      placeholder="Search facility or location"
+                      placeholder="Try SM North EDSA or Quezon City"
                       value={search}
                       onChange={(event) => setSearch(event.target.value)}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter") document.getElementById("facility-locations-map")?.scrollIntoView({ behavior: "smooth", block: "center" })
+                      }}
                     />
                   </label>
+                  <Button variant="secondary" onClick={() => document.getElementById("facility-locations-map")?.scrollIntoView({ behavior: "smooth", block: "center" })}>Find on map</Button>
                   <select
                     aria-label="Filter by location"
                     value={locationFilter}
@@ -1313,11 +1501,22 @@ export default function App() {
                     <option>Laptops</option>
                     <option>Mobile phones</option>
                   </select>
+                  {hasDirectoryFilters && <Button variant="text" onClick={clearDirectoryFilters}>Clear filters</Button>}
                 </div>
+                {facilityDataError && <p role="alert" className="demo-note">{facilityDataError}</p>}
+                {!facilityDataError && collectionLocations.length === 0 && <p role="status" className="demo-note">Loading facility data…</p>}
+                <section className="facility-map-section" aria-labelledby="all-facilities-map-title">
+                  <div className="section-heading">
+                    <h2 id="all-facilities-map-title">All mapped collection locations</h2>
+                    <span className="muted">{mappedFacilityPins.length} mapped pins total</span>
+                  </div>
+                  <p className="demo-note">Search to move the map; location and device filters also show only matching pins. Select a pin for details and directions. Five directory locations have no confirmed coordinates and are not shown.</p>
+                  <FacilityLocationsMap locations={mappedFacilityPins} searchQuery={search} municipality={locationFilter} category={filter} />
+                </section>
                 <section className="collection-options" aria-labelledby="collection-options-title">
                   <div className="section-heading">
                     <h2 id="collection-options-title">Collection locations</h2>
-                    <span className="muted">Metro Manila</span>
+                    <span className="muted">{filteredCollectionCount} matching {filteredCollectionCount === 1 ? "location" : "locations"}</span>
                   </div>
                   <p className="demo-note">
                     Listings and status notes are based on information provided
@@ -1326,59 +1525,37 @@ export default function App() {
                     item acceptance before visiting.
                   </p>
                   <div className="collection-location-grid">
-                    {collectionLocations
-                      .filter(
-                        (entry) =>
-                          (locationFilter === "All locations" ||
-                            entry.municipality === locationFilter) &&
-                          (filter === "All categories" ||
-                            entry.locations.some((location) =>
-                              `${location.acceptedDevices} ${location.status}`
-                                .toLowerCase()
-                                .includes(
-                                  filter === "TVs"
-                                    ? "tv"
-                                    : filter === "Laptops"
-                                      ? "laptop"
-                                      : "phone",
-                                ),
-                            )) &&
-                          `${entry.municipality} ${entry.locations
-                            .map((location) => `${location.operator} ${location.name} ${location.status} ${location.acceptedDevices} ${location.address ?? ""} ${location.operatingHours?.map((schedule) => `${schedule.days} ${schedule.opens} ${schedule.closes}`).join(" ") ?? ""}`)
-                            .join(" ")}`
-                              .normalize("NFD")
-                              .replace(/\p{Diacritic}/gu, "")
-                              .toLowerCase()
-                              .includes(normalizedSearch),
-                      )
-                      .map((entry) => (
+                    {filteredCollectionLocations.length === 0 ? (
+                      <div className="empty-state collection-empty-state">
+                        <h3>No collection locations match</h3>
+                        <p>Try another facility name, address, municipality, or category.</p>
+                        <Button variant="secondary" onClick={clearDirectoryFilters}>Clear filters</Button>
+                      </div>
+                    ) : filteredCollectionLocations.map((entry) => (
                         <article
                           className="collection-location-card"
                           key={entry.municipality}
                         >
-                          <div className="collection-location-heading">
-                            <span className="collection-location-pin">
-                              <Icon name="pin" size={17} />
-                            </span>
-                            <div>
-                              <h3>{entry.municipality}</h3>
-                              <small>
-                                {entry.locations.length} collection{" "}
-                                {entry.locations.length === 1 ? "point" : "points"}
-                              </small>
-                            </div>
-                          </div>
-                          <ul>
+                          <details className="collection-area-details">
+                            <summary className="collection-location-heading">
+                              <span className="collection-location-pin">
+                                <Icon name="pin" size={17} />
+                              </span>
+                              <span className="collection-area-title">
+                                <strong>{entry.municipality}</strong>
+                                <small>{entry.locations.length} collection {entry.locations.length === 1 ? "point" : "points"}</small>
+                              </span>
+                            </summary>
+                            <ul>
                             {entry.locations.map((location) => (
-                              <li
-                                className="collection-location-item"
-                                key={`${location.operator}-${location.name}`}
-                              >
+                              <li className="collection-location-item" key={`${location.operator}-${location.name}`}>
                                 <strong>{location.name}</strong>
+                                <button type="button" className="btn btn-secondary" onClick={() => openFacility({ ...location, municipality: entry.municipality })}>View facility details</button>
                                 <span>{location.operator}</span>
                                 <small>Device acceptance: {location.acceptedDevices}</small>
                                 <small>{location.status}</small>
                                 {location.address && <small>Address: {location.address}</small>}
+                                  {!location.coordinates && <small>No confirmed map pin for this location</small>}
                                 {location.operatingHours?.map((schedule) => (
                                   <small key={`${schedule.days}-${schedule.opens}-${schedule.closes}`}>
                                     Hours: {schedule.days}, {schedule.opens}–{schedule.closes}
@@ -1386,9 +1563,7 @@ export default function App() {
                                 ))}
                                 <a
                                   className="collection-directions-link"
-                                  href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
-                                    `${location.name}, ${entry.municipality}${location.address ? `, ${location.address}` : ""}, Metro Manila, Philippines`,
-                                  )}`}
+                                  href={facilityDirectionsUrl(location.name, entry.municipality, location.address, location.coordinates)}
                                   target="_blank"
                                   rel="noreferrer"
                                   aria-label={`Get directions to ${location.name}, ${entry.municipality} (opens in a new tab)`}
@@ -1399,7 +1574,8 @@ export default function App() {
                                 </a>
                               </li>
                             ))}
-                          </ul>
+                            </ul>
+                          </details>
                         </article>
                       ))}
                   </div>
@@ -1429,101 +1605,32 @@ export default function App() {
 
             {page === "facility" && (
               <>
-                {title(
-                  "FACILITY INFORMATION",
-                  selectedFacility.name,
-                  "Review accepted items, location, operating information, and important guidance before making your own arrangements.",
-                )}
-                <div className="facility-detail-layout">
+                <WorkflowSteps current={4} analyzed={itemGuidanceReady} />
+                {selectedFacility ? <>
+                  {title("FACILITY INFORMATION", selectedFacility.name, "Review this collection location before visiting.")}
                   <section className="panel facility-detail-main">
-                    <div className="facility-detail-header">
-                      <span className="feature-icon">
-                        <Icon name={selectedFacility.icon} size={31} />
-                      </span>
-                      <div>
-                        <Badge>
-                          <Icon name="shield" size={13} />
-                          Illustrative sample listing
-                        </Badge>
-                        <h2>{selectedFacility.name}</h2>
-                        <p className="icon-line">
-                          <Icon name="pin" size={17} />
-                          {selectedFacility.location}
-                        </p>
-                      </div>
-                    </div>
-                    <p className="facility-lead">
-                      {selectedFacility.description}
-                    </p>
+                    <h2>{selectedFacility.name}</h2>
                     <dl className="analysis-list">
-                      <div>
-                        <dt>Accepted Items</dt>
-                        <dd>
-                          <ul className="accepted-list">
-                            {selectedFacility.items.map((item) => (
-                              <li key={item}>{item}</li>
-                            ))}
-                          </ul>
-                        </dd>
-                      </div>
-                      <div>
-                        <dt>Operating Days</dt>
-                        <dd>{selectedFacility.days}</dd>
-                      </div>
-                      <div>
-                        <dt>Operating Hours</dt>
-                        <dd>{selectedFacility.hours}</dd>
-                      </div>
-                      <div>
-                        <dt>Important Information</dt>
-                        <dd>{selectedFacility.info}</dd>
-                      </div>
+                      <div><dt>Operator</dt><dd>{selectedFacility.operator}</dd></div>
+                      <div><dt>City / Municipality</dt><dd>{selectedFacility.municipality}</dd></div>
+                      <div><dt>Address</dt><dd>{selectedFacility.address || "Address not provided"}</dd></div>
+                      <div><dt>Accepted devices</dt><dd>{selectedFacility.acceptedDevices}</dd></div>
+                      <div><dt>Collection status</dt><dd>{selectedFacility.status}</dd></div>
+                      <div><dt>Operating hours</dt><dd>{selectedFacility.operatingHours?.length
+                        ? selectedFacility.operatingHours.map((schedule) => <p key={`${schedule.days}-${schedule.opens}-${schedule.closes}`}>{schedule.days}, {schedule.opens} - {schedule.closes}</p>)
+                        : "Schedule not provided. Confirm with the facility before visiting."}</dd></div>
                     </dl>
                     <div className="assistant-actions">
-                      <Button onClick={() => toggleSaved(selectedFacility)}>
-                        <Icon
-                          name={
-                            saved.includes(selectedFacility.name)
-                              ? "check"
-                              : "heart"
-                          }
-                          size={17}
-                        />
-                        {saved.includes(selectedFacility.name)
-                          ? "Facility Saved"
-                          : "Save Facility"}
-                      </Button>
-                      <Button
-                        variant="secondary"
-                        onClick={() => go(returnPage)}
-                      >
-                        <Icon name="arrow" className="back-arrow" size={17} />
-                        {returnPage === "recommendations"
-                          ? "Back to Recommendations"
-                          : "Back to Directory"}
-                      </Button>
+                      <a className="btn btn-primary" href={facilityDirectionsUrl(selectedFacility.name, selectedFacility.municipality, selectedFacility.address, selectedFacility.coordinates)} target="_blank" rel="noreferrer">Get directions <Icon name="arrow" size={16} /></a>
+                      <Button variant="secondary" disabled={workspace.busy || workspace.loading} onClick={() => toggleSaved(selectedFacility)}>{isFacilitySaved(selectedFacility) ? "Remove Saved Facility" : accountProfile ? "Save Facility" : "Sign in to save facility"}</Button>
+                      <Button variant="secondary" onClick={() => go(returnPage)}>{returnPage === "facilities" ? "Back to Directory" : returnPage === "identify" ? "Back to Analysis" : returnPage === "dashboard" ? "Back to Dashboard" : "Back to Recommendations"}</Button>
                     </div>
                   </section>
-                  <aside className="panel facility-bot-card">
-                    <span className="bot-avatar">
-                      <Icon name="robot" size={38} />
-                    </span>
-                    <Badge tone="blue">ECOAGENT ASK BOT</Badge>
-                    <h2>Questions about this facility?</h2>
-                    <p>
-                      Ask EcoAgent Ask Bot to explain listed locations and
-                      the details you should verify before visiting.
-                    </p>
-                    <Button onClick={() => setChatOpen(true)}>
-                      Ask EcoAgent
-                      <Icon name="sparkles" size={17} />
-                    </Button>
-                  </aside>
-                </div>
-                <p className="demo-note">
-                  This is illustrative facility information. Contact the
-                  facility directly to verify details that may have changed.
-                </p>
+                </> : <section className="panel">
+                  <h2>Select a facility first</h2>
+                  <p>Open a recommended facility or choose a collection location from the directory to see its details.</p>
+                  <Button onClick={() => go("facilities")}>Browse facility directory</Button>
+                </section>}
               </>
             )}
 
@@ -1688,51 +1795,28 @@ export default function App() {
 
             {page === "items" && (
               <>
-                {title(
-                  "YOUR IDENTIFIED ELECTRONICS",
-                  "Registered e-waste items",
-                  "Review electronic items you have identified or saved for future reference.",
-                )}
+                {title("YOUR IDENTIFIED ELECTRONICS", "Registered e-waste items", "Your saved items and analysis summaries. Condition is your observation; photos cannot confirm electrical function.")}
                 <div className="toolbar">
-                  <Badge>3 demo electronic items</Badge>
-                  <Button onClick={() => go("identify")}>
-                    <Icon name="plus" size={17} />
-                    Identify an Item
-                  </Button>
+                  <Badge>{workspace.items.length} saved items</Badge>
+                  <Button onClick={() => go("identify")}>Identify an Item</Button>
                 </div>
+                {!accountProfile ? <section className="panel"><h2>Keep your own e-waste history</h2><p>Sign in to save items and return to them later.</p><Button onClick={requireAccount}>Sign in</Button></section>
+                  : !workspace.loading && workspace.items.length === 0 ? <section className="panel"><h2>No saved items yet</h2><p>Analyze a device, then select Save to My Items.</p></section> : null}
                 <div className="facility-grid">
-                  {[
-                    ["Old TV", "TV", "Broken", "tv"],
-                    ["Personal Phone", "Mobile Phone", "Working", "phone"],
-                    ["Old Laptop", "Laptop", "Damaged", "laptop"],
-                  ].map(([name, itemCategory, itemCondition, icon]) => (
-                    <section className="facility-card" key={name}>
-                      <div className="facility-card-top">
-                        <span className="feature-icon">
-                          <Icon name={icon as IconName} size={27} />
-                        </span>
-                        <Badge tone="gray">Saved item</Badge>
-                      </div>
-                      <h3>{name}</h3>
-                      <p>
-                        {itemCategory} · {itemCondition} · 1 item
-                      </p>
-                      <Button
-                        variant="secondary"
-                        onClick={() => {
-                          setDevice(name)
-                          setCategory(itemCategory)
-                          setCondition(itemCondition)
-                          setQuantity("1")
-                          setAnalyzed(true)
-                          go("identify")
-                        }}
-                      >
-                        View Analysis
-                        <Icon name="arrow" size={16} />
-                      </Button>
-                    </section>
-                  ))}
+                  {workspace.items.map((item) => <article className="facility-card" key={item.id}>
+                    <Badge tone="gray">{item.analysisKind === "photo" ? "Photo analysis summary" : "Manual item entry"}</Badge>
+                    <h3>{item.name}</h3><p>{item.category} - {item.condition} - {item.quantity} item(s)</p>
+                    {item.photoCondition && <p>Photo assessment: {item.photoCondition}</p>}
+                    <p>Saved {new Date(item.createdAt.replace(" ", "T") + "Z").toLocaleDateString()}</p>
+                    <Button onClick={() => {
+                      setPhoto(null); setPhotoFile(null); setPhotoName(""); setDevice(item.name); setCategory(item.category);
+                      setCondition(item.condition); setQuantity(String(item.quantity)); setAnalyzed(false); go("recommendations")
+                    }}>Find facilities</Button>
+                    <Button variant="secondary" disabled={workspace.busy} onClick={async () => {
+                      try { await workspace.update("/api/account/items/remove", { id: item.id }); setSavedSignature(""); setNotice("Item removed from your account.") }
+                      catch (error) { setNotice(error instanceof Error ? error.message : "Unable to remove item.") }
+                    }}>Remove saved item</Button>
+                  </article>)}
                 </div>
               </>
             )}
@@ -1742,16 +1826,24 @@ export default function App() {
                 {title(
                   "YOUR ECOAGENT ACCOUNT",
                   "Your profile",
-                  "Manage your basic profile information for this demo session.",
+                  "Review your account profile and local preferences.",
                 )}
                 <section className="panel profile-panel">
                   <div className="profile-avatar">{userName[0]}</div>
                   <form
-                    onSubmit={(event) => {
+                    onSubmit={async (event) => {
                       event.preventDefault()
-                      setNotice("Profile updated for this demo session.")
+                      if (!requireAccount()) return
+                      setProfileSaving(true)
+                      try {
+                        const { user } = await authRequest<{ user: AccountProfile }>("/api/account/profile", { fullName: userName, userType, location: profileLocation }, accountProfile?.id)
+                        setAccountProfile((current) => current?.id === user.id ? user : current)
+                        setNotice("Your profile has been saved to your account.")
+                      } catch (error) { setNotice(error instanceof Error ? error.message : "Unable to save your profile.") }
+                      finally { setProfileSaving(false) }
                     }}
                   >
+                    {accountProfile && <p>Email: {accountProfile.email}</p>}
                     <Field label="Full Name">
                       <input
                         required
@@ -1778,11 +1870,12 @@ export default function App() {
                         }
                       />
                     </Field>
-                    <Button type="submit">
-                      Save Changes
+                    <Button type={accountProfile ? "submit" : "button"} disabled={profileSaving} onClick={() => { if (!accountProfile) requireAccount() }}>
+                      {profileSaving ? "Saving..." : accountProfile ? "Save Changes" : "Sign in to save changes"}
                       <Icon name="check" size={17} />
                     </Button>
                   </form>
+                  {accountProfile && <Button variant="secondary" onClick={() => { void signOut() }}>Sign out</Button>}
                 </section>
               </>
             )}
@@ -1938,6 +2031,11 @@ export default function App() {
           </div>
         </section>
       )}
+      <CameraCapture
+        open={cameraOpen}
+        onClose={() => setCameraOpen(false)}
+        onCapture={applyPhoto}
+      />
       {notice && (
         <div className="toast" role="status">
           <Icon name="check" size={20} />

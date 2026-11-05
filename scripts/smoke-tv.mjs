@@ -17,17 +17,18 @@ try {
   const result = await response.json()
   assert.equal(response.status, 200, result.error)
   assert.equal(result.source, "local-yolo")
-  assert.equal(result.threshold, 0.5, "Both models should use the 50% minimum confidence threshold")
+  assert.equal(result.threshold, 0.25, "Device and TV models should use the 25% minimum confidence threshold")
   assert.ok(Array.isArray(result.detections), "Expected device model detections")
+  assert.ok(Array.isArray(result.damageDetections), "Expected the damage model response field")
   assert.ok(result.tvDetections.length > 0, "Expected the TV practice model to produce a TV candidate")
   for (const detection of result.detections) {
     assert.ok(["laptop", "cell phone", "television"].includes(detection.className))
-    assert.ok(detection.score >= 0.5 && detection.score <= 1)
+    assert.ok(detection.score >= 0.25 && detection.score <= 1)
     assert.ok(detection.box.every((n) => n >= 0 && n <= 1))
   }
   for (const detection of result.tvDetections) {
     assert.equal(detection.className, "damaged_tv")
-    assert.ok(detection.score >= 0.5 && detection.score <= 1)
+    assert.ok(detection.score >= 0.25 && detection.score <= 1)
     assert.ok(detection.box.every((n) => n >= 0 && n <= 1))
   }
   console.log(JSON.stringify({ status: "PASS", image: "validation frame 000161", detections: result.detections, warning: "Pipeline smoke test only; not independent accuracy validation." }, null, 2))

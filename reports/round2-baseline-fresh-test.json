@@ -1,0 +1,675 @@
+{
+  "weights": "ml\\damage_detection\\weights\\best.onnx",
+  "split": "test",
+  "fresh_only": true,
+  "summary": {
+    "total": 50,
+    "threshold": 0.5,
+    "positive_total": 19,
+    "positive_detected": 0,
+    "negative_total": 31,
+    "negative_correct": 22,
+    "exact_photo_matches": 22,
+    "per_class": {
+      "damaged_phone": {
+        "total": 11,
+        "detected": 0
+      },
+      "damaged_laptop": {
+        "total": 3,
+        "detected": 0
+      },
+      "damaged_tv": {
+        "total": 5,
+        "detected": 0
+      }
+    },
+    "balanced_presence_score": 0.3548387096774194
+  },
+  "cases": [
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02633__110986769.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\commons\\110986769.jpg",
+      "classes": [],
+      "source": "commons-reviewed",
+      "group": "commons-110986769",
+      "scores": [
+        0.0,
+        0.8601508140563965,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02636__115403571.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\commons\\115403571.jpg",
+      "classes": [],
+      "source": "commons-reviewed",
+      "group": "commons-115403571",
+      "scores": [
+        0.0,
+        0.3809923827648163,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02639__119503723.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\commons\\119503723.jpg",
+      "classes": [],
+      "source": "commons-reviewed",
+      "group": "commons-119503723",
+      "scores": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02642__119503733.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\commons\\119503733.jpg",
+      "classes": [],
+      "source": "commons-reviewed",
+      "group": "commons-119503733",
+      "scores": [
+        0.0,
+        0.028537660837173462,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02647__119503757.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\commons\\119503757.jpg",
+      "classes": [],
+      "source": "commons-reviewed",
+      "group": "commons-119503757",
+      "scores": [
+        0.0,
+        0.06092703342437744,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02656__127446358.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\commons\\127446358.jpg",
+      "classes": [],
+      "source": "commons-reviewed",
+      "group": "commons-127446358",
+      "scores": [
+        0.06596153974533081,
+        0.1381659209728241,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02657__128326153.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\commons\\128326153.jpg",
+      "classes": [],
+      "source": "commons-reviewed",
+      "group": "commons-model-galaxy z",
+      "scores": [
+        0.0,
+        0.28812557458877563,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02663__133166452.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\commons\\133166452.jpg",
+      "classes": [],
+      "source": "commons-reviewed",
+      "group": "commons-model-galaxy z",
+      "scores": [
+        0.0,
+        0.06683942675590515,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02664__135875020.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\commons\\135875020.jpg",
+      "classes": [],
+      "source": "commons-reviewed",
+      "group": "commons-model-galaxy z",
+      "scores": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02670__148988863.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\commons\\148988863.jpg",
+      "classes": [],
+      "source": "commons-reviewed",
+      "group": "commons-model-galaxy a40",
+      "scores": [
+        0.0,
+        0.34176719188690186,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02671__148988871.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\commons\\148988871.jpg",
+      "classes": [],
+      "source": "commons-reviewed",
+      "group": "commons-model-galaxy a40",
+      "scores": [
+        0.021074235439300537,
+        0.1534808874130249,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02672__148988927.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\commons\\148988927.jpg",
+      "classes": [],
+      "source": "commons-reviewed",
+      "group": "commons-model-galaxy a40",
+      "scores": [
+        0.05067417025566101,
+        0.24595364928245544,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02673__148989058.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\commons\\148989058.jpg",
+      "classes": [],
+      "source": "commons-reviewed",
+      "group": "commons-model-galaxy a40",
+      "scores": [
+        0.0,
+        0.8872728943824768,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02681__162852224.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\commons\\162852224.jpg",
+      "classes": [],
+      "source": "commons-reviewed",
+      "group": "commons-model-galaxy a04s",
+      "scores": [
+        0.0,
+        0.7203120589256287,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02686__196941133.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\commons\\196941133.jpg",
+      "classes": [],
+      "source": "commons-reviewed",
+      "group": "commons-model-galaxy z",
+      "scores": [
+        0.0,
+        0.3344377875328064,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02687__197146431.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\commons\\197146431.jpg",
+      "classes": [],
+      "source": "commons-reviewed",
+      "group": "commons-model-galaxy z",
+      "scores": [
+        0.0,
+        0.6061334013938904,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02688__197146434.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\commons\\197146434.jpg",
+      "classes": [],
+      "source": "commons-reviewed",
+      "group": "commons-model-galaxy z",
+      "scores": [
+        0.0,
+        0.8575684428215027,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02694__37144180.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\commons\\37144180.jpg",
+      "classes": [],
+      "source": "commons-reviewed",
+      "group": "commons-37144180",
+      "scores": [
+        0.36774301528930664,
+        0.3333248794078827,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02704__62707698.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\commons\\62707698.jpg",
+      "classes": [],
+      "source": "commons-reviewed",
+      "group": "commons-model-iphone 8",
+      "scores": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02705__62952820.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\commons\\62952820.jpg",
+      "classes": [],
+      "source": "commons-reviewed",
+      "group": "commons-62952820",
+      "scores": [
+        0.0,
+        0.34296169877052307,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02712__88874919.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\commons\\88874919.jpg",
+      "classes": [],
+      "source": "commons-reviewed",
+      "group": "commons-88874919",
+      "scores": [
+        0.0,
+        0.16337096691131592,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02724__27413-30.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\mhci\\phone_originals\\27413-30.jpg",
+      "classes": [
+        0
+      ],
+      "source": "mhci-damage-study",
+      "group": "mhci-27413-30",
+      "scores": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02734__44491-1.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\mhci\\phone_originals\\44491-1.jpg",
+      "classes": [
+        0
+      ],
+      "source": "mhci-damage-study",
+      "group": "mhci-44491-1",
+      "scores": [
+        0.0,
+        0.6610009670257568,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02740__44491-33.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\mhci\\phone_originals\\44491-33.JPG",
+      "classes": [
+        0
+      ],
+      "source": "mhci-damage-study",
+      "group": "mhci-44491-33",
+      "scores": [
+        0.0,
+        0.6683582067489624,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02746__44491-53.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\mhci\\phone_originals\\44491-53.jpg",
+      "classes": [
+        0
+      ],
+      "source": "mhci-damage-study",
+      "group": "mhci-44491-53",
+      "scores": [
+        0.0,
+        0.07682392001152039,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02756__46693-182.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\mhci\\phone_originals\\46693-182.jpg",
+      "classes": [
+        0
+      ],
+      "source": "mhci-damage-study",
+      "group": "mhci-46693-182",
+      "scores": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02757__46693-19.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\mhci\\phone_originals\\46693-19.jpg",
+      "classes": [
+        0
+      ],
+      "source": "mhci-damage-study",
+      "group": "mhci-46693-19",
+      "scores": [
+        0.14456608891487122,
+        0.4199782609939575,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02767__46693-28.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\mhci\\phone_originals\\46693-28.jpg",
+      "classes": [
+        0
+      ],
+      "source": "mhci-damage-study",
+      "group": "mhci-46693-28",
+      "scores": [
+        0.0,
+        0.3102604150772095,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02768__46693-29.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\mhci\\phone_originals\\46693-29.jpg",
+      "classes": [
+        0
+      ],
+      "source": "mhci-damage-study",
+      "group": "mhci-46693-29",
+      "scores": [
+        0.0,
+        0.3660238981246948,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02769__46693-356.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\mhci\\phone_originals\\46693-356.jpg",
+      "classes": [
+        0
+      ],
+      "source": "mhci-damage-study",
+      "group": "mhci-46693-356",
+      "scores": [
+        0.0,
+        0.7377545237541199,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02802__46693-910.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\mhci\\phone_originals\\46693-910.jpg",
+      "classes": [
+        0
+      ],
+      "source": "mhci-damage-study",
+      "group": "mhci-46693-910",
+      "scores": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02809__46693-969.jpg",
+      "path": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\sources\\round2\\mhci\\phone_originals\\46693-969.jpg",
+      "classes": [
+        0
+      ],
+      "source": "mhci-damage-study",
+      "group": "mhci-46693-969",
+      "scores": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02815__brokentv_10.jpg",
+      "path": "ml\\condition_training\\sources\\round2\\tv-hackathon\\data\\images\\brokentv_10.png",
+      "classes": [
+        2
+      ],
+      "source": "hackathon-reviewed",
+      "group": "hackathon-brokentv_10",
+      "scores": [
+        0.0,
+        0.04109150171279907,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02816__brokentv_11 (2).jpg",
+      "path": "ml\\condition_training\\sources\\round2\\tv-hackathon\\data\\images\\brokentv_11 (2).png",
+      "classes": [
+        1
+      ],
+      "source": "hackathon-reviewed",
+      "group": "hackathon-brokentv_11 (2)",
+      "scores": [
+        0.0,
+        0.42009395360946655,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02817__brokentv_11.jpg",
+      "path": "ml\\condition_training\\sources\\round2\\tv-hackathon\\data\\images\\brokentv_11.png",
+      "classes": [
+        2
+      ],
+      "source": "hackathon-reviewed",
+      "group": "hackathon-brokentv_11",
+      "scores": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02821__brokentv_13.jpg",
+      "path": "ml\\condition_training\\sources\\round2\\tv-hackathon\\data\\images\\brokentv_13.png",
+      "classes": [
+        2
+      ],
+      "source": "hackathon-reviewed",
+      "group": "hackathon-brokentv_13",
+      "scores": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02822__brokentv_14 (2).jpg",
+      "path": "ml\\condition_training\\sources\\round2\\tv-hackathon\\data\\images\\brokentv_14 (2).png",
+      "classes": [
+        1
+      ],
+      "source": "hackathon-reviewed",
+      "group": "hackathon-brokentv_14 (2)",
+      "scores": [
+        0.5450331568717957,
+        0.44682976603507996,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02825__brokentv_15.jpg",
+      "path": "ml\\condition_training\\sources\\round2\\tv-hackathon\\data\\images\\brokentv_15.png",
+      "classes": [
+        2
+      ],
+      "source": "hackathon-reviewed",
+      "group": "hackathon-brokentv_15",
+      "scores": [
+        0.0,
+        0.7956256866455078,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02829__brokentv_17.jpg",
+      "path": "ml\\condition_training\\sources\\round2\\tv-hackathon\\data\\images\\brokentv_17.png",
+      "classes": [
+        2
+      ],
+      "source": "hackathon-reviewed",
+      "group": "hackathon-brokentv_17",
+      "scores": [
+        0.0,
+        0.3375934958457947,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02845__brokentv_3 (2).jpg",
+      "path": "ml\\condition_training\\sources\\round2\\tv-hackathon\\data\\images\\brokentv_3 (2).png",
+      "classes": [
+        1
+      ],
+      "source": "hackathon-reviewed",
+      "group": "hackathon-brokentv_3 (2)",
+      "scores": [
+        0.0,
+        0.1765938103199005,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02864__television_11.jpg",
+      "path": "ml\\condition_training\\sources\\round2\\tv-hackathon\\data\\images\\television_11.png",
+      "classes": [],
+      "source": "hackathon-reviewed",
+      "group": "hackathon-television_11",
+      "scores": [
+        0.0,
+        0.47095105051994324,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02867__television_13 (2).jpg",
+      "path": "ml\\condition_training\\sources\\round2\\tv-hackathon\\data\\images\\television_13 (2).png",
+      "classes": [],
+      "source": "hackathon-reviewed",
+      "group": "hackathon-television_13 (2)",
+      "scores": [
+        0.0,
+        0.7088373899459839,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02872__television_15.jpg",
+      "path": "ml\\condition_training\\sources\\round2\\tv-hackathon\\data\\images\\television_15.png",
+      "classes": [],
+      "source": "hackathon-reviewed",
+      "group": "hackathon-television_15",
+      "scores": [
+        0.0,
+        0.6814152002334595,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02880__television_2 (2).jpg",
+      "path": "ml\\condition_training\\sources\\round2\\tv-hackathon\\data\\images\\television_2 (2).png",
+      "classes": [],
+      "source": "hackathon-reviewed",
+      "group": "hackathon-television_2 (2)",
+      "scores": [
+        0.0,
+        0.21909958124160767,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02882__television_20.jpg",
+      "path": "ml\\condition_training\\sources\\round2\\tv-hackathon\\data\\images\\television_20.png",
+      "classes": [],
+      "source": "hackathon-reviewed",
+      "group": "hackathon-television_20",
+      "scores": [
+        0.0,
+        0.6658275127410889,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02884__television_22.jpg",
+      "path": "ml\\condition_training\\sources\\round2\\tv-hackathon\\data\\images\\television_22.png",
+      "classes": [],
+      "source": "hackathon-reviewed",
+      "group": "hackathon-television_22",
+      "scores": [
+        0.0,
+        0.5037187933921814,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02886__television_24.jpg",
+      "path": "ml\\condition_training\\sources\\round2\\tv-hackathon\\data\\images\\television_24.png",
+      "classes": [],
+      "source": "hackathon-reviewed",
+      "group": "hackathon-television_24",
+      "scores": [
+        0.0,
+        0.2963840365409851,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02889__television_4 (2).jpg",
+      "path": "ml\\condition_training\\sources\\round2\\tv-hackathon\\data\\images\\television_4 (2).png",
+      "classes": [],
+      "source": "hackathon-reviewed",
+      "group": "hackathon-television_4 (2)",
+      "scores": [
+        0.0,
+        0.48336106538772583,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02893__television_6 (2).jpg",
+      "path": "ml\\condition_training\\sources\\round2\\tv-hackathon\\data\\images\\television_6 (2).png",
+      "classes": [],
+      "source": "hackathon-reviewed",
+      "group": "hackathon-television_6 (2)",
+      "scores": [
+        0.0,
+        0.31897658109664917,
+        0.0
+      ]
+    },
+    {
+      "file": "C:\\Users\\Reeyan Carl\\OneDrive\\Desktop\\EcoCycle\\ml\\condition_training\\dataset\\round2\\images\\test\\02894__television_6.jpg",
+      "path": "ml\\condition_training\\sources\\round2\\tv-hackathon\\data\\images\\television_6.png",
+      "classes": [],
+      "source": "hackathon-reviewed",
+      "group": "hackathon-television_6",
+      "scores": [
+        0.0,
+        0.1290207803249359,
+        0.0
+      ]
+    }
+  ],
+  "limitations": [
+    "Whole-photo damage presence; not precise defect localization.",
+    "No verified electrical working/nonworking labels.",
+    "Small convenience sample; not general real-world accuracy.",
+    "Perceptual/source grouping cannot prove independence of every physical device."
+  ]
+}

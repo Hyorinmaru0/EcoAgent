@@ -2,6 +2,8 @@ import { spawn } from "node:child_process"
 import { existsSync } from "node:fs"
 import { resolve } from "node:path"
 import { fileURLToPath } from "node:url"
+import { assessDeviceDetections, DEVICE_ACCEPTANCE_THRESHOLD, REFERENCE_ACCEPTANCE_THRESHOLD } from "../src/components/identification/deviceDetectionPolicy.mjs"
+import { assessPhotoDamage } from "../src/components/identification/damageAssessment.mjs"
 
 const projectRoot = fileURLToPath(new URL("../", import.meta.url))
 const maxImageBytes = 5 * 1024 * 1024
@@ -68,17 +70,34 @@ function detectorConfig() {
     python: process.env.TV_DETECTOR_PYTHON || (existsSync(localPython) ? localPython : "python"),
     deviceWeights: resolve(projectRoot, process.env.DEVICE_DETECTOR_WEIGHTS || "ml/device_detection/weights/best.pt"),
     tvWeights: resolve(projectRoot, process.env.TV_DETECTOR_WEIGHTS || "ml/tv_training/weights/best.pt"),
+    damageWeights: resolve(projectRoot, process.env.DAMAGE_DETECTOR_WEIGHTS || "ml/damage_detection/weights/best.pt"),
+    referenceWeights: resolve(projectRoot, process.env.REFERENCE_DETECTOR_WEIGHTS || "ml/device_detection/reference/yolo11m.onnx"),
   }
 }
 
+function usableWeights(path) {
+  if (existsSync(path)) return path
+  const onnx = path.replace(/\.pt$/i, ".onnx")
+  return existsSync(onnx) ? onnx : path
+}
+
 export function runTvDetector(image, { signal, category = "TV" } = {}) {
-  const { python, deviceWeights, tvWeights } = detectorConfig()
-  if (!existsSync(deviceWeights)) return Promise.reject(new DetectionError(503, "The trained device detection model is missing."))
-  if (category === "TV" && !existsSync(tvWeights))
+  const { python, deviceWeights, tvWeights, damageWeights, referenceWeights } = detectorConfig()
+  const devicePath = usableWeights(deviceWeights)
+  const tvPath = usableWeights(tvWeights)
+  const damagePath = usableWeights(damageWeights)
+  if (!existsSync(devicePath)) return Promise.reject(new DetectionError(503, "The trained device detection model is missing."))
+  if (category === "TV" && !existsSync(tvPath))
     return Promise.reject(new DetectionError(503, "The trained damaged-TV model is missing."))
+  if (!["vision_model_quantized.onnx", "labels.npz"].every(name => existsSync(resolve(projectRoot, "ml/device_detection/verifier", name))))
+    return Promise.reject(new DetectionError(503, "The local visual verifier is missing. Run scripts/setup-device-verifier.py with the detector Python environment."))
   return new Promise((accept, reject) => {
-    const args = [resolve(projectRoot, "ml/tv_training/infer.py"), "--device-weights", deviceWeights]
-    if (category === "TV") args.push("--tv-weights", tvWeights)
+    const args = [resolve(projectRoot, "ml/tv_training/infer.py"), "--device-weights", devicePath]
+    if (existsSync(referenceWeights)) args.push("--reference-weights", referenceWeights)
+    if (category === "TV") args.push("--tv-weights", tvPath)
+    // Damaged phones can be missed by the identity model, so include damage
+    // proposals during upload too. Each proposal still requires visual verification.
+    if (existsSync(damagePath)) args.push("--damage-weights", damagePath)
     const child = spawn(python, args, {
       cwd: projectRoot,
       windowsHide: true,
@@ -111,7 +130,8 @@ export function runTvDetector(image, { signal, category = "TV" } = {}) {
         const result = JSON.parse(output)
         if (code !== 0 || result.error)
           finish(new DetectionError(result.status === 400 ? 400 : 503, result.error || "The TV detector could not run."))
-        else if (result.source !== "local-yolo" || !Array.isArray(result.detections) || !Array.isArray(result.tvDetections))
+        else if (result.source !== "local-yolo" || !Array.isArray(result.detections) || !Array.isArray(result.tvDetections) ||
+          (result.damageDetections !== undefined && !Array.isArray(result.damageDetections)))
           finish(new DetectionError(502, "The detector returned an invalid result."))
         else finish(null, result)
       } catch { finish(new DetectionError(503, "The detector could not start. Check its Python dependencies.")) }
@@ -139,7 +159,7 @@ export function createTvDetectionMiddleware({ detect = runTvDetector } = {}) {
         throw new DetectionError(415, "Send the photo as an application/json request.")
       const body = await readJson(req)
       const category = body?.category ?? "TV"
-      if (!["TV", "Mobile Phone", "Laptop"].includes(category))
+      if (!["TV", "Mobile Phone", "Laptop", "auto"].includes(category))
         throw new DetectionError(400, "Choose TV, Mobile Phone, or Laptop as the item category.")
       const image = decodeImage(body)
       if (busy) throw new DetectionError(429, "Another TV photo is being analyzed. Please try again shortly.")
@@ -148,8 +168,15 @@ export function createTvDetectionMiddleware({ detect = runTvDetector } = {}) {
         const result = await detect(image, { signal: controller.signal, category })
         sendJson(res, 200, {
           ...result,
+          acceptanceThreshold: DEVICE_ACCEPTANCE_THRESHOLD,
+          acceptanceThresholds: { custom: DEVICE_ACCEPTANCE_THRESHOLD, reference: REFERENCE_ACCEPTANCE_THRESHOLD },
+          assessment: assessDeviceDetections(result.detections, category),
+          photoCondition: assessPhotoDamage({ ...result, ...(category === "TV" ? { tvWarning: warning } : {}) }, category),
           warning: "Device detections are practice-model results, not proof of item identity, condition, safety, or value.",
           ...(category === "TV" ? { tvWarning: warning } : {}),
+          ...(result.damageModel ? { damageWarning: result.damageInferenceMode === "verified-device-crops"
+            ? "Damage scores assess each verified device crop. They do not localize individual cracks or establish whether the device works."
+            : "Laptop candidates cover the full photo crop, which may include background. These practice-model results are not a diagnosis, severity rating, repair estimate, or safety assessment." } : {}),
           ...(category === "TV" ? { dataset: { trainingImages: 160, validationImages: 40, independentValidation: false } } : {}),
         })
       } finally { busy = false }

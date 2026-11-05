@@ -14,10 +14,11 @@ const mappedLocations = collectionLocations.map((entry) => ({ ...entry, location
   ...location, coordinates: coordinateData.locations[`${entry.municipality}/${location.name}`],
 })) }))
 const tvMatch = { className: "damaged_tv", score: 0.85, box: [0.1, 0.1, 0.9, 0.9] }
-const deviceMatch = { className: "television", score: 0.9, box: [0.1, 0.1, 0.9, 0.9] }
-const prediction = (detections = [deviceMatch], tvDetections = [tvMatch]) => ({
+const deviceMatch = { className: "television", score: 0.9, box: [0.1, 0.1, 0.9, 0.9], verification: { status: "accepted", label: "television" } }
+const damageMatch = { className: "screen_crack", score: 0.75, box: [0.2, 0.2, 0.6, 0.6] }
+const prediction = (detections = [deviceMatch], tvDetections = [tvMatch], damageDetections = [], damageModel = false) => ({
   model: "device_detection", source: "local-yolo", threshold: 0.25,
-  image: { width: 100, height: 100 }, detections, tvDetections,
+  image: { width: 100, height: 100 }, detections, tvDetections, damageDetections, damageModel,
 })
 let server, baseUrl, received, detectedCategory, handler, behavior
 before(async () => {
@@ -45,6 +46,9 @@ test("TV photo API returns both model predictions, dataset context, and limits",
   assert.equal(body.source, "local-yolo")
   assert.equal(body.model, "device_detection")
   assert.deepEqual(body.detections, [deviceMatch])
+  assert.equal(body.acceptanceThreshold, 0.7)
+  assert.equal(body.assessment.status, "accepted")
+  assert.equal(body.photoCondition.status, "damaged")
   assert.deepEqual(body.tvDetections, [tvMatch])
   assert.equal(body.dataset.trainingImages, 160)
   assert.equal(body.dataset.validationImages, 40)
@@ -71,14 +75,77 @@ test("phone and laptop analysis uses the device model without running TV-specifi
   } finally { behavior = null }
 })
 
+test("automatic category analysis is accepted before the user chooses a category", async () => {
+  behavior = async (_bytes, options) => {
+    assert.equal(options.category, "auto")
+    return prediction([deviceMatch], [], [], false)
+  }
+  try {
+    const response = await request(photo, {}, "auto")
+    assert.equal(response.status, 200)
+    const body = await response.json()
+    assert.deepEqual(body.detections.map(({ className }) => className), ["television"])
+  } finally { behavior = null }
+})
+
+test("damage model results pass through with a separate limitation warning", async () => {
+  behavior = async () => prediction([deviceMatch], [], [damageMatch], true)
+  try {
+    const body = await (await request()).json()
+    assert.deepEqual(body.damageDetections, [damageMatch])
+    assert.equal(body.damageModel, true)
+    assert.match(body.damageWarning, /not a diagnosis/)
+  } finally { behavior = null }
+})
+
+test("without a damage model, no damage warning is added", async () => {
+  const body = await (await request()).json()
+  assert.deepEqual(body.damageDetections, [])
+  assert.equal("damageWarning" in body, false)
+})
+
 test("zero detections do not become a healthy-TV classification", async () => {
   behavior = async () => prediction([], [])
   try {
     const body = await (await request()).json()
     assert.deepEqual(body.detections, [])
+    assert.equal(body.assessment.status, "no-match")
+    assert.equal(body.photoCondition.status, "blocked")
+    assert.equal(body.assessment.category, null)
     assert.deepEqual(body.tvDetections, [])
     assert.match(body.tvWarning, /does not establish.*undamaged or safe/)
     assert.equal("condition" in body, false)
+  } finally { behavior = null }
+})
+
+test("high-confidence wallet false positive is not accepted as a phone by the API", async () => {
+  behavior = async () => prediction([{
+    className: "cell phone", score: 0.937, box: [0.2, 0.2, 0.6, 0.7],
+    verification: { status: "rejected", label: "wallet", similarity: 0.31, margin: 0.001 },
+  }], [])
+  try {
+    const response = await request(photo, {}, "Mobile Phone")
+    assert.equal(response.status, 200)
+    const body = await response.json()
+    assert.equal(body.assessment.status, "unverified")
+    assert.equal(body.assessment.category, null)
+    assert.equal(body.assessment.detection, null)
+  } finally { behavior = null }
+})
+
+test("separate visual phone damage evidence is exposed without fabricating YOLO damage scores", async () => {
+  behavior = async () => ({ ...prediction([{ ...deviceMatch, className: "cell phone", verification: { status: "accepted", label: "cell phone" } }], [], [], true),
+    visualDamageCandidates: [{ className: "damaged_phone", status: "indicated", method: "local-clip-visual-comparison", similarity: 0.34, margin: 0.03, box: [0.1, 0.1, 0.9, 0.9] }],
+  })
+  try {
+    const response = await request(photo, {}, "Mobile Phone")
+    assert.equal(response.status, 200)
+    const body = await response.json()
+    assert.equal(body.photoCondition.status, "uncertain")
+    assert.equal(body.photoCondition.source, "visual-comparison")
+    assert.equal(body.photoCondition.detection, null)
+    assert.equal(body.photoCondition.visualEvidence.similarity, 0.34)
+    assert.deepEqual(body.damageDetections, [])
   } finally { behavior = null }
 })
 
@@ -239,20 +306,21 @@ test("mapped coordinates belong to directory records and retain a source for eve
   }
 })
 
-test("browser location requests retain accuracy and use a finite timeout", async () => {
+test("browser location requests ask for a fresh high-accuracy reading", async () => {
   const coords = { latitude: 14.65, longitude: 121.03, accuracy: 25 }
   let options
   const result = await readBrowserLocation({ getCurrentPosition(success, _failure, settings) { options = settings; success({ coords }) } }, true)
-  assert.deepEqual(result, coords)
+  assert.deepEqual(result, { ...coords, source: "device" })
   assert.equal(options.enableHighAccuracy, true)
-  assert.equal(options.timeout, 15000)
+  assert.equal(options.maximumAge, 0)
+  assert.equal(options.timeout, 45000)
 })
 
 test("browser location errors cover permission denial, timeout, unavailable GPS, and invalid coordinates", async () => {
   for (const [code, message] of [[1, /denied.*site settings/], [2, /could not be found/], [3, /timed out/]]) {
     await assert.rejects(readBrowserLocation({ getCurrentPosition(_success, fail) { fail({ code }) } }, true), message)
   }
-  await assert.rejects(readBrowserLocation(null, true), /unavailable in this browser/)
+  await assert.rejects(readBrowserLocation(null, true), /does not provide device location/)
   await assert.rejects(readBrowserLocation({ getCurrentPosition() { throw new Error("Should not request GPS") } }, false), /HTTPS or localhost/)
   await assert.rejects(readBrowserLocation({ getCurrentPosition(success) { success({ coords: { latitude: NaN, longitude: 121 } }) } }, true), /invalid location/)
 })
@@ -265,10 +333,10 @@ test("nearest facility renders a pinned map and directions, while denied locatio
   try {
     const { NearestFacilityPanel } = await vite.ssrLoadModule("/src/components/identification/NearestFacilityPanel.tsx")
     const position = { ...coordinateData.locations["Quezon City/SM North EDSA"], accuracy: 10 }
-    const props = { category: "Laptop", recommendations: getFacilityRecommendations(mappedLocations, "Laptop", position), position, status: "ready", error: "", onLocate() {}, onDirectory() {} }
+    const props = { category: "Laptop", recommendations: getFacilityRecommendations(mappedLocations, "Laptop", position), position, status: "ready", error: "", onLocate() {}, locationChoices: [], onApproximateLocation() {}, onDirectory() {} }
     const ready = renderToStaticMarkup(createElement(NearestFacilityPanel, props))
-    assert.match(ready, /Map showing the nearest listed facility: SM North EDSA/)
-    assert.ok(ready.includes(`marker=${position.latitude}%2C${position.longitude}`))
+    assert.match(ready, /Map showing your location and the nearest e-waste facility/)
+    assert.match(ready, /Loading map/)
     assert.match(ready, /google\.com\/maps\/dir\/\?/)
     assert.match(ready, /straight.line/)
     const denied = renderToStaticMarkup(createElement(NearestFacilityPanel, { ...props, position: null, recommendations: getFacilityRecommendations(mappedLocations, "Laptop"), status: "error", error: "Location access was denied." }))

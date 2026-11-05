@@ -1,0 +1,68 @@
+{
+  "status": "trained_activated_and_browser_verified",
+  "active_model": "ml/condition_training/weights/round2-binary-20261105/best.pt",
+  "newly_obtained_photos": 317,
+  "new_photos_used_after_review": 267,
+  "total_unique_photos": 2899,
+  "train_unique": 2136,
+  "validation_unique": 371,
+  "test_unique": 392,
+  "completed_epochs_this_round": 20,
+  "model_task": "visible damage on independently identified device crops",
+  "threshold": 0.5,
+  "standalone_new_source_test": {
+    "total": 50,
+    "threshold": 0.5,
+    "positive_total": 19,
+    "positive_detected": 19,
+    "negative_total": 31,
+    "negative_correct": 29,
+    "exact_photo_matches": 48,
+    "per_class": {
+      "damaged_phone": {
+        "total": 11,
+        "detected": 11
+      },
+      "damaged_laptop": {
+        "total": 3,
+        "detected": 3
+      },
+      "damaged_tv": {
+        "total": 5,
+        "detected": 5
+      }
+    },
+    "balanced_presence_score": 0.967741935483871
+  },
+  "actual_pipeline": {
+    "damaged_detected": 16,
+    "damaged_total": 19,
+    "intact_false_reports": 3,
+    "intact_total": 31,
+    "blocked_damaged_cases": [
+      "brokentv_15.jpg",
+      "brokentv_17.jpg",
+      "brokentv_3 (2).jpg"
+    ],
+    "blocked_total": 12
+  },
+  "regression": {
+    "passed": 16,
+    "total": 16
+  },
+  "browser_check_passed": true,
+  "preservation": {
+    "initial_training_photos_checked": 2817,
+    "changed_images": [],
+    "original_device_weights_unchanged": true,
+    "original_damage_weights_unchanged": true
+  },
+  "report": "ml/condition_training/ROUND2.md",
+  "limitations": [
+    "Development diagnostics, not representative general accuracy.",
+    "Three damaged photos remain blocked by identity checks before condition assessment.",
+    "Three intact photos still receive false damage reports.",
+    "No photo-only claim of electrical working/broken status.",
+    "Source grouping and perceptual hashing do not verify physical-device independence for all photos."
+  ]
+}

@@ -1,0 +1,2 @@
+-r ../tv_training/requirements.txt
+tokenizers>=0.22,<0.24

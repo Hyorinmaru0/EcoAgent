@@ -1,0 +1,20 @@
+[
+  {
+    "archive": "C:\\Users\\Reeyan Carl\\Downloads\\laptop-defects.zip",
+    "original_images": 2010,
+    "identical_imported_images": 2010,
+    "missing_count": 0,
+    "different_count": 0,
+    "missing_examples": [],
+    "different_examples": []
+  },
+  {
+    "archive": "C:\\Users\\Reeyan Carl\\Downloads\\cracked-screen.zip",
+    "original_images": 1006,
+    "identical_imported_images": 1006,
+    "missing_count": 0,
+    "different_count": 0,
+    "missing_examples": [],
+    "different_examples": []
+  }
+]
