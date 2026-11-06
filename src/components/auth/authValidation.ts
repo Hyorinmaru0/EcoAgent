@@ -31,13 +31,14 @@ export const passwordHint = "Use 8–128 characters, including a letter and a nu
 
 function emailError(email: string) {
   if (!email.trim()) return "Enter your email address."
+  if (email.trim().length > 254) return "Use an email address with 254 characters or fewer."
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()))
     return "Enter a valid email address, such as you@example.com."
 }
 
 function passwordError(password: string) {
   if (!password) return "Enter your password."
-  if (password.length < 8 || !/[a-z]/i.test(password) || !/[0-9]/.test(password))
+  if (password.length < 8 || password.length > 128 || !/[a-z]/i.test(password) || !/[0-9]/.test(password))
     return passwordHint
 }
 
@@ -52,8 +53,8 @@ export function validateLogin(values: LoginValues): FieldErrors<LoginValues> {
 
 export function validateRegistration(values: RegistrationValues): FieldErrors<RegistrationValues> {
   const errors: FieldErrors<RegistrationValues> = validateLogin({ ...values, remember: false })
-  if (values.fullName.trim().length < 2)
-    errors.fullName = "Enter your full name (at least 2 characters)."
+  if (values.fullName.trim().length < 2 || values.fullName.trim().length > 100)
+    errors.fullName = "Enter your full name (2–100 characters)."
   if (!values.confirmPassword) errors.confirmPassword = "Confirm your password."
   else if (values.password !== values.confirmPassword)
     errors.confirmPassword = "Your passwords do not match."

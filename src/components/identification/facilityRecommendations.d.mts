@@ -8,6 +8,12 @@ export type FacilityRecord = {
   address?: string
   coordinates?: Coordinates
   operatingHours?: { days: string; opens: string; closes: string }[]
+  visitInfo?: {
+    hoursKind: string
+    note: string
+    checkedOn: string
+    sources: { label: string; url: string }[]
+  }
 }
 
 export type FacilityRecommendation = FacilityRecord & {

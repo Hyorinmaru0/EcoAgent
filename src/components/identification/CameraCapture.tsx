@@ -185,10 +185,12 @@ export function CameraCapture({ open, onClose, onCapture }: Props) {
     }
 
     context.drawImage(video, 0, 0, canvas.width, canvas.height)
+    const captureRun = runId.current
     const preview = canvas.toDataURL("image/jpeg", 0.82)
 
     canvas.toBlob(
       (blob) => {
+        if (captureRun !== runId.current) return
         if (!blob) {
           setStatus("error")
           setError({
@@ -210,11 +212,18 @@ export function CameraCapture({ open, onClose, onCapture }: Props) {
 
   useEffect(() => {
     if (!open) return
+    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null
     void startCamera()
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = "hidden"
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") close()
+      if (event.key === "Tab") {
+        const controls = [...document.querySelectorAll<HTMLElement>('.camera-dialog button:not(:disabled), .camera-dialog input:not(:disabled)')].filter((element) => element.getClientRects().length > 0)
+        const first = controls[0], last = controls[controls.length - 1]
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus() }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus() }
+      }
     }
     window.addEventListener("keydown", handleKeyDown)
     return () => {
@@ -222,6 +231,7 @@ export function CameraCapture({ open, onClose, onCapture }: Props) {
       stopStream()
       document.body.style.overflow = previousOverflow
       window.removeEventListener("keydown", handleKeyDown)
+      previousFocus?.focus()
     }
     // The camera restarts only when the dialog opens or closes.
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -236,7 +246,7 @@ export function CameraCapture({ open, onClose, onCapture }: Props) {
           <div>
             <h2>Take a device photo</h2>
             <p>
-              Point the camera at the TV, phone, or laptop. The photo stays on this device until you analyze it.
+              Point the camera at the TV, phone, or laptop. Choosing “Use photo” uploads it to the detector for automatic analysis.
             </p>
           </div>
           <button type="button" className="camera-close" onClick={close} aria-label="Close camera" autoFocus>

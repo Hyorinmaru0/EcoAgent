@@ -120,6 +120,27 @@ if (!coordinatesVersion) {
   }
 }
 
+// Update existing installations in place so saved facility foreign keys survive.
+const visitDetailsVersion = database.prepare("SELECT version FROM schema_migrations WHERE version = 3").get()
+if (!visitDetailsVersion) {
+  const update = database.prepare(`UPDATE facilities SET address = ?, operating_hours_json = ? WHERE municipality = ? AND name = ?`)
+  database.exec("BEGIN IMMEDIATE")
+  try {
+    for (const area of collectionData) {
+      for (const facility of area.locations) {
+        update.run(facility.address ?? null, JSON.stringify(facility.operatingHours ?? []), area.municipality, facility.name)
+      }
+    }
+    database.prepare("INSERT INTO schema_migrations (version) VALUES (3)").run()
+    database.exec("COMMIT")
+  } catch (error) {
+    database.exec("ROLLBACK")
+    throw error
+  }
+}
+
+const visitInformation = new Map(collectionData.flatMap((area) => area.locations.map((facility) => [JSON.stringify([area.municipality, facility.name]), facility.visitInfo])))
+
 export function getCollectionLocations() {
   const rows = database.prepare(`
     SELECT municipality, name, operator, accepted_devices, status, address,
@@ -136,6 +157,7 @@ export function getCollectionLocations() {
       status: row.status,
       ...(row.address ? { address: row.address } : {}),
       operatingHours: JSON.parse(row.operating_hours_json),
+      visitInfo: visitInformation.get(JSON.stringify([row.municipality, row.name])),
       ...(row.latitude !== null && row.longitude !== null
         ? { coordinates: { latitude: row.latitude, longitude: row.longitude, source: row.coordinate_source, venueName: row.coordinate_venue_name } }
         : {}),

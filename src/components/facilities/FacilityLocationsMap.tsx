@@ -1,3 +1,4 @@
+import { loadGoogleMaps } from "../identification/loadGoogleMaps"
 import { useEffect, useRef, useState } from "react"
 import "./facility-locations-map.css"
 
@@ -16,27 +17,6 @@ type GoogleMapState = {
   map: google.maps.Map
   markers: Map<string, google.maps.Marker>
   infoWindow: google.maps.InfoWindow
-}
-
-let googleMapsLoad: Promise<void> | null = null
-
-function loadGoogleMaps(apiKey: string) {
-  if (typeof google !== "undefined" && google.maps) return Promise.resolve()
-  if (!googleMapsLoad) {
-    googleMapsLoad = new Promise((resolve, reject) => {
-      const script = document.createElement("script")
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(apiKey)}&v=weekly`
-      script.async = true
-      script.dataset.ecocycleGoogleMaps = "true"
-      script.onload = () => typeof google !== "undefined" && google.maps ? resolve() : reject(new Error("Google Maps did not load"))
-      script.onerror = () => {
-        googleMapsLoad = null
-        reject(new Error("Google Maps could not load"))
-      }
-      document.head.append(script)
-    })
-  }
-  return googleMapsLoad
 }
 
 function createPopup(facility: MappedFacility) {
@@ -226,8 +206,8 @@ export function FacilityLocationsMap({ locations, searchQuery, municipality, cat
       {mapStatus === "ready" && <p className="facility-map-search-status" role="status">{searchMessage}</p>}
       {mapStatus !== "ready" && <div className="facility-map-message" role={mapStatus === "error" ? "alert" : "status"}>
         {mapStatus === "loading" && "Loading Google Maps…"}
-        {mapStatus === "missing-key" && <>Google Maps API key is not configured. Add <code>VITE_GOOGLE_MAPS_API_KEY</code> to your local <code>.env</code> file, then restart the dev server.</>}
-        {mapStatus === "error" && "Google Maps could not load. Check that the API key is valid and the Maps JavaScript API is enabled for it."}
+        {mapStatus === "missing-key" && <>The embedded map is unavailable. You can still browse facilities and open directions in Google Maps.</>}
+        {mapStatus === "error" && "The map could not load. Check your connection, or use the facility directions links."}
       </div>}
     </div>
   )

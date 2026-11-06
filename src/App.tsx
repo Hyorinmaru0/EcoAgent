@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from "react"
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react"
 import { AuthPage } from "./components/auth/AuthPage"
 import { FacilityLocationsMap } from "./components/facilities/FacilityLocationsMap"
 import type { AccountProfile } from "./components/auth/authValidation"
@@ -23,6 +23,7 @@ type CollectionLocation = {
   address?: string
   operatingHours: CollectionSchedule[]
   coordinates?: CollectionCoordinates
+  visitInfo?: FacilityRecord["visitInfo"]
 }
 type CollectionArea = { municipality: string; locations: CollectionLocation[] }
 type SelectedFacility = FacilityRecord & { municipality: string }
@@ -47,7 +48,7 @@ function facilityDirectionsUrl(name: string, municipality: string, address?: str
 type Page = "home" | "login" | "dashboard" | "identify" | "recommendations" | "facilities" | "facility" | "learn" | "flow" | "profile" | "items"
 
 type IconName = "recycle" | "arrow" | "leaf" | "pin" | "shield" | "robot" | "upload" | "camera" | "check" | "clock" | "search" | "grid" | "box" | "book" | "user" | "close" | "send" | "sparkles" | "phone" | "laptop" | "battery" | "tv" | "menu" | "plus" | "heart"
-type ChatMessage = { role: "bot" | "user" | "error"; text: string }
+type ChatMessage = { role: "bot" | "user" | "error"; text: string; source?: string; question?: string }
 
 function renderChatInline(text: string, keyPrefix: string): ReactNode[] {
   const segments = text.split(/(\*\*[^*]+\*\*|__[^_]+__|\*[^*\n]+\*|_[^_\n]+_)/g)
@@ -392,6 +393,7 @@ export default function App() {
   const [chatOpen, setChatOpen] = useState(false)
   const [chatInput, setChatInput] = useState("")
   const [isSending, setIsSending] = useState(false)
+  const chatRequest = useRef<AbortController | null>(null)
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: "bot",
@@ -404,9 +406,12 @@ export default function App() {
   const [profileSaving, setProfileSaving] = useState(false)
   const [savedSignature, setSavedSignature] = useState("")
   const saveKey = useRef({ signature: "", key: "" })
+  const latestItemSignature = useRef("")
   const authEpoch = useRef(0)
   const [collectionLocations, setCollectionLocations] = useState<CollectionArea[]>([])
   const [facilityDataError, setFacilityDataError] = useState("")
+  const [facilityRevision, setFacilityRevision] = useState(0)
+  const [facilityLoading, setFacilityLoading] = useState(true)
   const [userName, setUserName] = useState("Guest")
   const [userType, setUserType] = useState("General User")
   const [category, setCategory] = useState("")
@@ -438,35 +443,56 @@ export default function App() {
 
   useEffect(() => {
     let active = true
-    fetch("/api/facilities")
+    const controller = new AbortController()
+    const timer = window.setTimeout(() => controller.abort(), 20_000)
+    setFacilityLoading(true)
+    setFacilityDataError("")
+    fetch("/api/facilities", { signal: controller.signal })
       .then(async (response) => {
         if (!response.ok) throw new Error("Facility data is unavailable.")
         return response.json() as Promise<{ facilities: CollectionArea[] }>
       })
       .then((data) => {
+        if (!Array.isArray(data.facilities) || data.facilities.some((area) => typeof area.municipality !== "string" || !Array.isArray(area.locations) || area.locations.some((facility) =>
+          !facility || [facility.name, facility.operator, facility.acceptedDevices, facility.status].some((value) => typeof value !== "string") ||
+          (facility.operatingHours !== undefined && !Array.isArray(facility.operatingHours))))) throw new Error("Invalid facility records")
         if (active) setCollectionLocations(data.facilities)
       })
       .catch(() => {
-        if (active) setFacilityDataError("Hindi makuha ang facility data sa database. Tiyaking tumatakbo ang backend at i-refresh ang page.")
+        if (active) setFacilityDataError("We couldn't load the facility directory. Check your connection and try again.")
       })
-    return () => { active = false }
-  }, [])
+      .finally(() => { window.clearTimeout(timer); if (active) setFacilityLoading(false) })
+    return () => { active = false; controller.abort(); window.clearTimeout(timer) }
+  }, [facilityRevision])
 
   useEffect(() => {
     let active = true
-    const epoch = authEpoch.current
-    authRequest<{ user: AccountProfile | null }>("/api/auth/me")
-      .then(({ user }) => {
-        if (!active || !user || epoch !== authEpoch.current) return
-        setAccountProfile(user)
-        setUserName(user.fullName)
-        setUserType(user.userType)
-      })
-      .catch(() => {
-        // Keep the public site usable if the optional account service is unavailable.
-      })
-    return () => { active = false }
+    let checking = false
+    const refreshSession = async () => {
+      if (checking || document.visibilityState === "hidden") return
+      checking = true
+      const epoch = authEpoch.current
+      try {
+        const { user } = await authRequest<{ user: AccountProfile | null }>("/api/auth/me")
+        if (!active || epoch !== authEpoch.current) return
+        setAccountProfile((current) => JSON.stringify(current) === JSON.stringify(user) ? current : user)
+      } catch { /* Public pages remain available while the account service is offline. */ }
+      finally { checking = false }
+    }
+    void refreshSession()
+    window.addEventListener("focus", refreshSession)
+    document.addEventListener("visibilitychange", refreshSession)
+    return () => { active = false; window.removeEventListener("focus", refreshSession); document.removeEventListener("visibilitychange", refreshSession) }
   }, [])
+
+  useEffect(() => {
+    chatRequest.current?.abort()
+    chatRequest.current = null
+    setIsSending(false)
+    setMessages([{ role: "bot", text: "Hi! I'm EcoAgent Ask Bot. Ask me about a TV, phone, or laptop, safe handling, or collection facilities." }])
+    setChatInput("")
+    return () => { chatRequest.current?.abort(); chatRequest.current = null }
+  }, [accountProfile?.id])
 
   useEffect(() => {
     if (!tvDetection.result) { setCategorySuggestion(null); return }
@@ -520,7 +546,8 @@ export default function App() {
     setCategorySuggestion(null)
     setAnalyzed(false)
     if (!device.trim()) setDevice(`Old ${next}`)
-    if (await tvDetection.analyze(next)) setAnalyzed(true)
+    const signature = JSON.stringify([device.trim() ? device : `Old ${next}`, next, condition, quantity, photoName, photoFile?.lastModified])
+    if (await tvDetection.analyze(next) && signature === latestItemSignature.current) setAnalyzed(true)
   }
 
   const openFacility = (facility: SelectedFacility) => {
@@ -533,9 +560,12 @@ export default function App() {
     setUserName(accountProfile?.fullName || "Guest")
     setUserType(accountProfile?.userType || "General User")
     setProfileLocation(accountProfile?.location || "")
+  }, [accountProfile])
+
+  useEffect(() => {
     setSavedSignature("")
     saveKey.current = { signature: "", key: "" }
-  }, [accountProfile])
+  }, [accountProfile?.id])
 
   const requireAccount = () => {
     if (accountProfile) return true
@@ -547,7 +577,7 @@ export default function App() {
   const signOut = async (asGuest = false) => {
     authEpoch.current += 1
     try {
-      await authRequest<{ ok: boolean }>("/api/auth/logout", {})
+      await authRequest<{ ok: boolean }>("/api/auth/logout", {}, accountProfile?.id)
       setAccountProfile(null)
       userLocation.clearLocation()
       setPhoto(null); setPhotoFile(null); setPhotoName("")
@@ -560,6 +590,7 @@ export default function App() {
   }
   const isFacilitySaved = (facility: SelectedFacility) => saved.some((entry) => entry.name === facility.name && entry.municipality === facility.municipality)
   const itemSignature = JSON.stringify([device, category, condition, quantity, photoName, photoFile?.lastModified])
+  latestItemSignature.current = itemSignature
   const saveIdentifiedItem = async () => {
     if (!requireAccount() || !itemGuidanceReady || workspace.busy) return
     if (saveKey.current.signature !== itemSignature) saveKey.current = { signature: itemSignature, key: crypto.randomUUID() }
@@ -614,9 +645,9 @@ export default function App() {
   const municipalities = [...new Set(collectionLocations.map((entry) => entry.municipality))]
     .sort((a, b) => a.localeCompare(b))
   const mappedCollectionLocations = collectionLocations
-  const mappedFacilityPins = mappedCollectionLocations.flatMap((entry) => entry.locations.flatMap((facility) => facility.coordinates
+  const mappedFacilityPins = useMemo(() => mappedCollectionLocations.flatMap((entry) => entry.locations.flatMap((facility) => facility.coordinates
     ? [{ ...facility, municipality: entry.municipality, coordinates: facility.coordinates }]
-    : []))
+    : [])), [mappedCollectionLocations])
   const locationChoices: LocationChoice[] = municipalities.flatMap((municipality) => {
     const points = mappedFacilityPins.filter((facility) => facility.municipality === municipality)
     if (!points.length) return []
@@ -685,11 +716,14 @@ export default function App() {
   }
   const sendMessage = async (text = chatInput) => {
     const question = text.trim()
-    if (!question || isSending) return
+    if (!question || isSending || chatRequest.current) return
     setMessages((current) => [...current, { role: "user", text: question }])
     setChatInput("")
     setIsSending(true)
 
+    const controller = new AbortController()
+    chatRequest.current = controller
+    const timeout = window.setTimeout(() => controller.abort(), 50_000)
     try {
       const history = messages
         .filter((message) => message.role !== "error")
@@ -702,8 +736,9 @@ export default function App() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: question, history }),
+        signal: controller.signal,
       })
-      const result: { answer?: string; error?: string } | null =
+      const result: { answer?: string; error?: string; topic?: string } | null =
         await apiResponse.json().catch(() => null)
       if (!apiResponse.ok) {
         throw new Error(
@@ -712,14 +747,18 @@ export default function App() {
         )
       }
       const answer = result?.answer
+      if (chatRequest.current !== controller) return
       if (typeof answer !== "string" || !answer.trim()) {
         throw new Error("The assistant service returned an empty or invalid answer.")
       }
-      setMessages((current) => [...current, { role: "bot", text: answer }])
+      setMessages((current) => [...current, { role: "bot", text: answer, source: result?.topic === "gemini-chat" ? "Gemini" : "Local guidance" }])
     } catch (error) {
+      if (chatRequest.current !== controller) return
       console.error("EcoAgent Ask Bot request failed:", error)
       const errorText =
-        error instanceof TypeError
+        controller.signal.aborted
+          ? "The assistant took too long to respond. Please try again."
+          : error instanceof TypeError
           ? "Couldn't connect to the assistant service. Check your connection and try again."
           : error instanceof Error
             ? error.message
@@ -729,10 +768,12 @@ export default function App() {
         {
           role: "error",
           text: errorText,
+          question,
         },
       ])
     } finally {
-      setIsSending(false)
+      window.clearTimeout(timeout)
+      if (chatRequest.current === controller) { chatRequest.current = null; setIsSending(false) }
     }
   }
 
@@ -1185,9 +1226,10 @@ export default function App() {
                     <form
                       onSubmit={async (event) => {
                         event.preventDefault()
+                        const signature = itemSignature
                         setAnalyzed(false)
                         if (userLocation.status !== "loading") userLocation.requestLocation()
-                        if (await tvDetection.analyze()) setAnalyzed(true)
+                        if (await tvDetection.analyze() && signature === latestItemSignature.current) setAnalyzed(true)
                       }}
                     >
                       <Field label="Search Electronic Item">
@@ -1289,6 +1331,8 @@ export default function App() {
                       <Field label="Item Name">
                         <input
                           required
+                          maxLength={120}
+                          pattern=".*\S.*"
                           value={device}
                             onChange={(event) => { setDevice(event.target.value); setAnalyzed(false) }}
                           placeholder="e.g. Old Laptop"
@@ -1503,8 +1547,8 @@ export default function App() {
                   </select>
                   {hasDirectoryFilters && <Button variant="text" onClick={clearDirectoryFilters}>Clear filters</Button>}
                 </div>
-                {facilityDataError && <p role="alert" className="demo-note">{facilityDataError}</p>}
-                {!facilityDataError && collectionLocations.length === 0 && <p role="status" className="demo-note">Loading facility data…</p>}
+                {facilityDataError && <div role="alert" className="demo-note"><p>{facilityDataError}</p><Button variant="secondary" onClick={() => setFacilityRevision((value) => value + 1)}>Try loading again</Button></div>}
+                {facilityLoading && <p role="status" className="demo-note">Loading facility data…</p>}
                 <section className="facility-map-section" aria-labelledby="all-facilities-map-title">
                   <div className="section-heading">
                     <h2 id="all-facilities-map-title">All mapped collection locations</h2>
@@ -1558,9 +1602,10 @@ export default function App() {
                                   {!location.coordinates && <small>No confirmed map pin for this location</small>}
                                 {location.operatingHours?.map((schedule) => (
                                   <small key={`${schedule.days}-${schedule.opens}-${schedule.closes}`}>
-                                    Hours: {schedule.days}, {schedule.opens}–{schedule.closes}
+                                    {location.visitInfo?.hoursKind || "Hours"}: {schedule.days}, {schedule.opens}–{schedule.closes}
                                   </small>
                                 ))}
+                                {location.visitInfo && <small>{location.visitInfo.note}</small>}
                                 <a
                                   className="collection-directions-link"
                                   href={facilityDirectionsUrl(location.name, entry.municipality, location.address, location.coordinates)}
@@ -1596,9 +1641,8 @@ export default function App() {
                   </Button>
                 </div>
                 <p className="demo-note">
-                  The facility cards below are illustrative examples. Community
-                  collection options above reflect project-provided listings;
-                  verify status, access, accepted items, and schedules directly.
+                  Review each facility's source links and schedule notes. Confirm
+                  collection access and device acceptance with the operator before visiting.
                 </p>
               </>
             )}
@@ -1616,10 +1660,15 @@ export default function App() {
                       <div><dt>Address</dt><dd>{selectedFacility.address || "Address not provided"}</dd></div>
                       <div><dt>Accepted devices</dt><dd>{selectedFacility.acceptedDevices}</dd></div>
                       <div><dt>Collection status</dt><dd>{selectedFacility.status}</dd></div>
-                      <div><dt>Operating hours</dt><dd>{selectedFacility.operatingHours?.length
+                      <div><dt>{selectedFacility.visitInfo?.hoursKind || "Operating hours"}</dt><dd>{selectedFacility.operatingHours?.length
                         ? selectedFacility.operatingHours.map((schedule) => <p key={`${schedule.days}-${schedule.opens}-${schedule.closes}`}>{schedule.days}, {schedule.opens} - {schedule.closes}</p>)
                         : "Schedule not provided. Confirm with the facility before visiting."}</dd></div>
                     </dl>
+                    {selectedFacility.visitInfo && <div className="facility-visit-note">
+                      <p>{selectedFacility.visitInfo.note}</p>
+                      <small>Sources reviewed: {selectedFacility.visitInfo.checkedOn}. Times are in Philippine time.</small>
+                      <ul>{selectedFacility.visitInfo.sources.map((source) => <li key={source.url}><a href={source.url} target="_blank" rel="noreferrer">{source.label} <Icon name="arrow" size={13} /></a></li>)}</ul>
+                    </div>}
                     <div className="assistant-actions">
                       <a className="btn btn-primary" href={facilityDirectionsUrl(selectedFacility.name, selectedFacility.municipality, selectedFacility.address, selectedFacility.coordinates)} target="_blank" rel="noreferrer">Get directions <Icon name="arrow" size={16} /></a>
                       <Button variant="secondary" disabled={workspace.busy || workspace.loading} onClick={() => toggleSaved(selectedFacility)}>{isFacilitySaved(selectedFacility) ? "Remove Saved Facility" : accountProfile ? "Save Facility" : "Sign in to save facility"}</Button>
@@ -1828,8 +1877,13 @@ export default function App() {
                   "Your profile",
                   "Review your account profile and local preferences.",
                 )}
+                <section className="profile-overview">
+                  <div className="profile-avatar" aria-hidden="true">{(accountProfile?.fullName || userName).trim().split(/\s+/).slice(0, 2).map((part) => part[0]).join("").toUpperCase()}</div>
+                  <div><span className="eyebrow">YOUR PERSONAL SPACE</span><h2>{accountProfile?.fullName || "Welcome, guest"}</h2><p>{accountProfile?.email || "Sign in to keep your e-waste journey in one place."}</p><span className="badge">{accountProfile?.userType || "Guest"}</span></div>
+                  <div className="profile-summary"><button onClick={() => go("items")}><strong>{workspace.loading ? "?" : workspace.items.length}</strong><span>Saved items</span></button><button onClick={() => go("recommendations")}><strong>{workspace.loading ? "?" : workspace.savedFacilities.length}</strong><span>Saved facilities</span></button></div>
+                </section>
                 <section className="panel profile-panel">
-                  <div className="profile-avatar">{userName[0]}</div>
+                  <div className="profile-section-intro"><h2>Personal information</h2><p>Keep your details up to date. Your location helps personalize facility suggestions.</p></div>
                   <form
                     onSubmit={async (event) => {
                       event.preventDefault()
@@ -1843,10 +1897,14 @@ export default function App() {
                       finally { setProfileSaving(false) }
                     }}
                   >
-                    {accountProfile && <p>Email: {accountProfile.email}</p>}
+                    {accountProfile && <Field label="Email address"><input type="email" value={accountProfile.email} readOnly autoComplete="email" /><small className="profile-help">This email is linked to your sign-in account.</small></Field>}
                     <Field label="Full Name">
                       <input
                         required
+                        minLength={2}
+                        maxLength={100}
+                        autoComplete="name"
+                        disabled={profileSaving}
                         value={userName}
                         onChange={(event) => setUserName(event.target.value)}
                       />
@@ -1861,19 +1919,25 @@ export default function App() {
                         <option>General User</option>
                       </select>
                     </Field>
-                    <Field label="Location">
+                    <Field label="Location (optional)">
                       <input
-                        required
+                        maxLength={200}
+                        autoComplete="address-level2"
+                        placeholder="e.g. Quezon City"
+                        disabled={profileSaving}
                         value={profileLocation}
                         onChange={(event) =>
                           setProfileLocation(event.target.value)
                         }
                       />
                     </Field>
-                    <Button type={accountProfile ? "submit" : "button"} disabled={profileSaving} onClick={() => { if (!accountProfile) requireAccount() }}>
+                    <div className="profile-actions">
+                    {accountProfile && <Button variant="secondary" type="button" disabled={profileSaving} onClick={() => { setUserName(accountProfile.fullName); setUserType(accountProfile.userType); setProfileLocation(accountProfile.location || "") }}>Cancel changes</Button>}
+                    <Button type={accountProfile ? "submit" : "button"} disabled={profileSaving || Boolean(accountProfile && userName === accountProfile.fullName && userType === accountProfile.userType && profileLocation === (accountProfile.location || ""))} onClick={() => { if (!accountProfile) requireAccount() }}>
                       {profileSaving ? "Saving..." : accountProfile ? "Save Changes" : "Sign in to save changes"}
                       <Icon name="check" size={17} />
                     </Button>
+                    </div>
                   </form>
                   {accountProfile && <Button variant="secondary" onClick={() => { void signOut() }}>Sign out</Button>}
                 </section>
@@ -1953,13 +2017,13 @@ export default function App() {
                 {message.role === "bot" && <Icon name="robot" size={19} />}
                 {message.role === "bot" ? (
                   <div className="chat-response">
-                    <span className="chat-response-label">EcoAgent guidance</span>
+                    <span className="chat-response-label">{message.source || "EcoAgent guidance"}</span>
                     <div className="chat-response-text">
                       {renderChatResponse(message.text)}
                     </div>
                   </div>
                 ) : (
-                  <p>{message.text}</p>
+                  <div><p>{message.text}</p>{message.role === "error" && message.question && <button className="chat-retry" disabled={isSending} onClick={() => sendMessage(message.question)}>Try again</button>}</div>
                 )}
               </div>
             ))}
@@ -2012,6 +2076,7 @@ export default function App() {
           >
             <input
               ref={chatInputRef}
+              maxLength={500}
               value={chatInput}
               onChange={(event) => setChatInput(event.target.value)}
               placeholder="Ask about a TV, phone, or laptop…"

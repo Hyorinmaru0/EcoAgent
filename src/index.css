@@ -606,3 +606,25 @@ td { color: #627750; font-size: 11px; }
 
 .workflow-steps { display: flex; justify-content: space-between; flex-wrap: wrap; }
 .workflow-steps > span.completed { color: var(--green, #15803d); }
+
+/* Account overview and editing */
+.profile-overview { display: flex; align-items: center; gap: 24px; padding: 30px; margin-bottom: 24px; background: linear-gradient(120deg, #eef5e7, #fafcf7); border: 1px solid var(--line); border-radius: 16px; }
+.profile-overview .profile-avatar { flex-shrink: 0; margin: 0; width: 76px; height: 76px; display: grid; place-items: center; font-size: 26px; background: #dcebcf; color: #375c30; border-radius: 24px; }
+.profile-overview h2 { margin: 8px 0; overflow-wrap: anywhere; }
+.profile-overview p { font-size: 13px; color: #657955; margin-bottom: 12px; overflow-wrap: anywhere; }
+.profile-summary { display: flex; gap: 12px; margin-left: auto; }
+.profile-summary button { display: grid; gap: 8px; min-width: 110px; padding: 18px; border: 1px solid #dce6d4; border-radius: 12px; background: #ffffffb0; color: #456337; cursor: pointer; }
+.profile-summary strong { font-size: 28px; }.profile-summary span { font-size: 11px; }
+.profile-panel { max-width: none; display: grid; grid-template-columns: minmax(180px, .8fr) minmax(0, 1.4fr); gap: 24px; align-items: start; }
+.profile-panel form { width: 100%; max-width: none; }.profile-panel > .btn { justify-self: start; }
+.profile-section-intro h2 { font-size: 20px; margin-bottom: 12px; }.profile-section-intro p { font-size: 13px; line-height: 1.8; color: #657955; }
+.profile-help { display: block; color: #657955; font-size: 11px; margin-top: 8px; }
+.profile-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; margin-top: 24px; }
+.profile-panel input[readonly] { background: #f4f6f1; color: #657955; }
+.chat-retry { margin-top: 8px; padding: 6px 12px; border: 1px solid #d5dfcd; border-radius: 8px; background: white; color: #456337; }
+.facility-visit-note { margin: 20px 0; padding: 18px; border: 1px solid #dce6d4; border-radius: 10px; background: #f6f9f2; color: #456337; font-size: 13px; line-height: 1.7; }
+.facility-visit-note small { display: block; margin-top: 8px; }
+.facility-visit-note ul { margin: 10px 0 0; padding-left: 18px; }
+.facility-visit-note a { color: #375c30; text-decoration: underline; overflow-wrap: anywhere; }
+.chat-message.user > div { max-width: 93%; }.chat-message.user p { max-width: 100%; }
+@media (max-width: 760px) { .profile-overview { flex-wrap: wrap; padding: 22px; gap: 16px; }.profile-summary { margin-left: 0; width: 100%; }.profile-summary button { flex: 1; }.profile-panel { grid-template-columns: 1fr; }.profile-actions .btn { flex: 1; } }

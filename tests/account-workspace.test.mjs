@@ -41,10 +41,14 @@ test("account workspace persists records and isolates two authenticated users", 
   const duplicate = await api("/api/account/items", first.cookie, entry)
   assert.equal(duplicate.body.items.length, 1, "Retry must not create duplicate items")
   assert.equal((await api("/api/account/items", first.cookie, { ...entry, quantity: -1 })).status, 400)
+  assert.equal((await api("/api/account/items", first.cookie, { ...entry, clientKey: "-".repeat(36) })).status, 400, "Malformed idempotency keys must be rejected")
+  assert.equal((await api("/api/account/profile", first.cookie, { fullName: "Account One", userType: "Student", location: 42 })).status, 400, "Invalid location types must not erase preferences")
   assert.equal((await api("/api/account/items", first.cookie, entry, { Origin: "https://other.example" })).status, 403)
   assert.equal((await api("/api/account/items", second.cookie, entry, { "X-EcoCycle-Account": String(first.body.user.id) })).status, 409,
     "A stale tab must not write to a different account after another tab signs in")
   assert.deepEqual((await api("/api/account/data", second.cookie)).body, { items: [], savedFacilities: [] })
+  assert.equal((await api("/api/auth/logout", second.cookie, {}, { "X-EcoCycle-Account": String(first.body.user.id) })).status, 409)
+  assert.equal((await api("/api/auth/me", second.cookie)).body.user.id, second.body.user.id, "An old tab cannot log out a different account")
   assert.equal((await api("/api/account/items/remove", second.cookie, { id: saved.body.items[0].id })).status, 404)
   const area = getCollectionLocations()[0], facility = area.locations[0]
   const bookmark = { name: facility.name, municipality: area.municipality, saved: true }
@@ -62,5 +66,8 @@ test("account workspace persists records and isolates two authenticated users", 
   const restored = await api("/api/account/data", login.cookie)
   assert.equal(restored.body.items.length, 1)
   assert.equal(restored.body.savedFacilities.length, 1)
-  assert.equal((await api("/api/account/items/remove", login.cookie, { id: saved.body.items[0].id })).body.items.length, 0)
+  const relogin = await api("/api/auth/login", login.cookie, { email: registration.email, password: registration.password })
+  assert.equal(relogin.status, 200)
+  assert.equal((await api("/api/auth/me", login.cookie)).body.user, null, "Signing in again rotates the previous browser session")
+  assert.equal((await api("/api/account/items/remove", relogin.cookie, { id: saved.body.items[0].id })).body.items.length, 0)
 })

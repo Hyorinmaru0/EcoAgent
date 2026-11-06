@@ -1,4 +1,4 @@
-import { ApiError, GoogleGenAI } from "@google/genai"
+import { GoogleGenAI } from "@google/genai"
 import { getCollectionLocations } from "./facility-database.mjs"
 
 
@@ -89,6 +89,7 @@ function formatLocationBullets(locations) {
                 .join("; ")}`
             : "",
         ].filter(Boolean)
+        if (location.visitInfo) details.push(`${location.visitInfo.hoursKind}: ${location.visitInfo.note}`)
         return `• ${location.name} (${location.operator}) — ${details.join("; ")}`
       },
     )
@@ -406,7 +407,7 @@ ted or when a site is open.`,
 }
 
 async function createGeminiAnswer(question, history) {
-  const model = process.env.GEMINI_MODEL || "gemini-3.1-flash-lite"
+  const model = process.env.GEMINI_MODEL || "gemini-3.5-flash-lite"
   const contents = history.map((entry) => ({
     role: entry.role === "assistant" ? "model" : "user",
     parts: [{ text: entry.content }],
@@ -416,9 +417,9 @@ async function createGeminiAnswer(question, history) {
   // Use the SDK's standard HTTP transport. Do not override its fetch function.
   const ai = new GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY,
-    httpOptions: { timeout: 60000 },
+    httpOptions: { timeout: 20000, retryOptions: { attempts: 1 } },
   })
-  const maxAttempts = 3
+  const maxAttempts = 2
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
       const response = await ai.models.generateContent({
@@ -444,14 +445,7 @@ async function createGeminiAnswer(question, history) {
       const status = Number(error?.status ?? error?.code) ||
         Number(error?.message?.match(/"code"\s*:\s*(\d{3})/)?.[1]) || undefined
       const message = error instanceof Error ? error.message : String(error)
-      console.error("Gemini request failed:", {
-        model,
-        attempt,
-        status: status ?? "unknown",
-        name: error?.name,
-        message,
-        cause: error?.cause?.message,
-      })
+      console.error("Gemini request failed:", { model, attempt, status: status ?? "unknown", name: error?.name })
       // Retry temporary server overloads, but never retry permission/model errors.
       if ([429, 500, 502, 503, 504].includes(status) && attempt < maxAttempts) {
         const delay = 1000 * 2 ** (attempt - 1) + Math.floor(Math.random() * 300)
@@ -513,7 +507,7 @@ async function handleEcoBotRequest(req, res) {
     sendJson(res, 405, { error: "Use POST to send a question to EcoAgent Ask Bot." })
     return
   }
-  if (!req.headers["content-type"]?.toLowerCase().startsWith("application/json")) {
+  if (!/^application\/json(?:\s*;|$)/i.test(req.headers["content-type"] || "")) {
     sendJson(res, 415, { error: "Content-Type must be application/json." })
     return
   }
@@ -595,8 +589,8 @@ export function ecoBotMiddleware(req, res, next) {
   handleEcoBotRequest(req, res).catch((error) => {
     if (error instanceof ApiRequestError) {
       sendJson(res, error.status, { error: error.message })
-    }
       return
+    }
     console.error("EcoBot API request failed:", error)
     sendJson(res, 500, { error: "EcoBot could not process that request." })
   })

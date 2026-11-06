@@ -118,7 +118,7 @@ describe("EcoAgent Ask Bot project knowledge API", () => {
     assert.match(body.answer, /have not been independently verified/i)
   })
 
-  it("includes supplied operating schedules and marks unverified hours", async () => {
+  it("includes sourced branch schedules and collection-access notes", async () => {
     const result = await fetch(`${baseUrl}/api/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -130,9 +130,10 @@ describe("EcoAgent Ask Bot project knowledge API", () => {
 
     assert.equal(result.status, 200)
     assert.equal(body.topic, "community-collection-locations")
-    assert.match(body.answer, /Hours: Mon–Thu, opens 11am, closes 9pm/)
-    assert.match(body.answer, /Friday, opens 11am, closes 10pm/)
-    assert.match(body.answer, /Hours: Unverified, opens Confirm, closes Confirm/)
+    assert.match(body.answer, /Hours: Mon-Thu, opens 11am, closes 9pm/)
+    assert.match(body.answer, /Fri, opens 11am, closes 10pm/)
+    assert.match(body.answer, /Hours: Mon-Fri, opens 8:30am, closes 5:30pm/)
+    assert.match(body.answer, /Published PLDT\/Smart branch hours/)
     assert.match(body.answer, /confirm current operation, schedule/i)
   })
 
@@ -165,7 +166,7 @@ describe("EcoAgent Ask Bot project knowledge API", () => {
     assert.match(body.answer, /Bagong Silang TSD Facility/)
     assert.match(body.answer, /Accepted: Mobile phones and CRT televisions/i)
     assert.match(body.answer, /confirm acceptance of laptops and flat-screen TVs/i)
-    assert.match(body.answer, /Address: Phase 2, Package 3, Bagong Silang/i)
+    assert.match(body.answer, /Address: Phase 2, Package 3, Barangay 176, Bagong Silang/i)
   })
 
   it("does not return unlisted no-drop-off municipalities as collection locations", async () => {
@@ -192,9 +193,9 @@ describe("EcoAgent Ask Bot project knowledge API", () => {
     const body = await result.json()
 
     assert.equal(result.status, 200)
-    assert.match(body.answer, /Caloocan\n• SM City Grand Central/)
-    assert.match(body.answer, /Quezon City\n• SM North EDSA/)
-    assert.match(body.answer, /Parañaque\n• SM City BF Parañaque/)
+    assert.match(body.answer, /Caloocan\n[\s\S]*?• SM City Grand Central/)
+    assert.match(body.answer, /Quezon City\n[\s\S]*?• SM North EDSA/)
+    assert.match(body.answer, /Parañaque\n[\s\S]*?• SM City BF Parañaque/)
     assert.match(body.answer, /• Vertis North/)
     assert.doesNotMatch(body.answer, /\b(?:Navotas|Pateros)\b/)
     assert.doesNotMatch(body.answer, /No permanent public e-waste drop-off point verified/)
@@ -228,10 +229,10 @@ describe("EcoAgent Ask Bot project knowledge API", () => {
 
     assert.equal(result.status, 200)
     assert.equal(body.topic, "facility-directory")
-    assert.match(body.answer, /Quezon City\n• SM North EDSA/)
+    assert.match(body.answer, /Quezon City\n[\s\S]*?• SM North EDSA/)
     assert.match(body.answer, /• Vertis North/)
     assert.match(body.answer, /Accepted: Mobile phones and laptops/i)
-    assert.match(body.answer, /Hours: Sun–Thu, opens 11am, closes 9pm/)
+    assert.match(body.answer, /Hours: Sun-Thu, opens 11am, closes 9pm/)
     assert.doesNotMatch(body.answer, /\*/)
     assert.match(body.answer, /acceptance notes may require confirmation/i)
     assert.doesNotMatch(body.answer, /GreenTech|Monday–Friday|9:00 AM/i)
@@ -497,7 +498,7 @@ describe("EcoAgent Ask Bot project knowledge API", () => {
     assert.equal((await result.json()).status, "ok")
   })
 
-  it("uses Gemini 3.1 Flash-Lite by default with EcoAgent project data and conversation history", async () => {
+  it("uses Gemini 3.5 Flash-Lite by default with EcoAgent project data and conversation history", async () => {
     const previousKey = process.env.GEMINI_API_KEY
     const previousModel = process.env.GEMINI_MODEL
     process.env.GEMINI_API_KEY = "test-only-key"
@@ -538,7 +539,7 @@ describe("EcoAgent Ask Bot project knowledge API", () => {
       assert.match(body.answer, /Repair or reuse/)
       assert.match(
         providerRequest.url,
-        /models\/gemini-3\.1-flash-lite:generateContent$/,
+        /models\/gemini-3\.5-flash-lite:generateContent$/,
       )
       const providerHeaders = new Headers(providerRequest.options.headers)
       assert.equal(providerHeaders.get("x-goog-api-key"), "test-only-key")
@@ -594,6 +595,32 @@ describe("EcoAgent Ask Bot project knowledge API", () => {
       assert.equal(body.topic, "local-fallback")
       assert.match(body.answer, /Gemini could not answer/i)
       assert.match(body.answer, /not a Gemini-generated response/i)
+      assert.match(body.answer, /avoid dismantling it/i)
+      assert.doesNotMatch(JSON.stringify(body), /test-only-key/)
+    } finally {
+      globalThis.fetch = originalFetch
+      if (previousKey === undefined) delete process.env.GEMINI_API_KEY
+      else process.env.GEMINI_API_KEY = previousKey
+    }
+  })
+
+  it("returns local guidance when Gemini returns an empty candidate", async () => {
+    const previousKey = process.env.GEMINI_API_KEY
+    process.env.GEMINI_API_KEY = "test-only-key"
+    globalThis.fetch = async (url, options) => {
+      if (!String(url).includes("generativelanguage.googleapis.com")) return originalFetch(url, options)
+      return new Response(JSON.stringify({ candidates: [{ content: { parts: [] }, finishReason: "STOP" }] }), {
+        status: 200, headers: { "Content-Type": "application/json" },
+      })
+    }
+    try {
+      const response = await fetch(`${baseUrl}/api/chat`, {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: "How should I handle a laptop?" }),
+      })
+      const body = await response.json()
+      assert.equal(response.status, 200)
+      assert.equal(body.topic, "local-fallback")
       assert.match(body.answer, /avoid dismantling it/i)
       assert.doesNotMatch(JSON.stringify(body), /test-only-key/)
     } finally {

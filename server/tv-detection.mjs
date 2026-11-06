@@ -155,7 +155,7 @@ export function createTvDetectionMiddleware({ detect = runTvDetector } = {}) {
     const cancel = () => { if (!res.writableEnded) controller.abort() }
     res.on("close", cancel)
     ;(async () => {
-      if (!req.headers["content-type"]?.toLowerCase().startsWith("application/json"))
+      if (!/^application\/json(?:\s*;|$)/i.test(req.headers["content-type"] || ""))
         throw new DetectionError(415, "Send the photo as an application/json request.")
       const body = await readJson(req)
       const category = body?.category ?? "TV"

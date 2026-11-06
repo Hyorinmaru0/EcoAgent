@@ -165,6 +165,8 @@ async function createSession(req, res, user) {
   const token = randomBytes(32).toString("hex")
   const expiry = Date.now() + sessionLifetimeMs
   database.prepare("DELETE FROM auth_sessions WHERE expires_at <= ?").run(Date.now())
+  const previousToken = sessionToken(req)
+  if (/^[a-f0-9]{64}$/.test(previousToken)) database.prepare("DELETE FROM auth_sessions WHERE token_hash = ?").run(tokenHash(previousToken))
   database.prepare("INSERT INTO auth_sessions (token_hash, user_id, expires_at) VALUES (?, ?, ?)")
     .run(tokenHash(token), user.id, expiry)
   res.setHeader("Set-Cookie", sessionCookieValue(req, token, Math.floor(sessionLifetimeMs / 1000)))
@@ -178,16 +180,17 @@ async function handle(req, res, pathname) {
       throw new AuthError(409, "Your signed-in account changed in another tab. Reload this page before continuing.")
     }
     if (pathname === "/api/account/data") {
-      if (req.method !== "GET") return json(res, 405, { error: "Use GET to load account data." })
+      if (req.method !== "GET") { res.setHeader("Allow", "GET"); return json(res, 405, { error: "Use GET to load account data." }) }
       return json(res, 200, accountData(user.id))
     }
-    if (req.method !== "POST") return json(res, 405, { error: "Use POST for this account action." })
+    if (req.method !== "POST") { res.setHeader("Allow", "POST"); return json(res, 405, { error: "Use POST for this account action." }) }
     enforceSameOrigin(req)
     const body = await readBody(req)
     const text = (value, max) => typeof value === "string" ? value.trim().slice(0, max) : ""
     if (pathname === "/api/account/profile") {
       const name = text(body.fullName, 101), location = text(body.location, 201)
-      if (name.length < 2 || name.length > 100 || location.length > 200 || !allowedUserTypes.has(body.userType)) {
+      if (name.length < 2 || name.length > 100 || location.length > 200 ||
+          (body.location !== undefined && typeof body.location !== "string") || !allowedUserTypes.has(body.userType)) {
         throw new AuthError(400, "Enter a valid name, user type, and location (up to 200 characters).")
       }
       database.exec("BEGIN IMMEDIATE")
@@ -203,7 +206,7 @@ async function handle(req, res, pathname) {
       if (!name || name.length > 120 || !["TV", "Mobile Phone", "Laptop"].includes(body.category) ||
           !["Working", "Damaged", "Broken", "Unknown"].includes(body.condition) ||
           !Number.isInteger(body.quantity) || body.quantity < 1 || body.quantity > 100 ||
-          !/^[a-f0-9-]{36}$/i.test(body.clientKey || "") || !["manual", "photo"].includes(body.analysisKind)) {
+          typeof body.clientKey !== "string" || !/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(body.clientKey) || !["manual", "photo"].includes(body.analysisKind)) {
         throw new AuthError(400, "Enter a supported device, condition, quantity (1-100), and valid analysis record.")
       }
       database.prepare(`INSERT INTO account_items
@@ -242,6 +245,10 @@ async function handle(req, res, pathname) {
   const body = await readBody(req)
 
   if (pathname === "/api/auth/logout") {
+    const user = currentUser(req)
+    if (user && req.headers["x-ecocycle-account"] && req.headers["x-ecocycle-account"] !== String(user.id)) {
+      throw new AuthError(409, "Your signed-in account changed in another tab. Reload this page before continuing.")
+    }
     const token = sessionToken(req)
     if (/^[a-f0-9]{64}$/.test(token)) database.prepare("DELETE FROM auth_sessions WHERE token_hash = ?").run(tokenHash(token))
     res.setHeader("Set-Cookie", clearSessionCookie(req))

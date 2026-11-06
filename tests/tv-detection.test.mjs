@@ -329,7 +329,8 @@ test("nearest facility renders a pinned map and directions, while denied locatio
   const { createElement } = await import("react")
   const { renderToStaticMarkup } = await import("react-dom/server")
   const { createServer: createViteServer } = await import("vite")
-  const vite = await createViteServer({ server: { middlewareMode: true }, appType: "custom" })
+  const { default: react } = await import("@vitejs/plugin-react")
+  const vite = await createViteServer({ configFile: false, plugins: [react()], server: { middlewareMode: true, watch: null, hmr: false }, optimizeDeps: { noDiscovery: true, entries: [] }, appType: "custom" })
   try {
     const { NearestFacilityPanel } = await vite.ssrLoadModule("/src/components/identification/NearestFacilityPanel.tsx")
     const position = { ...coordinateData.locations["Quezon City/SM North EDSA"], accuracy: 10 }

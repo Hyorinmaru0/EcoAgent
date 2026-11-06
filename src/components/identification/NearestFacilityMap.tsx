@@ -1,33 +1,10 @@
+import { loadGoogleMaps } from "./loadGoogleMaps"
 import { useEffect, useRef, useState } from "react"
 import type { FacilityRecommendation } from "./facilityRecommendations.mjs"
 import type { UserLocation } from "./useUserLocation"
 
 type Props = { position: UserLocation | null; facility: FacilityRecommendation | null }
 type MapStatus = "loading" | "ready" | "missing-key" | "error"
-
-let mapsLoad: Promise<void> | null = null
-
-function loadGoogleMaps(apiKey: string) {
-  if (typeof google !== "undefined" && google.maps) return Promise.resolve()
-  if (!mapsLoad) {
-    mapsLoad = new Promise((resolve, reject) => {
-      const script = document.createElement("script")
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(apiKey)}&v=weekly`
-      script.async = true
-      script.dataset.ecocycleNearestMaps = "true"
-      script.onload = () => {
-        if (typeof google !== "undefined" && google.maps) resolve()
-        else reject(new Error("Google Maps did not initialize."))
-      }
-      script.onerror = () => {
-        mapsLoad = null
-        reject(new Error("Google Maps could not load."))
-      }
-      document.head.append(script)
-    })
-  }
-  return mapsLoad
-}
 
 function markerIcon(color: string): google.maps.Symbol {
   return {
@@ -154,8 +131,8 @@ export function NearestFacilityMap({ position, facility }: Props) {
         {status !== "ready" && (
           <div className="nearest-map-message" role={status === "error" ? "alert" : "status"}>
             {status === "loading" && "Loading map..."}
-            {status === "missing-key" && "Map is unavailable because the Google Maps API key is not configured."}
-            {status === "error" && "Map could not load. Check the Google Maps API key and network connection."}
+            {status === "missing-key" && "The embedded map is unavailable. Use the directions link to open Google Maps."}
+            {status === "error" && "The map could not load. Check your connection, or use the directions link."}
           </div>
         )}
       </div>

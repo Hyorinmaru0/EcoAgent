@@ -20,6 +20,12 @@ const validRegistration = {
   terms: true,
 }
 
+test("client validation enforces the API's maximum field lengths", () => {
+  assert.ok(validateLogin({ ...validLogin, password: "a1".repeat(65) }).password)
+  assert.ok(validateLogin({ ...validLogin, email: "a".repeat(250) + "@example.com" }).email)
+  assert.ok(validateRegistration({ ...validRegistration, fullName: "x".repeat(101) }).fullName)
+})
+
 test("login rejects empty fields and malformed emails", () => {
   assert.ok(validateLogin({ ...validLogin, email: "", password: "" }).email)
   assert.ok(validateLogin({ ...validLogin, email: "", password: "" }).password)
@@ -78,7 +84,8 @@ test("blocked browser storage does not block demo login", () => {
 
 test("auth components render the existing layout and accessible form controls", async () => {
   const { createServer } = await import("vite")
-  const server = await createServer({ server: { middlewareMode: true }, appType: "custom" })
+  const { default: react } = await import("@vitejs/plugin-react")
+  const server = await createServer({ configFile: false, plugins: [react()], server: { middlewareMode: true, watch: null, hmr: false }, optimizeDeps: { noDiscovery: true, entries: [] }, appType: "custom" })
   try {
     const { AuthPage } = await server.ssrLoadModule("/src/components/auth/AuthPage.tsx")
     const { RegistrationForm } = await server.ssrLoadModule("/src/components/auth/RegistrationForm.tsx")

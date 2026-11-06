@@ -1,0 +1,710 @@
+{
+  "baseUrl": "http://127.0.0.1:5190",
+  "generatedAt": "2026-11-06T14:02:39.740Z",
+  "results": [
+    {
+      "name": "Desktop page: home",
+      "pass": true,
+      "ms": 684,
+      "details": {
+        "h1": "Understand your e-waste.\nFind the right place for it."
+      }
+    },
+    {
+      "name": "Desktop page: dashboard",
+      "pass": true,
+      "ms": 74,
+      "details": {
+        "h1": "Hello, Guest!"
+      }
+    },
+    {
+      "name": "Desktop page: identify",
+      "pass": true,
+      "ms": 98,
+      "details": {
+        "h1": "Identify your electronic waste"
+      }
+    },
+    {
+      "name": "Desktop page: recommendations",
+      "pass": true,
+      "ms": 67,
+      "details": {
+        "h1": "Find your nearest collection option"
+      }
+    },
+    {
+      "name": "Desktop page: facilities",
+      "pass": true,
+      "ms": 77,
+      "details": {
+        "h1": "Facility directory"
+      }
+    },
+    {
+      "name": "Desktop page: learn",
+      "pass": true,
+      "ms": 74,
+      "details": {
+        "h1": "Educational resources"
+      }
+    },
+    {
+      "name": "Desktop page: flow",
+      "pass": true,
+      "ms": 64,
+      "details": {
+        "h1": "How EcoAgent works"
+      }
+    },
+    {
+      "name": "Desktop page: profile",
+      "pass": true,
+      "ms": 70,
+      "details": {
+        "h1": "Your profile"
+      }
+    },
+    {
+      "name": "Desktop page: items",
+      "pass": true,
+      "ms": 59,
+      "details": {
+        "h1": "Registered e-waste items"
+      }
+    },
+    {
+      "name": "Desktop page: login",
+      "pass": true,
+      "ms": 61,
+      "details": {
+        "h1": "Good information.\nBetter decisions."
+      }
+    },
+    {
+      "name": "Facility directory loads actual API records and filters",
+      "pass": true,
+      "ms": 144,
+      "details": {
+        "facilityCount": 47
+      }
+    },
+    {
+      "name": "Manual guidance without photo is labeled unverified",
+      "pass": true,
+      "ms": 127,
+      "details": {
+        "verifiedPhoto": false,
+        "guidanceVisible": true
+      }
+    },
+    {
+      "name": "Editing category invalidates an existing manual result",
+      "pass": true,
+      "ms": 9
+    },
+    {
+      "name": "Camera denial offers a file fallback and closes with Escape",
+      "pass": true,
+      "ms": 979
+    },
+    {
+      "name": "Wallet rejected end to end",
+      "pass": true,
+      "ms": 3584,
+      "details": {
+        "automatic": {
+          "status": "unverified",
+          "category": null,
+          "detection": null
+        },
+        "submitted": {
+          "status": "unverified",
+          "category": null,
+          "detection": null
+        },
+        "guidanceVisible": false,
+        "candidates": [
+          {
+            "className": "cell phone",
+            "score": 0.932498,
+            "verification": {
+              "status": "rejected",
+              "label": "wallet",
+              "similarity": 0.301526,
+              "margin": 0.004978
+            }
+          },
+          {
+            "className": "cell phone",
+            "score": 0.772704,
+            "verification": {
+              "status": "rejected",
+              "label": "wallet",
+              "similarity": 0.301526,
+              "margin": 0.004978,
+              "method": "reference-and-visual"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Real phone accepted end to end",
+      "pass": true,
+      "ms": 3863,
+      "details": {
+        "automatic": {
+          "status": "accepted",
+          "category": "Mobile Phone",
+          "detection": {
+            "className": "cell phone",
+            "score": 0.943732,
+            "box": [
+              0.15875,
+              0.084505,
+              0.756249,
+              0.794982
+            ],
+            "verification": {
+              "status": "accepted",
+              "label": "cell phone",
+              "similarity": 0.289888,
+              "margin": 0.012904
+            }
+          }
+        },
+        "submitted": {
+          "status": "accepted",
+          "category": "Mobile Phone",
+          "detection": {
+            "className": "cell phone",
+            "score": 0.943732,
+            "box": [
+              0.15875,
+              0.084505,
+              0.756249,
+              0.794982
+            ],
+            "verification": {
+              "status": "accepted",
+              "label": "cell phone",
+              "similarity": 0.289888,
+              "margin": 0.012904
+            }
+          }
+        },
+        "guidanceVisible": true,
+        "candidates": [
+          {
+            "className": "cell phone",
+            "score": 0.943732,
+            "verification": {
+              "status": "accepted",
+              "label": "cell phone",
+              "similarity": 0.289888,
+              "margin": 0.012904
+            }
+          },
+          {
+            "className": "cell phone",
+            "score": 0.960638,
+            "verification": {
+              "status": "accepted",
+              "label": "cell phone",
+              "similarity": 0.292494,
+              "margin": 0.013695,
+              "method": "reference-and-visual"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Real TV accepted end to end",
+      "pass": true,
+      "ms": 3907,
+      "details": {
+        "automatic": {
+          "status": "accepted",
+          "category": "TV",
+          "detection": {
+            "className": "television",
+            "score": 0.844046,
+            "box": [
+              0.000261,
+              0.017784,
+              0.812242,
+              0.998042
+            ],
+            "verification": {
+              "status": "accepted",
+              "label": "television",
+              "similarity": 0.314674,
+              "margin": 0.028189
+            }
+          }
+        },
+        "submitted": {
+          "status": "accepted",
+          "category": "TV",
+          "detection": {
+            "className": "television",
+            "score": 0.844046,
+            "box": [
+              0.000261,
+              0.017784,
+              0.812242,
+              0.998042
+            ],
+            "verification": {
+              "status": "accepted",
+              "label": "television",
+              "similarity": 0.314674,
+              "margin": 0.028189
+            }
+          }
+        },
+        "guidanceVisible": true,
+        "candidates": [
+          {
+            "className": "television",
+            "score": 0.844046,
+            "verification": {
+              "status": "accepted",
+              "label": "television",
+              "similarity": 0.314674,
+              "margin": 0.028189
+            }
+          },
+          {
+            "className": "television",
+            "score": 0.933282,
+            "verification": {
+              "status": "accepted",
+              "label": "television",
+              "similarity": null,
+              "margin": null,
+              "method": "detector-agreement"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Real laptop accepted end to end",
+      "pass": true,
+      "ms": 3836,
+      "details": {
+        "automatic": {
+          "status": "accepted",
+          "category": "Laptop",
+          "detection": {
+            "className": "laptop",
+            "score": 0.774319,
+            "box": [
+              0.281854,
+              0.210557,
+              0.719696,
+              0.820781
+            ],
+            "verification": {
+              "status": "accepted",
+              "label": "laptop",
+              "similarity": 0.298785,
+              "margin": 0.008201
+            }
+          }
+        },
+        "submitted": {
+          "status": "accepted",
+          "category": "Laptop",
+          "detection": {
+            "className": "laptop",
+            "score": 0.774319,
+            "box": [
+              0.281854,
+              0.210557,
+              0.719696,
+              0.820781
+            ],
+            "verification": {
+              "status": "accepted",
+              "label": "laptop",
+              "similarity": 0.298785,
+              "margin": 0.008201
+            }
+          }
+        },
+        "guidanceVisible": true,
+        "candidates": [
+          {
+            "className": "laptop",
+            "score": 0.774319,
+            "verification": {
+              "status": "accepted",
+              "label": "laptop",
+              "similarity": 0.298785,
+              "margin": 0.008201
+            }
+          },
+          {
+            "className": "laptop",
+            "score": 0.953067,
+            "verification": {
+              "status": "accepted",
+              "label": "laptop",
+              "similarity": null,
+              "margin": null,
+              "method": "detector-agreement"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Laptop close-up classified correctly",
+      "pass": true,
+      "ms": 3812,
+      "details": {
+        "automatic": {
+          "status": "accepted",
+          "category": "Laptop",
+          "detection": {
+            "className": "laptop",
+            "score": 0.742606,
+            "box": [
+              0.001264,
+              0.004166,
+              0.997043,
+              0.970934
+            ],
+            "origin": "reference-detector",
+            "verification": {
+              "status": "accepted",
+              "label": "laptop",
+              "similarity": null,
+              "margin": null,
+              "method": "detector-agreement"
+            }
+          }
+        },
+        "submitted": {
+          "status": "accepted",
+          "category": "Laptop",
+          "detection": {
+            "className": "laptop",
+            "score": 0.742606,
+            "box": [
+              0.001264,
+              0.004166,
+              0.997043,
+              0.970934
+            ],
+            "origin": "reference-detector",
+            "verification": {
+              "status": "accepted",
+              "label": "laptop",
+              "similarity": null,
+              "margin": null,
+              "method": "detector-agreement"
+            }
+          }
+        },
+        "guidanceVisible": true,
+        "candidates": [
+          {
+            "className": "cell phone",
+            "score": 0.900728,
+            "verification": {
+              "status": "rejected",
+              "label": "laptop",
+              "similarity": 0.266246,
+              "margin": 0.000033
+            }
+          },
+          {
+            "className": "laptop",
+            "score": 0.853683,
+            "verification": {
+              "status": "uncertain",
+              "label": "laptop",
+              "similarity": 0.266246,
+              "margin": 0.000033
+            }
+          },
+          {
+            "className": "laptop",
+            "score": 0.742606,
+            "verification": {
+              "status": "accepted",
+              "label": "laptop",
+              "similarity": null,
+              "margin": null,
+              "method": "detector-agreement"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Wrong selected category blocks phone guidance",
+      "pass": true,
+      "ms": 3975,
+      "details": {
+        "automatic": {
+          "status": "accepted",
+          "category": "Mobile Phone",
+          "detection": {
+            "className": "cell phone",
+            "score": 0.943732,
+            "box": [
+              0.15875,
+              0.084505,
+              0.756249,
+              0.794982
+            ],
+            "verification": {
+              "status": "accepted",
+              "label": "cell phone",
+              "similarity": 0.289888,
+              "margin": 0.012904
+            }
+          }
+        },
+        "submitted": {
+          "status": "mismatch",
+          "category": "Mobile Phone",
+          "detection": {
+            "className": "cell phone",
+            "score": 0.943732,
+            "box": [
+              0.15875,
+              0.084505,
+              0.756249,
+              0.794982
+            ],
+            "verification": {
+              "status": "accepted",
+              "label": "cell phone",
+              "similarity": 0.289888,
+              "margin": 0.012904
+            }
+          }
+        },
+        "guidanceVisible": false,
+        "candidates": [
+          {
+            "className": "cell phone",
+            "score": 0.943732,
+            "verification": {
+              "status": "accepted",
+              "label": "cell phone",
+              "similarity": 0.289888,
+              "margin": 0.012904
+            }
+          },
+          {
+            "className": "cell phone",
+            "score": 0.960638,
+            "verification": {
+              "status": "accepted",
+              "label": "cell phone",
+              "similarity": 0.292494,
+              "margin": 0.013695,
+              "method": "reference-and-visual"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Granted location ranks the exact SM North EDSA venue first",
+      "pass": true,
+      "ms": 627,
+      "details": {
+        "nearest": "SM North EDSA",
+        "distanceText": "NEAREST MAPPED OPTION\nSM North EDSA\n\nQuezon City · 0 m away in a straight line\n\nListed acceptance: Mobile phones and laptops\n\nListed as accepting mobile phones and laptops\n\n4F Cyberzone, Annex Building, EDSA, Quezon City\n\nView facility details\nGet directions in Google Maps ↗",
+        "mapInitialized": true
+      }
+    },
+    {
+      "name": "Learn cards open and close their educational content",
+      "pass": true,
+      "ms": 1720
+    },
+    {
+      "name": "Chat UI sends an unsupported-device question and displays the answer",
+      "pass": true,
+      "ms": 464,
+      "details": {
+        "topic": "unsupported-device",
+        "answer": "This pilot currently provides item-specific guidance for TVs, mobile phones, and laptops. Which of those devices are you asking about?"
+      }
+    },
+    {
+      "name": "Dashboard item count agrees with the item list",
+      "pass": true,
+      "ms": 168
+    },
+    {
+      "name": "Registration creates an authenticated account",
+      "pass": true,
+      "ms": 619,
+      "details": {
+        "authenticated": true,
+        "httpOnlyCookie": true
+      }
+    },
+    {
+      "name": "Session survives browser reload",
+      "pass": true,
+      "ms": 88
+    },
+    {
+      "name": "Saved profile changes survive a reload",
+      "pass": true,
+      "ms": 302
+    },
+    {
+      "name": "Logout invalidates the session",
+      "pass": true,
+      "ms": 161
+    },
+    {
+      "name": "Wrong password is rejected and correct login works",
+      "pass": true,
+      "ms": 615
+    },
+    {
+      "name": "Duplicate account is rejected",
+      "pass": true,
+      "ms": 298
+    },
+    {
+      "name": "Login form signs the test account in",
+      "pass": true,
+      "ms": 443
+    },
+    {
+      "name": "Profile cancel restores saved information and disables unchanged save",
+      "pass": true,
+      "ms": 136
+    },
+    {
+      "name": "Facility details include address, schedule kind, and source links",
+      "pass": true,
+      "ms": 616
+    },
+    {
+      "name": "Saved item and facility persist after reload and dashboard counts agree",
+      "pass": true,
+      "ms": 978
+    },
+    {
+      "name": "Failed directory load offers a working retry",
+      "pass": true,
+      "ms": 280
+    },
+    {
+      "name": "Google Maps loader is shared across map views",
+      "pass": true,
+      "ms": 4
+    },
+    {
+      "name": "Chat request errors can be retried and Gemini answers are labeled",
+      "pass": true,
+      "ms": 626
+    },
+    {
+      "name": "Signing out cancels a pending chat and clears the previous conversation",
+      "pass": true,
+      "ms": 933
+    },
+    {
+      "name": "Mobile page: home",
+      "pass": true,
+      "ms": 178,
+      "details": {
+        "width": 390,
+        "scrollWidth": 390
+      }
+    },
+    {
+      "name": "Mobile page: identify",
+      "pass": true,
+      "ms": 117,
+      "details": {
+        "width": 390,
+        "scrollWidth": 390
+      }
+    },
+    {
+      "name": "Mobile page: facilities",
+      "pass": true,
+      "ms": 121,
+      "details": {
+        "width": 390,
+        "scrollWidth": 390
+      }
+    },
+    {
+      "name": "Mobile page: dashboard",
+      "pass": true,
+      "ms": 103,
+      "details": {
+        "width": 390,
+        "scrollWidth": 390
+      }
+    },
+    {
+      "name": "Mobile page: login",
+      "pass": true,
+      "ms": 91,
+      "details": {
+        "width": 390,
+        "scrollWidth": 390
+      }
+    },
+    {
+      "name": "Mobile page: profile",
+      "pass": true,
+      "ms": 96,
+      "details": {
+        "width": 390,
+        "scrollWidth": 390
+      }
+    },
+    {
+      "name": "Mobile page: items",
+      "pass": true,
+      "ms": 93,
+      "details": {
+        "width": 390,
+        "scrollWidth": 390
+      }
+    },
+    {
+      "name": "No uncaught browser JavaScript errors",
+      "pass": true,
+      "ms": 1
+    }
+  ],
+  "pageErrors": [],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+    "EcoAgent Ask Bot request failed: Error: Audit simulated chat outage\n    at Lt (http://127.0.0.1:5190/assets/index-2zv_mgBB.js:9:119171)"
+  ],
+  "failedResources": [
+    {
+      "url": "http://127.0.0.1:5190/api/facilities",
+      "status": 503
+    },
+    {
+      "url": "http://127.0.0.1:5190/api/chat",
+      "status": 503
+    }
+  ]
+}

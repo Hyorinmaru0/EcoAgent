@@ -8,27 +8,113 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Daily", "opens": "10am", "closes": "9pm" }
-        ]
+          {
+            "days": "Daily",
+            "opens": "10am",
+            "closes": "9pm"
+          }
+        ],
+        "address": "CZ08, Rizal Avenue Extension, East Grace Park, Caloocan City",
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://smart.com.ph/Pages/store-locations"
+            }
+          ]
+        }
       },
       {
         "name": "SM City Sangandaan",
         "operator": "SM e-waste program",
         "acceptedDevices": "Mobile phones and laptops",
-        "status": "Confirm local collection arrangements"
+        "status": "Confirm local collection arrangements",
+        "address": "Marcelo H. del Pilar Street corner Samson Road, Barangay 003, Caloocan City",
+        "operatingHours": [
+          {
+            "days": "Daily",
+            "opens": "10am",
+            "closes": "9pm"
+          }
+        ],
+        "visitInfo": {
+          "hoursKind": "Mall hours",
+          "note": "Published mall hours; e-waste collection or counter hours may differ. Confirm bin access before visiting.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://www.lionunion.com/property/sm-center-sangandaan/"
+            }
+          ]
+        }
       },
       {
         "name": "SM City Caloocan",
         "operator": "SM e-waste program",
         "acceptedDevices": "Mobile phones and laptops",
-        "status": "Confirm local collection arrangements"
+        "status": "Confirm local collection arrangements",
+        "address": "Deparo Road, Barangay 171, Bagumbong, Caloocan City",
+        "operatingHours": [
+          {
+            "days": "Mon-Thu",
+            "opens": "10am",
+            "closes": "9pm"
+          },
+          {
+            "days": "Fri-Sun",
+            "opens": "10am",
+            "closes": "10pm"
+          }
+        ],
+        "visitInfo": {
+          "hoursKind": "Tenant hours",
+          "note": "Published tenant hours are a visiting reference only; mall and e-waste collection hours may differ. Confirm with the operator.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://www.watsons.com.ph/store/wtcph_5282_EN/watsons-sm-city-caloocan"
+            },
+            {
+              "label": "Street address",
+              "url": "https://www.bdo.com.ph/content/dam/bdounibank/en-ph/remittance/cash-pick-up-directories/sm-forex-branches-as-of-sept-2024.pdf"
+            }
+          ]
+        }
       },
       {
         "name": "Bagong Silang TSD Facility",
         "operator": "TSD Facility",
-        "address": "Phase 2, Package 3, Bagong Silang",
+        "address": "Phase 2, Package 3, Barangay 176, Bagong Silang, Caloocan City",
         "acceptedDevices": "Mobile phones and CRT televisions",
-        "status": "Confirm acceptance of laptops and flat-screen TVs"
+        "status": "Confirm acceptance of laptops and flat-screen TVs",
+        "operatingHours": [
+          {
+            "days": "Mon-Fri",
+            "opens": "8am",
+            "closes": "5pm"
+          },
+          {
+            "days": "Sat",
+            "opens": "8am",
+            "closes": "12pm"
+          }
+        ],
+        "visitInfo": {
+          "hoursKind": "Drop-off hours",
+          "note": "Confirm device acceptance and collection-bin access before visiting. Holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://edispo.ph/pages/donate"
+            }
+          ]
+        }
       }
     ]
   },
@@ -41,8 +127,24 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Daily", "opens": "10am", "closes": "9pm" }
-        ]
+          {
+            "days": "Daily",
+            "opens": "10am",
+            "closes": "9pm"
+          }
+        ],
+        "address": "Alabang-Zapote Road, Almanza Uno, Las Pinas City",
+        "visitInfo": {
+          "hoursKind": "Mall hours",
+          "note": "Published mall hours; e-waste collection or counter hours may differ. Confirm bin access before visiting.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://www.waze.com/live-map/directions/ph/ncr/las-pinas/sm-southmall?to=place.ChIJaxIamd3RlzMR4jFdvZEghmc"
+            }
+          ]
+        }
       },
       {
         "name": "SM Center Las Piñas",
@@ -50,8 +152,24 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Daily", "opens": "10am", "closes": "9pm" }
-        ]
+          {
+            "days": "Daily",
+            "opens": "10am",
+            "closes": "9pm"
+          }
+        ],
+        "address": "Alabang-Zapote Road, Las Pinas City",
+        "visitInfo": {
+          "hoursKind": "Tenant hours",
+          "note": "Published tenant hours are a visiting reference only; mall and e-waste collection hours may differ. Confirm with the operator.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://www.samsung.com/ph/samsung-experience-store/locations/"
+            }
+          ]
+        }
       }
     ]
   },
@@ -64,11 +182,39 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Mon–Thu", "opens": "11am", "closes": "9pm" },
-          { "days": "Friday", "opens": "11am", "closes": "10pm" },
-          { "days": "Saturday", "opens": "10am", "closes": "10pm" },
-          { "days": "Sunday", "opens": "10am", "closes": "9pm" }
-        ]
+          {
+            "days": "Mon-Thu",
+            "opens": "11am",
+            "closes": "9pm"
+          },
+          {
+            "days": "Fri",
+            "opens": "11am",
+            "closes": "10pm"
+          },
+          {
+            "days": "Sat",
+            "opens": "10am",
+            "closes": "10pm"
+          },
+          {
+            "days": "Sun",
+            "opens": "10am",
+            "closes": "9pm"
+          }
+        ],
+        "address": "R3, Power Plant Mall, Rockwell Drive, Makati City",
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://smart.com.ph/Pages/store-locations"
+            }
+          ]
+        }
       },
       {
         "name": "RCB Makati",
@@ -76,8 +222,24 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Unverified", "opens": "Confirm", "closes": "Confirm" }
-        ]
+          {
+            "days": "Mon-Fri",
+            "opens": "8:30am",
+            "closes": "5:30pm"
+          }
+        ],
+        "address": "Ground Floor, Ramon Cojuangco Building, 7895 Makati Avenue corner Dela Rosa Street, Makati City",
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://www.pldthome.com/sales-and-service-centers"
+            }
+          ]
+        }
       },
       {
         "name": "Smart Tower",
@@ -85,8 +247,28 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Mon–Fri", "opens": "8:30am", "closes": "5:30pm" }
-        ]
+          {
+            "days": "Mon-Fri",
+            "opens": "8:30am",
+            "closes": "5:30pm"
+          }
+        ],
+        "address": "Ground Floor, Smart Tower, 6799 Ayala Avenue, Makati City",
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://www.pldthome.com/sales-and-service-centers"
+            },
+            {
+              "label": "Building address",
+              "url": "https://digitel.ph/wp-content/uploads/sites/15/2025/04/Digital-Telecommunications-Phils-Inc._SEC-Form-20-IS-2023-Definitive_09May2024.pdf"
+            }
+          ]
+        }
       },
       {
         "name": "Cash & Carry",
@@ -94,8 +276,24 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Daily", "opens": "10am", "closes": "9pm" }
-        ]
+          {
+            "days": "Daily",
+            "opens": "10am",
+            "closes": "9pm"
+          }
+        ],
+        "address": "2F, Cash and Carry Mall, Filmore Street, Makati City",
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://smart.com.ph/Pages/store-locations"
+            }
+          ]
+        }
       }
     ]
   },
@@ -105,9 +303,32 @@
       {
         "name": "Barangay Dampalit TSD Facility",
         "operator": "TSD Facility",
-        "address": "Bendel Compound, Don Basilio Bautista Boulevard",
+        "address": "Bendel Compound, Don Basilio Bautista Boulevard, Dampalit, Malabon City",
         "acceptedDevices": "Mobile phones and CRT televisions",
-        "status": "Confirm acceptance of laptops and flat-screen TVs"
+        "status": "Confirm acceptance of laptops and flat-screen TVs",
+        "operatingHours": [
+          {
+            "days": "Mon-Fri",
+            "opens": "8am",
+            "closes": "5pm"
+          },
+          {
+            "days": "Sat",
+            "opens": "8am",
+            "closes": "12pm"
+          }
+        ],
+        "visitInfo": {
+          "hoursKind": "Drop-off hours",
+          "note": "Confirm device acceptance and collection-bin access before visiting. Holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://edispo.ph/pages/donate"
+            }
+          ]
+        }
       }
     ]
   },
@@ -121,17 +342,53 @@
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
           {
-            "days": "Store schedule unverified",
-            "opens": "Confirm",
-            "closes": "Confirm"
+            "days": "Daily",
+            "opens": "10am",
+            "closes": "10pm"
           }
-        ]
+        ],
+        "address": "4F Cyberzone, Building B, EDSA corner Dona Julia Vargas Avenue, Mandaluyong City",
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://smart.com.ph/Pages/store-locations"
+            }
+          ]
+        }
       },
       {
         "name": "The Podium",
         "operator": "SM e-waste program",
         "acceptedDevices": "Mobile phones and laptops",
-        "status": "Confirm local collection arrangements"
+        "status": "Confirm local collection arrangements",
+        "address": "18 ADB Avenue, Ortigas Center, Mandaluyong City",
+        "operatingHours": [
+          {
+            "days": "Mon-Thu",
+            "opens": "10am",
+            "closes": "9pm"
+          },
+          {
+            "days": "Fri-Sun",
+            "opens": "10am",
+            "closes": "10pm"
+          }
+        ],
+        "visitInfo": {
+          "hoursKind": "Tenant hours",
+          "note": "Published tenant hours are a visiting reference only; mall and e-waste collection hours may differ. Confirm with the operator.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://www.samsung.com/ph/samsung-experience-store/locations/"
+            }
+          ]
+        }
       },
       {
         "name": "Shangri-La",
@@ -139,15 +396,53 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Daily", "opens": "10am", "closes": "9pm" }
-        ]
+          {
+            "days": "Daily",
+            "opens": "10am",
+            "closes": "9pm"
+          }
+        ],
+        "address": "Lower Ground, Shangri-La Plaza, Shaw Boulevard, Ortigas Center, Mandaluyong City",
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://smart.com.ph/Pages/store-locations"
+            }
+          ]
+        }
       },
       {
         "name": "HMR Pioneer / Envirocycle drop-off",
         "operator": "HMR Pioneer / Envirocycle",
-        "address": "Pioneer corner Reliance Street",
+        "address": "Pioneer Street corner Reliance Street, Highway Hills, Mandaluyong City",
         "acceptedDevices": "Electronics collection listed",
-        "status": "Confirm acceptance of phones, laptops, and TVs"
+        "status": "Confirm acceptance of phones, laptops, and TVs",
+        "operatingHours": [
+          {
+            "days": "Daily",
+            "opens": "9am",
+            "closes": "8pm"
+          }
+        ],
+        "visitInfo": {
+          "hoursKind": "Store hours",
+          "note": "HMR retail-store hours from a map listing; Envirocycle drop-off availability and collection hours require confirmation.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://www.waze.com/live-map/directions/hmr-pioneer-mandaluyong?to=place.w.79364242.793314737.709909"
+            },
+            {
+              "label": "HMR official store address",
+              "url": "https://hmr.ph/store-list"
+            }
+          ]
+        }
       }
     ]
   },
@@ -160,8 +455,24 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Daily", "opens": "10am", "closes": "9pm" }
-        ]
+          {
+            "days": "Daily",
+            "opens": "10am",
+            "closes": "9pm"
+          }
+        ],
+        "address": "Lower Ground Cyberzone, Natividad Almeda-Lopez corner A. Villegas and San Marcelino Streets, Ermita, Manila",
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://smart.com.ph/Pages/store-locations"
+            }
+          ]
+        }
       },
       {
         "name": "SM City San Lazaro",
@@ -169,8 +480,24 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Daily", "opens": "10am", "closes": "9pm" }
-        ]
+          {
+            "days": "Daily",
+            "opens": "10am",
+            "closes": "9pm"
+          }
+        ],
+        "address": "3rd Level, Felix Huertas Street corner A.H. Lacson Avenue, Santa Cruz, Manila",
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://smart.com.ph/Pages/store-locations"
+            }
+          ]
+        }
       },
       {
         "name": "Robinsons Manila",
@@ -178,8 +505,24 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Daily", "opens": "10am", "closes": "10pm" }
-        ]
+          {
+            "days": "Daily",
+            "opens": "10am",
+            "closes": "10pm"
+          }
+        ],
+        "address": "Pedro Gil corner Adriatico Streets, Ermita, Manila",
+        "visitInfo": {
+          "hoursKind": "Mall hours",
+          "note": "Published mall hours; e-waste collection or counter hours may differ. Confirm bin access before visiting.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://robinsonsmalls.com/mall-info/robinsons-place-manila"
+            }
+          ]
+        }
       }
     ]
   },
@@ -190,7 +533,31 @@
         "name": "SM City Marikina",
         "operator": "SM e-waste program",
         "acceptedDevices": "Mobile phones and laptops",
-        "status": "Confirm local collection arrangements"
+        "status": "Confirm local collection arrangements",
+        "address": "3F Cyberzone, SM City Marikina, Marcos Highway, Calumpang, Marikina City",
+        "operatingHours": [
+          {
+            "days": "Mon-Thu",
+            "opens": "10am",
+            "closes": "9pm"
+          },
+          {
+            "days": "Fri-Sun",
+            "opens": "10am",
+            "closes": "10pm"
+          }
+        ],
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://smart.com.ph/Pages/store-locations"
+            }
+          ]
+        }
       }
     ]
   },
@@ -203,8 +570,24 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Daily", "opens": "10am", "closes": "9pm" }
-        ]
+          {
+            "days": "Daily",
+            "opens": "10am",
+            "closes": "9pm"
+          }
+        ],
+        "address": "2F, National Road, Barangay Tunasan, Muntinlupa City",
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://www.pldthome.com/sales-and-service-centers"
+            }
+          ]
+        }
       },
       {
         "name": "Festival Mall",
@@ -212,8 +595,24 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Daily", "opens": "10am", "closes": "9pm" }
-        ]
+          {
+            "days": "Daily",
+            "opens": "10am",
+            "closes": "9pm"
+          }
+        ],
+        "address": "2F Expansion, Festival Mall, Filinvest Corporate City, Alabang, Muntinlupa City",
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://www.pldthome.com/sales-and-service-centers"
+            }
+          ]
+        }
       },
       {
         "name": "Metro Gaisano Alabang",
@@ -221,8 +620,28 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Daily", "opens": "9am", "closes": "8pm" }
-        ]
+          {
+            "days": "Daily",
+            "opens": "9am",
+            "closes": "8pm"
+          }
+        ],
+        "address": "Metro Department Store, Alabang Town Center, Alabang-Zapote Road, Ayala Alabang, Muntinlupa City",
+        "visitInfo": {
+          "hoursKind": "Retail service hours",
+          "note": "ShopMetro publishes general store service hours of 9am-8pm, subject to branch and holiday changes. These are not confirmed Smart counter or e-waste collection hours; contact the branch before visiting.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "ShopMetro published service hours",
+              "url": "https://shopmetro.ph/documentation/mrc-member-guide/"
+            },
+            {
+              "label": "Metro Alabang location",
+              "url": "https://shopmetro.ph/departmentstore/lenten-store-hours/"
+            }
+          ]
+        }
       }
     ]
   },
@@ -235,8 +654,24 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Daily", "opens": "10am", "closes": "9pm" }
-        ]
+          {
+            "days": "Daily",
+            "opens": "10am",
+            "closes": "9pm"
+          }
+        ],
+        "address": "3F Cyberzone, Dr. A. Santos Avenue corner Presidents Avenue, BF Homes, Paranaque City",
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://smart.com.ph/Pages/store-locations"
+            }
+          ]
+        }
       },
       {
         "name": "SM City Bicutan",
@@ -244,8 +679,24 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Daily", "opens": "10am", "closes": "9pm" }
-        ]
+          {
+            "days": "Daily",
+            "opens": "10am",
+            "closes": "9pm"
+          }
+        ],
+        "address": "2F Cyberzone, New Building B, near Entrance 9, Dona Soledad Avenue, Don Bosco, Paranaque City",
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://smart.com.ph/Pages/store-locations"
+            }
+          ]
+        }
       },
       {
         "name": "SM City Sucat",
@@ -253,8 +704,24 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Daily", "opens": "10am", "closes": "9pm" }
-        ]
+          {
+            "days": "Daily",
+            "opens": "10am",
+            "closes": "9pm"
+          }
+        ],
+        "address": "Dr. A. Santos Avenue corner Carlos P. Garcia Avenue Extension, San Dionisio, Paranaque City",
+        "visitInfo": {
+          "hoursKind": "Mall hours",
+          "note": "Published mall hours; e-waste collection or counter hours may differ. Confirm bin access before visiting.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://getoccupi.com/malls/sm-city-sucat"
+            }
+          ]
+        }
       },
       {
         "name": "Ayala Malls Manila Bay",
@@ -262,8 +729,29 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Daily", "opens": "10am", "closes": "10pm" }
-        ]
+          {
+            "days": "Mon-Thu",
+            "opens": "10am",
+            "closes": "9pm"
+          },
+          {
+            "days": "Fri-Sun",
+            "opens": "10am",
+            "closes": "10pm"
+          }
+        ],
+        "address": "4F IT Zone, Ayala Malls Manila Bay, Diosdado Macapagal Boulevard, Paranaque City",
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://www.pldthome.com/sales-and-service-centers"
+            }
+          ]
+        }
       }
     ]
   },
@@ -276,8 +764,24 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Daily", "opens": "10am", "closes": "10pm" }
-        ]
+          {
+            "days": "Daily",
+            "opens": "10am",
+            "closes": "10pm"
+          }
+        ],
+        "address": "L2 Cyberzone, North Park Wing, SM Mall of Asia, Seaside Boulevard, Pasay City",
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://www.pldthome.com/sales-and-service-centers"
+            }
+          ]
+        }
       }
     ]
   },
@@ -290,21 +794,72 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Daily", "opens": "10am", "closes": "9pm" }
-        ]
+          {
+            "days": "Daily",
+            "opens": "10am",
+            "closes": "9pm"
+          }
+        ],
+        "address": "2F, Ortigas Avenue Extension, Pasig City",
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://smart.com.ph/Pages/store-locations"
+            }
+          ]
+        }
       },
       {
         "name": "SM Center Pasig",
         "operator": "SM e-waste program",
         "acceptedDevices": "Mobile phones and laptops",
-        "status": "Confirm local collection arrangements"
+        "status": "Confirm local collection arrangements",
+        "address": "Eulogio Rodriguez Jr. Avenue corner Dona Julia Vargas Avenue, Frontera Verde, Ugong, Pasig City",
+        "operatingHours": [
+          {
+            "days": "Daily",
+            "opens": "10am",
+            "closes": "10pm"
+          }
+        ],
+        "visitInfo": {
+          "hoursKind": "Mall hours",
+          "note": "Published mall hours; e-waste collection or counter hours may differ. Confirm bin access before visiting.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://mallstoresdirectory.com/sm-center-pasig"
+            }
+          ]
+        }
       },
       {
         "name": "SK Tes / TES-AMM Philippines",
         "operator": "SK Tes / TES-AMM Philippines",
-        "address": "Unit 104, Central Business Park, 461 Amang Rodriguez Avenue, Manggahan",
+        "address": "Unit 104, Central Business Park, 461 Amang Rodriguez Avenue, Manggahan, Pasig City",
         "acceptedDevices": "Corporate electronics recycling by arrangement",
-        "status": "Confirm specific devices and household acceptance"
+        "status": "Confirm specific devices and household acceptance",
+        "operatingHours": [],
+        "visitInfo": {
+          "hoursKind": "Schedule requires confirmation",
+          "note": "Regular e-waste collection hours are not published in the cited source. Contact the operator before visiting.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "SK Tes official facility address",
+              "url": "https://www.sktes.com/global-facilities/locations/philippines-manila"
+            },
+            {
+              "label": "Published location / schedule",
+              "url": "https://llda.gov.ph/wp-content/uploads/dox/permits/2024/012324_dp.pdf"
+            }
+          ]
+        }
       }
     ]
   },
@@ -317,19 +872,54 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Mon–Fri", "opens": "10am", "closes": "10pm" },
           {
-            "days": "Weekend store hours unverified",
-            "opens": "Confirm",
-            "closes": "Confirm"
+            "days": "Mon-Fri",
+            "opens": "10am",
+            "closes": "10pm"
           }
-        ]
+        ],
+        "address": "4F Cyberzone, Annex Building, EDSA, Quezon City",
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ. Weekend branch hours are not published in the cited listing; confirm before a weekend visit.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://smart.com.ph/Pages/store-locations"
+            }
+          ]
+        }
       },
       {
         "name": "SM City Fairview",
         "operator": "SM e-waste program",
         "acceptedDevices": "Mobile phones and laptops",
-        "status": "Confirm local collection arrangements"
+        "status": "Confirm local collection arrangements",
+        "address": "Level 3 Cyberzone, Quirino Highway, Greater Lagro, Quezon City",
+        "operatingHours": [
+          {
+            "days": "Sun-Thu",
+            "opens": "10am",
+            "closes": "9pm"
+          },
+          {
+            "days": "Fri-Sat",
+            "opens": "10am",
+            "closes": "10pm"
+          }
+        ],
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://smart.com.ph/Pages/store-locations"
+            }
+          ]
+        }
       },
       {
         "name": "SM City Novaliches",
@@ -337,8 +927,24 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Daily", "opens": "10am", "closes": "9pm" }
-        ]
+          {
+            "days": "Daily",
+            "opens": "10am",
+            "closes": "9pm"
+          }
+        ],
+        "address": "2F, Quirino Highway, San Bartolome, Novaliches, Quezon City",
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://smart.com.ph/Pages/store-locations"
+            }
+          ]
+        }
       },
       {
         "name": "SM City Sta. Mesa / SM Centerpoint",
@@ -346,8 +952,24 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Daily", "opens": "10am", "closes": "9pm" }
-        ]
+          {
+            "days": "Daily",
+            "opens": "10am",
+            "closes": "9pm"
+          }
+        ],
+        "address": "3rd Level, Ramon Magsaysay Boulevard corner Araneta Avenue, Quezon City",
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://smart.com.ph/Pages/store-locations"
+            }
+          ]
+        }
       },
       {
         "name": "Vertis North",
@@ -355,9 +977,29 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Sun–Thu", "opens": "11am", "closes": "9pm" },
-          { "days": "Fri–Sat", "opens": "11am", "closes": "10pm" }
-        ]
+          {
+            "days": "Sun-Thu",
+            "opens": "11am",
+            "closes": "9pm"
+          },
+          {
+            "days": "Fri-Sat",
+            "opens": "11am",
+            "closes": "10pm"
+          }
+        ],
+        "address": "4F Building 1, Ayala Malls Vertis North, Bagong Pag-asa, Quezon City",
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://smart.com.ph/Pages/store-locations"
+            }
+          ]
+        }
       },
       {
         "name": "Robinsons Galleria",
@@ -365,8 +1007,24 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Daily", "opens": "10am", "closes": "10pm" }
-        ]
+          {
+            "days": "Daily",
+            "opens": "10am",
+            "closes": "10pm"
+          }
+        ],
+        "address": "EDSA corner Ortigas Avenue, Quezon City",
+        "visitInfo": {
+          "hoursKind": "Mall hours",
+          "note": "Published mall hours; e-waste collection or counter hours may differ. Confirm bin access before visiting.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://robinsonsmalls.com/mall-info/robinsons-galleria-ortigas"
+            }
+          ]
+        }
       },
       {
         "name": "Robinsons Magnolia",
@@ -374,8 +1032,24 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Daily", "opens": "10am", "closes": "10pm" }
-        ]
+          {
+            "days": "Daily",
+            "opens": "10am",
+            "closes": "10pm"
+          }
+        ],
+        "address": "Aurora Boulevard corner Dona Hemady Street, Quezon City",
+        "visitInfo": {
+          "hoursKind": "Mall hours",
+          "note": "Published mall hours; e-waste collection or counter hours may differ. Confirm bin access before visiting.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://robinsonsmalls.com/mall-info/robinsons-magnolia"
+            }
+          ]
+        }
       },
       {
         "name": "Gateway Mall",
@@ -383,9 +1057,29 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Sun–Thu", "opens": "10am", "closes": "9pm" },
-          { "days": "Fri–Sat", "opens": "10am", "closes": "10pm" }
-        ]
+          {
+            "days": "Sun-Thu",
+            "opens": "10am",
+            "closes": "9pm"
+          },
+          {
+            "days": "Fri-Sat",
+            "opens": "10am",
+            "closes": "10pm"
+          }
+        ],
+        "address": "3F, Gateway Mall, Araneta City, Cubao, Quezon City",
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://smart.com.ph/Pages/store-locations"
+            }
+          ]
+        }
       },
       {
         "name": "Eastwood",
@@ -393,26 +1087,93 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Daily", "opens": "10am", "closes": "9pm" }
-        ]
+          {
+            "days": "Daily",
+            "opens": "10am",
+            "closes": "9pm"
+          }
+        ],
+        "address": "Ground Floor, Citywalk 2, Eastwood City, Libis, Quezon City",
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://smart.com.ph/Pages/store-locations"
+            }
+          ]
+        }
       },
       {
         "name": "UP Diliman Electrical and Electronics Engineering Institute",
         "operator": "The E-Waste Project",
         "acceptedDevices": "Small-to-medium electronics",
-        "status": "Confirm phone and laptop acceptance and scheduled TV collection"
+        "status": "Confirm phone and laptop acceptance and scheduled TV collection",
+        "address": "EEEI Building, Velasquez Street, UP Diliman, Quezon City 1101",
+        "operatingHours": [],
+        "visitInfo": {
+          "hoursKind": "Campus drop-off access",
+          "note": "A 2025 report describes 24/7 drop-off boxes, but current public access and collection arrangements require confirmation with UP Circuit or campus security.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://eee.upd.edu.ph/contact-us/"
+            },
+            {
+              "label": "2025 drop-off-box report",
+              "url": "https://www.wheninmanila.com/tep-month-2025-step-toward-more-sustainable-digital-future/"
+            }
+          ]
+        }
       },
       {
         "name": "UP Diliman College of Science Library",
         "operator": "The E-Waste Project",
         "acceptedDevices": "Small-to-medium electronics",
-        "status": "Confirm phone and laptop acceptance"
+        "status": "Confirm phone and laptop acceptance",
+        "address": "College of Science Library, Velasquez Street, National Science Complex, UP Diliman, Quezon City 1101",
+        "operatingHours": [],
+        "visitInfo": {
+          "hoursKind": "Campus drop-off access",
+          "note": "A 2025 report describes 24/7 drop-off boxes, but current public access and collection arrangements require confirmation with UP Circuit or campus security.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://cslib.science.upd.edu.ph/spaces/information-desk/"
+            },
+            {
+              "label": "2025 drop-off-box report",
+              "url": "https://www.wheninmanila.com/tep-month-2025-step-toward-more-sustainable-digital-future/"
+            }
+          ]
+        }
       },
       {
         "name": "UP Diliman Molave Residence Hall",
         "operator": "The E-Waste Project",
         "acceptedDevices": "Small-to-medium electronics",
-        "status": "Confirm device acceptance and visitor access"
+        "status": "Confirm device acceptance and visitor access",
+        "address": "Molave Residence Hall, Magsaysay Avenue, UP Diliman, Quezon City 1101",
+        "operatingHours": [],
+        "visitInfo": {
+          "hoursKind": "Campus drop-off access",
+          "note": "A 2025 report describes 24/7 drop-off boxes, but current public access and collection arrangements require confirmation with UP Circuit or campus security.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://studenthousing.upd.edu.ph/residence-halls/molave-residence-hall/"
+            },
+            {
+              "label": "2025 drop-off-box report",
+              "url": "https://www.wheninmanila.com/tep-month-2025-step-toward-more-sustainable-digital-future/"
+            }
+          ]
+        }
       }
     ]
   },
@@ -425,9 +1186,29 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Mon–Thu", "opens": "10am", "closes": "9pm" },
-          { "days": "Fri–Sun", "opens": "10am", "closes": "10pm" }
-        ]
+          {
+            "days": "Mon-Thu",
+            "opens": "10am",
+            "closes": "9pm"
+          },
+          {
+            "days": "Fri-Sun",
+            "opens": "10am",
+            "closes": "10pm"
+          }
+        ],
+        "address": "Greenhills Shopping Center, Ortigas Avenue, San Juan City",
+        "visitInfo": {
+          "hoursKind": "Mall hours",
+          "note": "Published mall hours; e-waste collection or counter hours may differ. Confirm bin access before visiting.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://ortigasmalls.com/greenhills"
+            }
+          ]
+        }
       }
     ]
   },
@@ -440,8 +1221,24 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Daily", "opens": "10am", "closes": "10pm" }
-        ]
+          {
+            "days": "Daily",
+            "opens": "10am",
+            "closes": "10pm"
+          }
+        ],
+        "address": "Level 4, SM Aura, 26th Street corner McKinley Parkway, Bonifacio Global City, Taguig City",
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://smart.com.ph/Pages/store-locations"
+            }
+          ]
+        }
       },
       {
         "name": "Market! Market!",
@@ -449,9 +1246,29 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Mon–Thu", "opens": "10am", "closes": "9pm" },
-          { "days": "Fri–Sun", "opens": "10am", "closes": "10pm" }
-        ]
+          {
+            "days": "Sun-Thu",
+            "opens": "10am",
+            "closes": "9pm"
+          },
+          {
+            "days": "Fri-Sat",
+            "opens": "10am",
+            "closes": "10pm"
+          }
+        ],
+        "address": "4F, Unit 406, Market! Market!, McKinley Parkway, Bonifacio Global City, Taguig City",
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://www.pldthome.com/sun-stores"
+            }
+          ]
+        }
       },
       {
         "name": "World Plaza BGC",
@@ -459,9 +1276,24 @@
         "acceptedDevices": "Mobile phones and laptops",
         "status": "Listed as accepting mobile phones and laptops",
         "operatingHours": [
-          { "days": "Mon–Fri", "opens": "9am", "closes": "6pm" },
-          { "days": "Saturday", "opens": "9am", "closes": "5pm" }
-        ]
+          {
+            "days": "Mon-Fri",
+            "opens": "9am",
+            "closes": "6pm"
+          }
+        ],
+        "address": "Units 1 and 2, World Plaza, 5th Avenue, Bonifacio Global City, Taguig City",
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://smart.com.ph/Pages/store-locations"
+            }
+          ]
+        }
       }
     ]
   },
@@ -472,7 +1304,26 @@
         "name": "SM City Valenzuela",
         "operator": "SM e-waste program",
         "acceptedDevices": "Mobile phones and laptops",
-        "status": "Confirm local collection arrangements"
+        "status": "Confirm local collection arrangements",
+        "address": "3F, MacArthur Highway, Karuhatan, Valenzuela City",
+        "operatingHours": [
+          {
+            "days": "Daily",
+            "opens": "10am",
+            "closes": "9pm"
+          }
+        ],
+        "visitInfo": {
+          "hoursKind": "Branch hours",
+          "note": "Published PLDT/Smart branch hours. Confirm e-waste acceptance and bin access before visiting; holiday hours may differ.",
+          "checkedOn": "2026-11-06",
+          "sources": [
+            {
+              "label": "Published location / schedule",
+              "url": "https://smart.com.ph/Pages/store-locations"
+            }
+          ]
+        }
       }
     ]
   }

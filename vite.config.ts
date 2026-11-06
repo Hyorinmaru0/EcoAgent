@@ -49,7 +49,7 @@ export default defineConfig(({ mode }) => {
     assignServerEnv('GEMINI_API_KEY', serverEnv.GEMINI_API_KEY)
   }
 
-  assignServerEnv('GEMINI_MODEL', serverEnv.GEMINI_MODEL || 'gemini-3.1-flash-lite')
+  assignServerEnv('GEMINI_MODEL', serverEnv.GEMINI_MODEL || 'gemini-3.5-flash-lite')
 
   return {
     // The YOLO datasets and training reports live inside this folder. Watching

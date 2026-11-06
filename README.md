@@ -21,22 +21,23 @@ npm run dev
 
 Open the local address printed by Vite. EcoAgent Ask Bot's API is available from the same server at `POST /api/chat`; send JSON in the form `{"message":"How should I handle an old laptop?"}`. Optional recent context can be sent as `history`, an array of up to eight `{ "role": "user" | "assistant", "content": "..." }` messages. `GET /api/health` checks API availability. The Vite preview server also exposes these endpoints.
 
-The chatbot uses the `@google/genai` SDK when `GEMINI_API_KEY` is configured in the root `.env` or `.env.local` file. The key is read by the Vite server and is never sent to browser code. `GEMINI_MODEL` is optional and defaults to Gemini 3.1 Flash-Lite (`gemini-3.1-flash-lite`); use a model enabled for your Google AI Studio project. Restart Vite after changing environment settings. Without a key, the local EcoAgent guidance remains available. When Gemini is unavailable, quota-limited, or rejects the configured key, Ask Bot labels its response as local guidance instead of presenting it as a Gemini answer.
+The chatbot uses the `@google/genai` SDK when `GEMINI_API_KEY` is configured in the root `.env` or `.env.local` file. The key is read by the Vite server and is never sent to browser code. `GEMINI_MODEL` is optional and defaults to Gemini 3.5 Flash-Lite (`gemini-3.5-flash-lite`); use a model enabled for your Google AI Studio project. Restart Vite after changing environment settings. Without a key, the local EcoAgent guidance remains available. When Gemini is unavailable, quota-limited, or rejects the configured key, Ask Bot labels its response as local guidance instead of presenting it as a Gemini answer.
 
 Gemini receives recent conversation context and project-provided collection-location data. Location entries include the supplied device-acceptance notes, addresses, and operating schedules where available. Those details have not been independently verified and do not establish current operation, fees, availability, accreditation, or recycling outcomes. Confirm acceptance, schedules, operation, and public access with the listed operator before traveling. The assistant does not store chat messages server-side. Item registration, collection requests, and private status lookups are not connected to authorized backend operations, so it does not claim to complete them.
 
-The directory, facility API, and chatbot read the same Metro Manila collection data from SQLite. The first-run seed comes from `data/collection-locations.json` and `data/facility-coordinates.json`. Listings flag details that require confirmation about local arrangements, devices, public access, or schedules. No record establishes accreditation. Other facility cards used elsewhere in the prototype remain illustrative demo recommendations.
+The directory, facility API, saved bookmarks, recommendations, and chatbot read the same Metro Manila collection data from SQLite. The first-run seed comes from `data/collection-locations.json` and `data/facility-coordinates.json`; migrations update existing addresses and schedules without replacing saved facility IDs. All 47 locations have an address and source links. Published branch, mall, tenant, and drop-off hours are labeled separately. Unpublished collection hours and restricted campus access are explained in the visit notes. No record establishes accreditation.
 
 ## Nearest facility and map
 
-Identify E-Waste uses browser geolocation instead of a location dropdown. After
+Identify E-Waste uses browser geolocation. After
 the required item fields are completed, analyzing an item requests location
 access and shows the nearest mapped collection option for that device when the
-device reports accuracy within one kilometer. Facility Guidance also offers a
+device reports coordinates and an accuracy value. Facility Guidance also offers a
 **Use my location** button. HTTPS or localhost is required. The app no longer
-uses a separate IP-location service or city-center estimates for nearest results. Permission
-denial, imprecise location, unavailable location, and timeouts leave the full
-directory available without guessing a starting point.
+uses a separate IP-location service. When GPS is unavailable, the user can choose
+a city for an explicitly labeled rough estimate based on its mapped venues. A saved
+profile city can supply this approximate fallback. Permission denial, unavailable
+location, and timeouts leave the full directory available.
 
 Matching venues are ordered by straight-line distance, including options across
 city boundaries. Distances are not road distances or travel times. The closest
@@ -147,12 +148,24 @@ session's user ID; another account's records cannot be read or removed.
 
 ```powershell
 npm run typecheck
-npm run test:auth
-node --test tests/account-workspace.test.mjs
-npm run test:ecobot
-npm run test:tv
+npm test
 npm run build
 ```
+
+`npm run test:browser` builds the app and starts a separate preview server on port
+5190 with a temporary SQLite database. The browser audit creates only synthetic
+accounts in that database, then stops the server and removes the temporary files.
+It checks desktop/mobile pages, saved records, profile editing, chat recovery,
+account changes, directory retries, maps, and real photo samples. Results are
+written to `reports/system-audit-2026-11-06.json`.
+
+This optional browser check uses Microsoft Edge and the Playwright installation
+at `%TEMP%/ecocycle-browser-audit/node_modules/playwright/index.mjs`, matching the
+existing audit setup. Set `AUDIT_PLAYWRIGHT_PATH` to use another installation.
+Real-photo checks use the existing `ecocycle-*.jpg` audit samples in `%TEMP%` plus
+the project's TV validation frame. Set `AUDIT_SKIP_PHOTOS=1` to run the interface
+checks without those local photo fixtures. Python policy/crop tests can be run
+with the detector environment: `python -m unittest discover -s tests -p "test_*.py"`.
 
 ## Prototype limitations
 
